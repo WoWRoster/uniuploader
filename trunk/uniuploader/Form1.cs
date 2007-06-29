@@ -132,8 +132,8 @@ namespace WindowsApplication3
 		private bool updating = false;
 		private string uniVersionMajor = "2";
 		private string uniVersionMinor = "6";
-		private string uniVersionRevision = "7";
-		private bool testVersion = false;
+		private string uniVersionRevision = "8";
+		private bool testVersion = true;
 		private string UUuserAgent;
 		private CookieContainer cookieJar = new CookieContainer();
 
@@ -144,6 +144,10 @@ namespace WindowsApplication3
 		private string wowExeLocBrowsed = "";
 
 		private System.Windows.Forms.MenuItem downloadItem;
+		private System.Windows.Forms.MenuItem homeLink = new MenuItem("Guild Website");
+		private System.Windows.Forms.MenuItem forumLink = new MenuItem("Guild Forums");
+		private string homeLinkURL = "";
+		private string forumLinkURL = "";
 		//this.UploadNow.Click += new System.EventHandler(this.button1_Click);
 		private System.Windows.Forms.MenuItem installItem;
 
@@ -623,7 +627,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			}
 			catch(Exception ex)
 			{
-				//MessageBox.Show(ex.Message);
+				MessageBox.Show(ex.Message);
 			}
 			//if(	disposing )
 			//{
@@ -4423,357 +4427,337 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 			if (arg1check.Checked && arg2check.Checked)
 			{
-				UpdateQueryResponse = RetrData(synchroUrl,null,null,"OPERATION","GETSETTINGS",arrg1.Text,valu1.Text,arrg2.Text,value2,-1,null,null);
+				UpdateQueryResponse = RetrData(synchroUrl,null,null,"OPERATION","GETSETTINGSXML",arrg1.Text,valu1.Text,arrg2.Text,value2,-1,null,null);
 			}
 			else
 			{
-				UpdateQueryResponse = RetrData(synchroUrl,null,null,"OPERATION","GETSETTINGS",null,null,null,null,-1,null,null);
+				UpdateQueryResponse = RetrData(synchroUrl,null,null,"OPERATION","GETSETTINGSXML",null,null,null,null,-1,null,null);
 			}
 
 			string uaVersion = RetrData(synchroUrl,null,null,"OPERATION","GETUAVER",null,null,null,null,-1,null,null);
 
 
-			bool oldDelims = true;
+			XmlDocument doc = new XmlDocument();
+				
+			/////////////////////////////////////
+			///    Begin Reading the XML data ///
+			/////////////////////////////////////
+				
+			doc.InnerXml = UpdateQueryResponse;
+			XmlElement root = doc.DocumentElement;
+			//XmlNodeList lstXMLData = root.GetElementsByTagName("settings");
 
-			if (uaVersion != "UniUploader Update Interface Ready..." && uaVersion != "")
-			{
-				oldDelims = false;
-			}
 
-			string[] settings;
-			if (!oldDelims)
-			{
-				settings = Regex.Split(UpdateQueryResponse,"\\[\\|\\]");
-			}
-			else
-			{
-				settings = UpdateQueryResponse.Split('|');
-			}
+			/////////////////////////////////////
+			/// Finished Reading the XML data ///
+			/////////////////////////////////////
+			
+				
 
-			string[] settingSplit = {"",""};
-			foreach (string setting in settings)
+			foreach (XmlNode Node in root) 
 			{
-				if (!oldDelims)
+				switch(Node.Name)
 				{
-					settingSplit = Regex.Split(setting,"\\[\\=\\]");
-				}
-				else
-				{
-					settingSplit = setting.Split('=');
-				}
-
-				try 
-				{
-					switch (settingSplit[0].ToUpper())
-					{
-							#region cases
-
-						case "ALLOWADDONDEL":
-							if (settingSplit[1] == "1")
-								chAllowDelAddons.Checked=true;
-							else
-								chAllowDelAddons.Checked=false;
-							break;
-
-						case "PURGEFIRST":
-							if (settingSplit[1] == "1")
-								purgefirstCh.Checked=true;
-							else
-								purgefirstCh.Checked=false;
-							break;
-
-
-						case "AUTODETECTWOW":
-							if (settingSplit[1] == "1")
-								AutoInstallDirDetect.Checked=true;
-							else
-								AutoInstallDirDetect.Checked=false;
-							break;
-
-						case "USELAUNCHER":
-							if (settingSplit[1] == "1")
-								chUseLauncher.Checked=true;
-							else
-								chUseLauncher.Checked=false;
-							break;
-
-						case "LANGUAGE":
-							Language = settingSplit[1];
-							PopulateLanguageSelector();
-							break;
-
-						case "DOWNLOADAFTERUPLOAD":
-							if (settingSplit[1] == "1"){chWtoWOWafterUpload.Checked=true;}
-							else {chWtoWOWafterUpload.Checked=false;}
-							break;
-
-						case "DOWNLOADBEFOREUPLOAD":
-							if (settingSplit[1] == "1"){chWtoWOWbeforeUpload.Checked=true;}
-							else {chWtoWOWbeforeUpload.Checked=false;}
-							break;
-
-						case "DOWNLOADBEFOREWOWL":
-							if (settingSplit[1] == "1"){chWtoWOWbeforeWOWLaunch.Checked=true;}
-							else {chWtoWOWbeforeWOWLaunch.Checked=false;}
-							break;
-
-						case "WEBWOWSVFILE":
-							webWoWSvFile.Text = settingSplit[1];
-							break;
-
-						case "USERAGENT":
-							//userAgent.Text = settingSplit[1];
-							break;
-
-						case "SENDPWSECURE":
-							if (settingSplit[1] == "1")
+					case "settings":
+						foreach(XmlNode setting in Node)
+						{
+							switch(setting.Name)
 							{
-								sendPwSecurely.Checked=true;
-							}
-							else
-							{
-								sendPwSecurely.Checked=false;
-							}
-							break;
+									#region cases
 
-						case "PROGRAMMODE":
-							if (settingSplit[1] == "Advanced")
-							{
-								if (ProgramMode == "Basic")
-								{
-									SwitchMode();
-								}
-							}
-							else
-							{
-								if (ProgramMode == "Advanced")
-								{
-									SwitchMode();
-								}
-							}
-							break;
-						case "PRIMARYURL":
-							URL.Text = settingSplit[1];
-							break;
+									
+				
 
-						case "SVLIST":
-							setSVlist(UpdateQueryResponse);
-							break;
+								case "HOMEURL":
+									homeLinkURL = setting.InnerText.Trim();
+									addHomeLink();
+									break;
+								case "FORUMURL":
+									forumLinkURL = setting.InnerText.Trim();
+									addForumLink();
+									break;
+								case "ALLOWADDONDEL":
+									if (setting.InnerText.Trim() == "1")
+										chAllowDelAddons.Checked=true;
+									else
+										chAllowDelAddons.Checked=false;
+									break;
 
-						case "LOGO1":
-							doLogos(settingSplit[1]);
-							//updateLogo(settingSplit[1]);
-							break;
-						case "LOGO2":
-							doLogos(settingSplit[1]);
-							//updateLogo(settingSplit[1]);
-							break;
-						case "RETRDATAURL":
-							retrDataUrl.Text = settingSplit[1];
-							break;
-						case "ADDONAUTOUPDATE":
-							if (settingSplit[1] == "1"){addonAutoUpdate.Checked=true;}
-							else{addonAutoUpdate.Checked=false;}
-							break;
-						case "UUSETTINGSUPDATER":
-							if (settingSplit[1] == "1"){uuSettingsUpdater.Checked=true;}
-							else{uuSettingsUpdater.Checked=false;}
-							break;
-						case "UUUPDATERCHECK":
-							if (!testVersion)
-							{
-								if (settingSplit[1] == "1"){UUUpdaterCheck.Checked=true;}
-								else{UUUpdaterCheck.Checked=false;}
-							}
-							break;
-						case "SYNCHROURL":
-							AutoAddonURL.Text = settingSplit[1];
-							break;
-						case "SYSTRAY":
-							if (settingSplit[1] == "1"){checkBox1.Checked=true;}
-							else{checkBox1.Checked=false;}
-							break;
-						case "ALWAYSONTOP":
-							//if (settingSplit[1] == "1"){checkBox6.Checked=true;}
-							//else{checkBox6.Checked=false;}
-							break;
-						case "AUTOUPLOADONFILECHANGES":
-							if (settingSplit[1] == "1"){autoUploader.Checked=true;}
-							else{autoUploader.Checked=false;}
-							break;
-						case "ADDVAR1CH":
-							if (settingSplit[1] == "1"){arg1check.Checked=true;}
-							else{arg1check.Checked=false;}
-							break;
-						case "ADDVAR2CH":
-							if (settingSplit[1] == "1"){arg2check.Checked=true;}
-							else{arg2check.Checked=false;}
-							break;
-						case "ADDVAR3CH":
-							if (settingSplit[1] == "1"){arg3check.Checked=true;}
-							else{arg3check.Checked=false;}
-							break;
-						case "ADDVAR4CH":
-							if (settingSplit[1] == "1"){arg4check.Checked=true;}
-							else{arg4check.Checked=false;}
-							break;
-						case "ADDURL1CH":
-							if (settingSplit[1] == "1"){chaddurl1.Checked=true;}
-							else{chaddurl1.Checked=false;}
-							break;
-						case "ADDURL2CH":
-							if (settingSplit[1] == "1"){chaddurl2.Checked=true;}
-							else{chaddurl2.Checked=false;}
-							break;
-						case "ADDURL3CH":
-							if (settingSplit[1] == "1"){chaddurl3.Checked=true;}
-							else{chaddurl3.Checked=false;}
-							break;
-						case "ADDURL4CH":
-							if (settingSplit[1] == "1"){chaddurl4.Checked=true;}
-							else{chaddurl4.Checked=false;}
-							break;
-						case "ADDVARNAME1":
-							arrg1.Text = settingSplit[1];
-							break;
-						case "ADDVARNAME2":
-							arrg2.Text = settingSplit[1];
-							break;
-						case "ADDVARNAME3":
-							arrg3.Text = settingSplit[1];
-							break;
-						case "ADDVARNAME4":
-							arrg4.Text = settingSplit[1];
-							break;
-						case "ADDVARVAL1":
-							valu1.Text = settingSplit[1];
-							break;
-						case "ADDVARVAL2":
-							valu2.Text = settingSplit[1];
-							break;
-						case "ADDVARVAL3":
-							valu3.Text = settingSplit[1];
-							break;
-						case "ADDVARVAL4":
-							valu4.Text = settingSplit[1];
-							break;
-						case "ADDURL1":
-							addurl1.Text = settingSplit[1];
-							break;
-						case "ADDURL2":
-							addurl2.Text = settingSplit[1];
-							break;
-						case "ADDURL3":
-							addurl3.Text = settingSplit[1];
-							break;
-						case "ADDURL4":
-							addurl4.Text = settingSplit[1];
-							break;
+								case "PURGEFIRST":
+									if (setting.InnerText.Trim() == "1")
+										purgefirstCh.Checked=true;
+									else
+										purgefirstCh.Checked=false;
+									break;
+
+
+								case "AUTODETECTWOW":
+									if (setting.InnerText.Trim() == "1")
+										AutoInstallDirDetect.Checked=true;
+									else
+										AutoInstallDirDetect.Checked=false;
+									break;
+
+								case "USELAUNCHER":
+									if (setting.InnerText.Trim() == "1")
+										chUseLauncher.Checked=true;
+									else
+										chUseLauncher.Checked=false;
+									break;
+
+								case "LANGUAGE":
+									Language = setting.InnerText.Trim();
+									PopulateLanguageSelector();
+									break;
+
+								case "DOWNLOADAFTERUPLOAD":
+									if (setting.InnerText.Trim() == "1"){chWtoWOWafterUpload.Checked=true;}
+									else {chWtoWOWafterUpload.Checked=false;}
+									break;
+
+								case "DOWNLOADBEFOREUPLOAD":
+									if (setting.InnerText.Trim() == "1"){chWtoWOWbeforeUpload.Checked=true;}
+									else {chWtoWOWbeforeUpload.Checked=false;}
+									break;
+
+								case "DOWNLOADBEFOREWOWL":
+									if (setting.InnerText.Trim() == "1"){chWtoWOWbeforeWOWLaunch.Checked=true;}
+									else {chWtoWOWbeforeWOWLaunch.Checked=false;}
+									break;
+
+								case "WEBWOWSVFILE":
+									webWoWSvFile.Text = setting.InnerText.Trim();
+									break;
+
+								case "USERAGENT":
+									//userAgent.Text = setting.InnerText.Trim();
+									break;
+
+								case "SENDPWSECURE":
+									if (setting.InnerText.Trim() == "1")
+									{
+										sendPwSecurely.Checked=true;
+									}
+									else
+									{
+										sendPwSecurely.Checked=false;
+									}
+									break;
+
+								case "PROGRAMMODE":
+									if (setting.InnerText.Trim() == "Advanced")
+									{
+										if (ProgramMode == "Basic")
+										{
+											SwitchMode();
+										}
+									}
+									else
+									{
+										if (ProgramMode == "Advanced")
+										{
+											SwitchMode();
+										}
+									}
+									break;
+								case "PRIMARYURL":
+									URL.Text = setting.InnerText.Trim();
+									break;
+
+								case "LOGO1":
+									doLogos(setting.InnerText.Trim());
+									//updateLogo(setting.InnerText.Trim());
+									break;
+								case "LOGO2":
+									doLogos(setting.InnerText.Trim());
+									//updateLogo(setting.InnerText.Trim());
+									break;
+								case "RETRDATAURL":
+									retrDataUrl.Text = setting.InnerText.Trim();
+									break;
+								case "ADDONAUTOUPDATE":
+									if (setting.InnerText.Trim() == "1"){addonAutoUpdate.Checked=true;}
+									else{addonAutoUpdate.Checked=false;}
+									break;
+								case "UUSETTINGSUPDATER":
+									if (setting.InnerText.Trim() == "1"){uuSettingsUpdater.Checked=true;}
+									else{uuSettingsUpdater.Checked=false;}
+									break;
+								case "UUUPDATERCHECK":
+									if (!testVersion)
+									{
+										if (setting.InnerText.Trim() == "1"){UUUpdaterCheck.Checked=true;}
+										else{UUUpdaterCheck.Checked=false;}
+									}
+									break;
+								case "SYNCHROURL":
+									AutoAddonURL.Text = setting.InnerText.Trim();
+									break;
+								case "SYSTRAY":
+									if (setting.InnerText.Trim() == "1"){checkBox1.Checked=true;}
+									else{checkBox1.Checked=false;}
+									break;
+								case "ALWAYSONTOP":
+									//if (setting.InnerText.Trim() == "1"){checkBox6.Checked=true;}
+									//else{checkBox6.Checked=false;}
+									break;
+								case "AUTOUPLOADONFILECHANGES":
+									if (setting.InnerText.Trim() == "1"){autoUploader.Checked=true;}
+									else{autoUploader.Checked=false;}
+									break;
+								case "ADDVAR1CH":
+									if (setting.InnerText.Trim() == "1"){arg1check.Checked=true;}
+									else{arg1check.Checked=false;}
+									break;
+								case "ADDVAR2CH":
+									if (setting.InnerText.Trim() == "1"){arg2check.Checked=true;}
+									else{arg2check.Checked=false;}
+									break;
+								case "ADDVAR3CH":
+									if (setting.InnerText.Trim() == "1"){arg3check.Checked=true;}
+									else{arg3check.Checked=false;}
+									break;
+								case "ADDVAR4CH":
+									if (setting.InnerText.Trim() == "1"){arg4check.Checked=true;}
+									else{arg4check.Checked=false;}
+									break;
+								case "ADDURL1CH":
+									if (setting.InnerText.Trim() == "1"){chaddurl1.Checked=true;}
+									else{chaddurl1.Checked=false;}
+									break;
+								case "ADDURL2CH":
+									if (setting.InnerText.Trim() == "1"){chaddurl2.Checked=true;}
+									else{chaddurl2.Checked=false;}
+									break;
+								case "ADDURL3CH":
+									if (setting.InnerText.Trim() == "1"){chaddurl3.Checked=true;}
+									else{chaddurl3.Checked=false;}
+									break;
+								case "ADDURL4CH":
+									if (setting.InnerText.Trim() == "1"){chaddurl4.Checked=true;}
+									else{chaddurl4.Checked=false;}
+									break;
+								case "ADDVARNAME1":
+									arrg1.Text = setting.InnerText.Trim();
+									break;
+								case "ADDVARNAME2":
+									arrg2.Text = setting.InnerText.Trim();
+									break;
+								case "ADDVARNAME3":
+									arrg3.Text = setting.InnerText.Trim();
+									break;
+								case "ADDVARNAME4":
+									arrg4.Text = setting.InnerText.Trim();
+									break;
+								case "ADDVARVAL1":
+									valu1.Text = setting.InnerText.Trim();
+									break;
+								case "ADDVARVAL2":
+									valu2.Text = setting.InnerText.Trim();
+									break;
+								case "ADDVARVAL3":
+									valu3.Text = setting.InnerText.Trim();
+									break;
+								case "ADDVARVAL4":
+									valu4.Text = setting.InnerText.Trim();
+									break;
+								case "ADDURL1":
+									addurl1.Text = setting.InnerText.Trim();
+									break;
+								case "ADDURL2":
+									addurl2.Text = setting.InnerText.Trim();
+									break;
+								case "ADDURL3":
+									addurl3.Text = setting.InnerText.Trim();
+									break;
+								case "ADDURL4":
+									addurl4.Text = setting.InnerText.Trim();
+									break;
 					
-						case "GZIP":
-							if (settingSplit[1] == "1"){GZcompress.Checked=true;}
-							else{GZcompress.Checked=false;}
-							break;
+								case "GZIP":
+									if (setting.InnerText.Trim() == "1"){GZcompress.Checked=true;}
+									else{GZcompress.Checked=false;}
+									break;
 
 
-						case "RETRDATAFROMSITE":
-							if (settingSplit[1] == "1")
-							{
-								retrdatafromsite.Checked=true;
-								retrDataUrl.Enabled=true;
-								chWtoWOWafterUpload.Enabled=true;
-								chWtoWOWbeforeWOWLaunch.Enabled=true;
-								btnWtoWOWDownload.Enabled=true;
-								chWtoWOWbeforeUpload.Enabled=true;
-								webToWowLbl.Enabled=true;
-								webWoWSvFile.Enabled=true;
-							} 
-							else 
-							{
-								retrdatafromsite.Checked=false;
-								retrDataUrl.Enabled=false;
-								chWtoWOWafterUpload.Enabled=false;
-								chWtoWOWbeforeWOWLaunch.Enabled=false;
-								btnWtoWOWDownload.Enabled=false;
-								chWtoWOWbeforeUpload.Enabled=false;
-								webToWowLbl.Enabled=false;
-								webWoWSvFile.Enabled=false;
+								case "RETRDATAFROMSITE":
+									if (setting.InnerText.Trim() == "1")
+									{
+										retrdatafromsite.Checked=true;
+										retrDataUrl.Enabled=true;
+										chWtoWOWafterUpload.Enabled=true;
+										chWtoWOWbeforeWOWLaunch.Enabled=true;
+										btnWtoWOWDownload.Enabled=true;
+										chWtoWOWbeforeUpload.Enabled=true;
+										webToWowLbl.Enabled=true;
+										webWoWSvFile.Enabled=true;
+									} 
+									else 
+									{
+										retrdatafromsite.Checked=false;
+										retrDataUrl.Enabled=false;
+										chWtoWOWafterUpload.Enabled=false;
+										chWtoWOWbeforeWOWLaunch.Enabled=false;
+										btnWtoWOWDownload.Enabled=false;
+										chWtoWOWbeforeUpload.Enabled=false;
+										webToWowLbl.Enabled=false;
+										webWoWSvFile.Enabled=false;
+									}
+									break;
+
+								case "WINDOWMODE":
+									if (setting.InnerText.Trim() == "1"){windowmode.Checked=true;}
+									else{windowmode.Checked=false;}
+									break;
+								case "STARTWITHWINDOWS":
+									if (setting.InnerText.Trim() == "1")
+									{
+										stboot.Checked=true;
+										DebugLine(InstallStartupKey());
+									}
+									else
+									{
+										stboot.Checked=false;
+										DebugLine(UninstallStartupKey());
+									}
+									break;
+								case "AUTOLAUNCHWOW":
+									if (setting.InnerText.Trim() == "1"){stwowlaunch.Checked=true;}
+									else{stwowlaunch.Checked=false;}
+									break;
+								case "STARTMINI":
+									if (setting.InnerText.Trim() == "1"){stmin.Checked=true;}
+									else{stmin.Checked=false;}
+									break;
+								case "DELAYUPLOAD":
+									if (setting.InnerText.Trim() == "1"){delaych.Checked=true;}
+									else{delaych.Checked=false;}
+									break;
+								case "DELAYSECONDS":
+									DelaySecs.Text = setting.InnerText.Trim();
+									break;
+
+								default:
+									break;
+									#endregion
 							}
-							break;
-
-						case "WINDOWMODE":
-							if (settingSplit[1] == "1"){windowmode.Checked=true;}
-							else{windowmode.Checked=false;}
-							break;
-						case "STARTWITHWINDOWS":
-							if (settingSplit[1] == "1")
-							{
-								stboot.Checked=true;
-								DebugLine(InstallStartupKey());
-							}
-							else
-							{
-								stboot.Checked=false;
-								DebugLine(UninstallStartupKey());
-							}
-							break;
-						case "AUTOLAUNCHWOW":
-							if (settingSplit[1] == "1"){stwowlaunch.Checked=true;}
-							else{stwowlaunch.Checked=false;}
-							break;
-						case "STARTMINI":
-							if (settingSplit[1] == "1"){stmin.Checked=true;}
-							else{stmin.Checked=false;}
-							break;
-						case "DELAYUPLOAD":
-							if (settingSplit[1] == "1"){delaych.Checked=true;}
-							else{delaych.Checked=false;}
-							break;
-						case "DELAYSECONDS":
-							DelaySecs.Text = settingSplit[1];
-							break;
-
-						default:
-							break;
-							#endregion
-					}
-				}
-				catch(Exception e)
-				{
-					DebugLine("UpdateUUSettings: "+e.Message);
+						}
+						break;
+					case "svlist":
+						setSVlist(Node);
+						break;
 				}
 			}
 		}
 
-		private void setSVlist(string delimitedSettings)
+		private void setSVlist(XmlNode svlist)
 		{
-			//MessageBox.Show(delimitedSettings.ToString());
-			int start = delimitedSettings.IndexOf("SVLIST[=]");
-			//MessageBox.Show(start.ToString());
-			int end = delimitedSettings.IndexOf("[=]",start+9);
-			//MessageBox.Show(end.ToString());
-
-			string it = "";
-			if (end == -1)
-				it = delimitedSettings.Substring(start);
-			else
-				it = delimitedSettings.Substring(start,end-start);
-
-		//	MessageBox.Show(it);
-
-			string[] svs = Regex.Split(it,"\\[\\|\\]");
-
-
-
 			for (int a = 0; a < SVList.Items.Count; a++)
 			{
-				for (int b = 0; b < svs.Length; b++)
+				foreach (XmlNode Node in svlist) 
 				{
 					string s = SVList.Items[a].ToString().ToUpper();
-					string r = svs[b].ToUpper();
-					//MessageBox.Show(s+" "+r);
-
-					if (r.IndexOf("SVLIST[=]") > -1) r= r.Substring(9);
+					string r = Node.InnerText.Trim().ToUpper();
 
 					if (s == r)
 					{
@@ -4781,7 +4765,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 					}
 				}
 			}
-			
 		}
 
 		public void CheckForUpdates()
@@ -7514,6 +7497,31 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 
 		}
 
+		private void addHomeLink()
+		{
+			if (contextMenu1.MenuItems.IndexOf(homeLink) < 0)
+			{
+				homeLink.Click += new System.EventHandler(this.homeLink_Click);
+				contextMenu1.MenuItems.Add(homeLink);
+			}
+		}
+		private void homeLink_Click(object sender, System.EventArgs e)
+		{
+			System.Diagnostics.Process.Start(homeLinkURL);
+		}
+		private void addForumLink()
+		{
+			
+			if (contextMenu1.MenuItems.IndexOf(forumLink) < 0)
+			{
+				forumLink.Click += new System.EventHandler(this.forumLink_Click);
+				contextMenu1.MenuItems.Add(forumLink);
+			}
+		}
+		private void forumLink_Click(object sender, System.EventArgs e)
+		{
+			System.Diagnostics.Process.Start(forumLinkURL);
+		}
 		private void downloadItem_Click(object sender, System.EventArgs e)
 		{
 			TreeNode t = treeView1.SelectedNode;
