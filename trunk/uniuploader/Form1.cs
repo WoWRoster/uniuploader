@@ -7040,7 +7040,7 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 			if (param3 != null)
 			{
 				DebugLine("RetrData: param3: " + param3);
-				DebugLine("RetrData: val3: " + val3);
+				DebugLine("RetrData: val3: (hidden)");
 			}
 			DebugLine("RetrData: Timeout: " + Timeout);
 
