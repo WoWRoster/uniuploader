@@ -600,6 +600,22 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		private System.Windows.Forms.Button addonSyncBtn;
 		private System.Windows.Forms.ContextMenu contextMenu2;
 		private System.Windows.Forms.CheckBox purgefirstCh;
+		private System.Windows.Forms.TabPage aceTab;
+		private System.Windows.Forms.GroupBox aceGrpbox;
+		private System.Windows.Forms.TreeView treeView2;
+		private System.Windows.Forms.Label label17;
+		private System.Windows.Forms.PictureBox pictureBox8;
+		private System.Windows.Forms.Label label18;
+		private System.Windows.Forms.Label label19;
+		private System.Windows.Forms.Label label20;
+		private System.Windows.Forms.PictureBox pictureBox9;
+		private System.Windows.Forms.PictureBox pictureBox10;
+		private System.Windows.Forms.PictureBox pictureBox11;
+		private System.Windows.Forms.Button button9;
+		private System.Windows.Forms.Button button10;
+		private System.Windows.Forms.Button button11;
+		private System.Windows.Forms.ProgressBar aceProgress;
+		private System.Windows.Forms.Label label21;
 		
 		FileSystemWatcher newWatcher =	new	FileSystemWatcher();
 		
@@ -685,6 +701,41 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.wowlaunch = new System.Windows.Forms.Button();
+			this.Advanced = new System.Windows.Forms.TabPage();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.otherexes = new System.Windows.Forms.GroupBox();
+			this.exeOnUuStart = new System.Windows.Forms.RadioButton();
+			this.exe3Location = new System.Windows.Forms.TextBox();
+			this.exe3Browse = new System.Windows.Forms.Button();
+			this.exe3 = new System.Windows.Forms.CheckBox();
+			this.exe2Location = new System.Windows.Forms.TextBox();
+			this.exe2Browse = new System.Windows.Forms.Button();
+			this.exe2 = new System.Windows.Forms.CheckBox();
+			this.exe1Location = new System.Windows.Forms.TextBox();
+			this.exe1Browse = new System.Windows.Forms.Button();
+			this.exe1 = new System.Windows.Forms.CheckBox();
+			this.exeOnWowLaunch = new System.Windows.Forms.RadioButton();
+			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.GZcompress = new System.Windows.Forms.CheckBox();
+			this.label11 = new System.Windows.Forms.Label();
+			this.DelaySecs = new System.Windows.Forms.TextBox();
+			this.delaych = new System.Windows.Forms.CheckBox();
+			this.groupBox10 = new System.Windows.Forms.GroupBox();
+			this.purgefirstCh = new System.Windows.Forms.CheckBox();
+			this.webToWowLbl = new System.Windows.Forms.Label();
+			this.webWoWSvFile = new System.Windows.Forms.TextBox();
+			this.chWtoWOWbeforeUpload = new System.Windows.Forms.CheckBox();
+			this.btnWtoWOWDownload = new System.Windows.Forms.Button();
+			this.chWtoWOWbeforeWOWLaunch = new System.Windows.Forms.CheckBox();
+			this.retrDataUrl = new System.Windows.Forms.TextBox();
+			this.retrdatafromsite = new System.Windows.Forms.CheckBox();
+			this.chWtoWOWafterUpload = new System.Windows.Forms.CheckBox();
+			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.launchWoWargs = new System.Windows.Forms.TextBox();
+			this.chUseLauncher = new System.Windows.Forms.CheckBox();
+			this.OpenGl = new System.Windows.Forms.CheckBox();
+			this.windowmode = new System.Windows.Forms.CheckBox();
+			this.label15 = new System.Windows.Forms.Label();
 			this.wowAddons = new System.Windows.Forms.TabPage();
 			this.groupBox11 = new System.Windows.Forms.GroupBox();
 			this.chAllowDelAddons = new System.Windows.Forms.CheckBox();
@@ -728,40 +779,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.userAlbl = new System.Windows.Forms.Label();
 			this.userAgent = new System.Windows.Forms.TextBox();
 			this.checkBox6 = new System.Windows.Forms.CheckBox();
-			this.Advanced = new System.Windows.Forms.TabPage();
-			this.groupBox5 = new System.Windows.Forms.GroupBox();
-			this.otherexes = new System.Windows.Forms.GroupBox();
-			this.exeOnUuStart = new System.Windows.Forms.RadioButton();
-			this.exe3Location = new System.Windows.Forms.TextBox();
-			this.exe3Browse = new System.Windows.Forms.Button();
-			this.exe3 = new System.Windows.Forms.CheckBox();
-			this.exe2Location = new System.Windows.Forms.TextBox();
-			this.exe2Browse = new System.Windows.Forms.Button();
-			this.exe2 = new System.Windows.Forms.CheckBox();
-			this.exe1Location = new System.Windows.Forms.TextBox();
-			this.exe1Browse = new System.Windows.Forms.Button();
-			this.exe1 = new System.Windows.Forms.CheckBox();
-			this.exeOnWowLaunch = new System.Windows.Forms.RadioButton();
-			this.groupBox6 = new System.Windows.Forms.GroupBox();
-			this.GZcompress = new System.Windows.Forms.CheckBox();
-			this.label11 = new System.Windows.Forms.Label();
-			this.DelaySecs = new System.Windows.Forms.TextBox();
-			this.delaych = new System.Windows.Forms.CheckBox();
-			this.groupBox10 = new System.Windows.Forms.GroupBox();
-			this.webToWowLbl = new System.Windows.Forms.Label();
-			this.webWoWSvFile = new System.Windows.Forms.TextBox();
-			this.chWtoWOWbeforeUpload = new System.Windows.Forms.CheckBox();
-			this.btnWtoWOWDownload = new System.Windows.Forms.Button();
-			this.chWtoWOWbeforeWOWLaunch = new System.Windows.Forms.CheckBox();
-			this.retrDataUrl = new System.Windows.Forms.TextBox();
-			this.retrdatafromsite = new System.Windows.Forms.CheckBox();
-			this.chWtoWOWafterUpload = new System.Windows.Forms.CheckBox();
-			this.groupBox7 = new System.Windows.Forms.GroupBox();
-			this.launchWoWargs = new System.Windows.Forms.TextBox();
-			this.chUseLauncher = new System.Windows.Forms.CheckBox();
-			this.OpenGl = new System.Windows.Forms.CheckBox();
-			this.windowmode = new System.Windows.Forms.CheckBox();
-			this.label15 = new System.Windows.Forms.Label();
 			this.response = new System.Windows.Forms.TabPage();
 			this.respOpenIE2 = new System.Windows.Forms.Button();
 			this.respOpenNP2 = new System.Windows.Forms.Button();
@@ -822,13 +839,34 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.pictureBox3 = new System.Windows.Forms.PictureBox();
 			this.contextMenu2 = new System.Windows.Forms.ContextMenu();
-			this.purgefirstCh = new System.Windows.Forms.CheckBox();
+			this.aceTab = new System.Windows.Forms.TabPage();
+			this.aceGrpbox = new System.Windows.Forms.GroupBox();
+			this.treeView2 = new System.Windows.Forms.TreeView();
+			this.label17 = new System.Windows.Forms.Label();
+			this.pictureBox8 = new System.Windows.Forms.PictureBox();
+			this.label18 = new System.Windows.Forms.Label();
+			this.label19 = new System.Windows.Forms.Label();
+			this.label20 = new System.Windows.Forms.Label();
+			this.pictureBox9 = new System.Windows.Forms.PictureBox();
+			this.pictureBox10 = new System.Windows.Forms.PictureBox();
+			this.pictureBox11 = new System.Windows.Forms.PictureBox();
+			this.button9 = new System.Windows.Forms.Button();
+			this.button10 = new System.Windows.Forms.Button();
+			this.button11 = new System.Windows.Forms.Button();
+			this.aceProgress = new System.Windows.Forms.ProgressBar();
+			this.label21 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.myTimer)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.myTimer2)).BeginInit();
 			this.groupBox2.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.Settings.SuspendLayout();
 			this.configGroup.SuspendLayout();
+			this.Advanced.SuspendLayout();
+			this.groupBox5.SuspendLayout();
+			this.otherexes.SuspendLayout();
+			this.groupBox6.SuspendLayout();
+			this.groupBox10.SuspendLayout();
+			this.groupBox7.SuspendLayout();
 			this.wowAddons.SuspendLayout();
 			this.groupBox11.SuspendLayout();
 			this.groupBox12.SuspendLayout();
@@ -837,12 +875,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox4.SuspendLayout();
 			this.groupBox9.SuspendLayout();
 			this.groupBox1.SuspendLayout();
-			this.Advanced.SuspendLayout();
-			this.groupBox5.SuspendLayout();
-			this.otherexes.SuspendLayout();
-			this.groupBox6.SuspendLayout();
-			this.groupBox10.SuspendLayout();
-			this.groupBox7.SuspendLayout();
 			this.response.SuspendLayout();
 			this.Debugger.SuspendLayout();
 			this.Help.SuspendLayout();
@@ -852,6 +884,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.tabControl2.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox8.SuspendLayout();
+			this.aceTab.SuspendLayout();
+			this.aceGrpbox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// myTimer
@@ -1069,15 +1103,16 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.tabControl1.Controls.Add(this.Settings);
 			this.tabControl1.Controls.Add(this.Advanced);
 			this.tabControl1.Controls.Add(this.wowAddons);
+			this.tabControl1.Controls.Add(this.aceTab);
 			this.tabControl1.Controls.Add(this.Options);
-			this.tabControl1.Controls.Add(this.response);
 			this.tabControl1.Controls.Add(this.Debugger);
 			this.tabControl1.Controls.Add(this.Help);
 			this.tabControl1.Controls.Add(this.About);
+			this.tabControl1.Controls.Add(this.response);
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(496, 256);
+			this.tabControl1.Size = new System.Drawing.Size(536, 256);
 			this.tabControl1.TabIndex = 18;
 			// 
 			// Settings
@@ -1211,6 +1246,360 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.wowlaunch.TabIndex = 24;
 			this.wowlaunch.Text = "Launch WoW";
 			this.wowlaunch.Click += new System.EventHandler(this.wowlaunch_Click);
+			// 
+			// Advanced
+			// 
+			this.Advanced.Controls.Add(this.groupBox5);
+			this.Advanced.Location = new System.Drawing.Point(4, 22);
+			this.Advanced.Name = "Advanced";
+			this.Advanced.Size = new System.Drawing.Size(488, 230);
+			this.Advanced.TabIndex = 5;
+			this.Advanced.Text = "Advanced";
+			// 
+			// groupBox5
+			// 
+			this.groupBox5.Controls.Add(this.otherexes);
+			this.groupBox5.Controls.Add(this.groupBox6);
+			this.groupBox5.Controls.Add(this.groupBox10);
+			this.groupBox5.Controls.Add(this.groupBox7);
+			this.groupBox5.Location = new System.Drawing.Point(8, 8);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(472, 216);
+			this.groupBox5.TabIndex = 0;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Text = "Advanced Settings";
+			// 
+			// otherexes
+			// 
+			this.otherexes.Controls.Add(this.exeOnUuStart);
+			this.otherexes.Controls.Add(this.exe3Location);
+			this.otherexes.Controls.Add(this.exe3Browse);
+			this.otherexes.Controls.Add(this.exe3);
+			this.otherexes.Controls.Add(this.exe2Location);
+			this.otherexes.Controls.Add(this.exe2Browse);
+			this.otherexes.Controls.Add(this.exe2);
+			this.otherexes.Controls.Add(this.exe1Location);
+			this.otherexes.Controls.Add(this.exe1Browse);
+			this.otherexes.Controls.Add(this.exe1);
+			this.otherexes.Controls.Add(this.exeOnWowLaunch);
+			this.otherexes.Location = new System.Drawing.Point(8, 16);
+			this.otherexes.Name = "otherexes";
+			this.otherexes.Size = new System.Drawing.Size(200, 192);
+			this.otherexes.TabIndex = 11;
+			this.otherexes.TabStop = false;
+			this.otherexes.Text = "Launch Other Program(s)";
+			// 
+			// exeOnUuStart
+			// 
+			this.exeOnUuStart.Location = new System.Drawing.Point(8, 16);
+			this.exeOnUuStart.Name = "exeOnUuStart";
+			this.exeOnUuStart.Size = new System.Drawing.Size(120, 16);
+			this.exeOnUuStart.TabIndex = 19;
+			this.exeOnUuStart.Text = "on uu launch";
+			this.exeOnUuStart.CheckedChanged += new System.EventHandler(this.exeOnSrtart_CheckedChanged);
+			// 
+			// exe3Location
+			// 
+			this.exe3Location.Enabled = false;
+			this.exe3Location.Location = new System.Drawing.Point(8, 160);
+			this.exe3Location.Name = "exe3Location";
+			this.exe3Location.ReadOnly = true;
+			this.exe3Location.Size = new System.Drawing.Size(184, 20);
+			this.exe3Location.TabIndex = 18;
+			this.exe3Location.Text = "";
+			// 
+			// exe3Browse
+			// 
+			this.exe3Browse.Enabled = false;
+			this.exe3Browse.Location = new System.Drawing.Point(128, 136);
+			this.exe3Browse.Name = "exe3Browse";
+			this.exe3Browse.Size = new System.Drawing.Size(64, 24);
+			this.exe3Browse.TabIndex = 17;
+			this.exe3Browse.Text = "Browse...";
+			this.exe3Browse.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			this.exe3Browse.Click += new System.EventHandler(this.exe3Browse_Click);
+			// 
+			// exe3
+			// 
+			this.exe3.Enabled = false;
+			this.exe3.Location = new System.Drawing.Point(72, 144);
+			this.exe3.Name = "exe3";
+			this.exe3.Size = new System.Drawing.Size(56, 16);
+			this.exe3.TabIndex = 16;
+			this.exe3.Text = "exe 3";
+			this.exe3.CheckedChanged += new System.EventHandler(this.exe3_CheckedChanged);
+			// 
+			// exe2Location
+			// 
+			this.exe2Location.Enabled = false;
+			this.exe2Location.Location = new System.Drawing.Point(8, 112);
+			this.exe2Location.Name = "exe2Location";
+			this.exe2Location.ReadOnly = true;
+			this.exe2Location.Size = new System.Drawing.Size(184, 20);
+			this.exe2Location.TabIndex = 15;
+			this.exe2Location.Text = "";
+			// 
+			// exe2Browse
+			// 
+			this.exe2Browse.Enabled = false;
+			this.exe2Browse.Location = new System.Drawing.Point(128, 88);
+			this.exe2Browse.Name = "exe2Browse";
+			this.exe2Browse.Size = new System.Drawing.Size(64, 24);
+			this.exe2Browse.TabIndex = 14;
+			this.exe2Browse.Text = "Browse...";
+			this.exe2Browse.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			this.exe2Browse.Click += new System.EventHandler(this.exe2Browse_Click);
+			// 
+			// exe2
+			// 
+			this.exe2.Enabled = false;
+			this.exe2.Location = new System.Drawing.Point(72, 96);
+			this.exe2.Name = "exe2";
+			this.exe2.Size = new System.Drawing.Size(56, 16);
+			this.exe2.TabIndex = 13;
+			this.exe2.Text = "exe 2";
+			this.exe2.CheckedChanged += new System.EventHandler(this.exe2_CheckedChanged);
+			// 
+			// exe1Location
+			// 
+			this.exe1Location.Enabled = false;
+			this.exe1Location.Location = new System.Drawing.Point(8, 64);
+			this.exe1Location.Name = "exe1Location";
+			this.exe1Location.ReadOnly = true;
+			this.exe1Location.Size = new System.Drawing.Size(184, 20);
+			this.exe1Location.TabIndex = 12;
+			this.exe1Location.Text = "";
+			// 
+			// exe1Browse
+			// 
+			this.exe1Browse.Enabled = false;
+			this.exe1Browse.Location = new System.Drawing.Point(128, 40);
+			this.exe1Browse.Name = "exe1Browse";
+			this.exe1Browse.Size = new System.Drawing.Size(64, 24);
+			this.exe1Browse.TabIndex = 11;
+			this.exe1Browse.Text = "Browse...";
+			this.exe1Browse.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			this.exe1Browse.Click += new System.EventHandler(this.exe1Browse_Click);
+			// 
+			// exe1
+			// 
+			this.exe1.Enabled = false;
+			this.exe1.Location = new System.Drawing.Point(72, 48);
+			this.exe1.Name = "exe1";
+			this.exe1.Size = new System.Drawing.Size(56, 16);
+			this.exe1.TabIndex = 10;
+			this.exe1.Text = "exe 1";
+			this.exe1.CheckedChanged += new System.EventHandler(this.exe1_CheckedChanged);
+			// 
+			// exeOnWowLaunch
+			// 
+			this.exeOnWowLaunch.Location = new System.Drawing.Point(8, 32);
+			this.exeOnWowLaunch.Name = "exeOnWowLaunch";
+			this.exeOnWowLaunch.Size = new System.Drawing.Size(120, 16);
+			this.exeOnWowLaunch.TabIndex = 20;
+			this.exeOnWowLaunch.Text = "on wow launch";
+			this.exeOnWowLaunch.CheckedChanged += new System.EventHandler(this.exeOnWowLaunch_CheckedChanged);
+			// 
+			// groupBox6
+			// 
+			this.groupBox6.Controls.Add(this.GZcompress);
+			this.groupBox6.Controls.Add(this.label11);
+			this.groupBox6.Controls.Add(this.DelaySecs);
+			this.groupBox6.Controls.Add(this.delaych);
+			this.groupBox6.Location = new System.Drawing.Point(216, 8);
+			this.groupBox6.Name = "groupBox6";
+			this.groupBox6.Size = new System.Drawing.Size(136, 96);
+			this.groupBox6.TabIndex = 9;
+			this.groupBox6.TabStop = false;
+			this.groupBox6.Text = "Other Options";
+			// 
+			// GZcompress
+			// 
+			this.GZcompress.Location = new System.Drawing.Point(8, 56);
+			this.GZcompress.Name = "GZcompress";
+			this.GZcompress.Size = new System.Drawing.Size(120, 16);
+			this.GZcompress.TabIndex = 2;
+			this.GZcompress.Text = "GZip Compression";
+			// 
+			// label11
+			// 
+			this.label11.Location = new System.Drawing.Point(32, 35);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(96, 16);
+			this.label11.TabIndex = 1;
+			this.label11.Text = "Seconds:";
+			// 
+			// DelaySecs
+			// 
+			this.DelaySecs.Enabled = false;
+			this.DelaySecs.Location = new System.Drawing.Point(8, 32);
+			this.DelaySecs.Name = "DelaySecs";
+			this.DelaySecs.Size = new System.Drawing.Size(24, 20);
+			this.DelaySecs.TabIndex = 2;
+			this.DelaySecs.Text = "2";
+			// 
+			// delaych
+			// 
+			this.delaych.Location = new System.Drawing.Point(8, 16);
+			this.delaych.Name = "delaych";
+			this.delaych.Size = new System.Drawing.Size(120, 16);
+			this.delaych.TabIndex = 0;
+			this.delaych.Text = "Delayed Upload";
+			this.delaych.CheckedChanged += new System.EventHandler(this.delaych_CheckedChanged);
+			// 
+			// groupBox10
+			// 
+			this.groupBox10.Controls.Add(this.purgefirstCh);
+			this.groupBox10.Controls.Add(this.webToWowLbl);
+			this.groupBox10.Controls.Add(this.webWoWSvFile);
+			this.groupBox10.Controls.Add(this.chWtoWOWbeforeUpload);
+			this.groupBox10.Controls.Add(this.btnWtoWOWDownload);
+			this.groupBox10.Controls.Add(this.chWtoWOWbeforeWOWLaunch);
+			this.groupBox10.Controls.Add(this.retrDataUrl);
+			this.groupBox10.Controls.Add(this.retrdatafromsite);
+			this.groupBox10.Controls.Add(this.chWtoWOWafterUpload);
+			this.groupBox10.Location = new System.Drawing.Point(216, 104);
+			this.groupBox10.Name = "groupBox10";
+			this.groupBox10.Size = new System.Drawing.Size(248, 104);
+			this.groupBox10.TabIndex = 8;
+			this.groupBox10.TabStop = false;
+			this.groupBox10.Text = "Website ==> WoW";
+			// 
+			// purgefirstCh
+			// 
+			this.purgefirstCh.Location = new System.Drawing.Point(136, 80);
+			this.purgefirstCh.Name = "purgefirstCh";
+			this.purgefirstCh.Size = new System.Drawing.Size(104, 16);
+			this.purgefirstCh.TabIndex = 17;
+			this.purgefirstCh.Text = "Purge First";
+			// 
+			// webToWowLbl
+			// 
+			this.webToWowLbl.Enabled = false;
+			this.webToWowLbl.Location = new System.Drawing.Point(136, 40);
+			this.webToWowLbl.Name = "webToWowLbl";
+			this.webToWowLbl.Size = new System.Drawing.Size(100, 16);
+			this.webToWowLbl.TabIndex = 16;
+			this.webToWowLbl.Text = "SV file to write to:";
+			// 
+			// webWoWSvFile
+			// 
+			this.webWoWSvFile.Enabled = false;
+			this.webWoWSvFile.Location = new System.Drawing.Point(136, 56);
+			this.webWoWSvFile.Name = "webWoWSvFile";
+			this.webWoWSvFile.TabIndex = 15;
+			this.webWoWSvFile.Text = "SavedVariables.lua";
+			// 
+			// chWtoWOWbeforeUpload
+			// 
+			this.chWtoWOWbeforeUpload.Enabled = false;
+			this.chWtoWOWbeforeUpload.Location = new System.Drawing.Point(8, 68);
+			this.chWtoWOWbeforeUpload.Name = "chWtoWOWbeforeUpload";
+			this.chWtoWOWbeforeUpload.Size = new System.Drawing.Size(216, 16);
+			this.chWtoWOWbeforeUpload.TabIndex = 14;
+			this.chWtoWOWbeforeUpload.Text = "before uploading";
+			// 
+			// btnWtoWOWDownload
+			// 
+			this.btnWtoWOWDownload.Enabled = false;
+			this.btnWtoWOWDownload.Location = new System.Drawing.Point(160, 16);
+			this.btnWtoWOWDownload.Name = "btnWtoWOWDownload";
+			this.btnWtoWOWDownload.Size = new System.Drawing.Size(80, 23);
+			this.btnWtoWOWDownload.TabIndex = 13;
+			this.btnWtoWOWDownload.Text = "Download";
+			this.btnWtoWOWDownload.Click += new System.EventHandler(this.btnWtoWOWDownload_Click);
+			// 
+			// chWtoWOWbeforeWOWLaunch
+			// 
+			this.chWtoWOWbeforeWOWLaunch.Enabled = false;
+			this.chWtoWOWbeforeWOWLaunch.Location = new System.Drawing.Point(8, 52);
+			this.chWtoWOWbeforeWOWLaunch.Name = "chWtoWOWbeforeWOWLaunch";
+			this.chWtoWOWbeforeWOWLaunch.Size = new System.Drawing.Size(128, 16);
+			this.chWtoWOWbeforeWOWLaunch.TabIndex = 11;
+			this.chWtoWOWbeforeWOWLaunch.Text = "before WoW launch";
+			// 
+			// retrDataUrl
+			// 
+			this.retrDataUrl.Enabled = false;
+			this.retrDataUrl.Location = new System.Drawing.Point(8, 32);
+			this.retrDataUrl.Name = "retrDataUrl";
+			this.retrDataUrl.Size = new System.Drawing.Size(120, 20);
+			this.retrDataUrl.TabIndex = 10;
+			this.retrDataUrl.Text = "http://yourdomain.com/yourinterface.php";
+			// 
+			// retrdatafromsite
+			// 
+			this.retrdatafromsite.Location = new System.Drawing.Point(8, 16);
+			this.retrdatafromsite.Name = "retrdatafromsite";
+			this.retrdatafromsite.Size = new System.Drawing.Size(104, 16);
+			this.retrdatafromsite.TabIndex = 3;
+			this.retrdatafromsite.Text = "Retrieve Data";
+			this.retrdatafromsite.CheckedChanged += new System.EventHandler(this.retrdatafromsite_CheckedChanged);
+			// 
+			// chWtoWOWafterUpload
+			// 
+			this.chWtoWOWafterUpload.Checked = true;
+			this.chWtoWOWafterUpload.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chWtoWOWafterUpload.Enabled = false;
+			this.chWtoWOWafterUpload.Location = new System.Drawing.Point(8, 84);
+			this.chWtoWOWafterUpload.Name = "chWtoWOWafterUpload";
+			this.chWtoWOWafterUpload.Size = new System.Drawing.Size(224, 16);
+			this.chWtoWOWafterUpload.TabIndex = 12;
+			this.chWtoWOWafterUpload.Text = "after uploading";
+			// 
+			// groupBox7
+			// 
+			this.groupBox7.Controls.Add(this.launchWoWargs);
+			this.groupBox7.Controls.Add(this.chUseLauncher);
+			this.groupBox7.Controls.Add(this.OpenGl);
+			this.groupBox7.Controls.Add(this.windowmode);
+			this.groupBox7.Controls.Add(this.label15);
+			this.groupBox7.Location = new System.Drawing.Point(352, 8);
+			this.groupBox7.Name = "groupBox7";
+			this.groupBox7.Size = new System.Drawing.Size(112, 96);
+			this.groupBox7.TabIndex = 26;
+			this.groupBox7.TabStop = false;
+			this.groupBox7.Text = "WoW";
+			// 
+			// launchWoWargs
+			// 
+			this.launchWoWargs.Location = new System.Drawing.Point(40, 64);
+			this.launchWoWargs.Name = "launchWoWargs";
+			this.launchWoWargs.Size = new System.Drawing.Size(64, 20);
+			this.launchWoWargs.TabIndex = 26;
+			this.launchWoWargs.Text = "";
+			// 
+			// chUseLauncher
+			// 
+			this.chUseLauncher.Location = new System.Drawing.Point(8, 48);
+			this.chUseLauncher.Name = "chUseLauncher";
+			this.chUseLauncher.Size = new System.Drawing.Size(96, 16);
+			this.chUseLauncher.TabIndex = 25;
+			this.chUseLauncher.Text = "Use Launcher";
+			// 
+			// OpenGl
+			// 
+			this.OpenGl.Location = new System.Drawing.Point(8, 16);
+			this.OpenGl.Name = "OpenGl";
+			this.OpenGl.Size = new System.Drawing.Size(72, 16);
+			this.OpenGl.TabIndex = 3;
+			this.OpenGl.Text = "-OpenGL";
+			// 
+			// windowmode
+			// 
+			this.windowmode.Location = new System.Drawing.Point(8, 32);
+			this.windowmode.Name = "windowmode";
+			this.windowmode.Size = new System.Drawing.Size(96, 16);
+			this.windowmode.TabIndex = 24;
+			this.windowmode.Text = "Window Mode";
+			// 
+			// label15
+			// 
+			this.label15.Location = new System.Drawing.Point(8, 69);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(32, 16);
+			this.label15.TabIndex = 27;
+			this.label15.Text = "args:";
 			// 
 			// wowAddons
 			// 
@@ -1637,352 +2026,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.checkBox6.Text = "Always on Top";
 			this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
 			// 
-			// Advanced
-			// 
-			this.Advanced.Controls.Add(this.groupBox5);
-			this.Advanced.Location = new System.Drawing.Point(4, 22);
-			this.Advanced.Name = "Advanced";
-			this.Advanced.Size = new System.Drawing.Size(488, 230);
-			this.Advanced.TabIndex = 5;
-			this.Advanced.Text = "Advanced";
-			// 
-			// groupBox5
-			// 
-			this.groupBox5.Controls.Add(this.otherexes);
-			this.groupBox5.Controls.Add(this.groupBox6);
-			this.groupBox5.Controls.Add(this.groupBox10);
-			this.groupBox5.Controls.Add(this.groupBox7);
-			this.groupBox5.Location = new System.Drawing.Point(8, 8);
-			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(472, 216);
-			this.groupBox5.TabIndex = 0;
-			this.groupBox5.TabStop = false;
-			this.groupBox5.Text = "Advanced Settings";
-			// 
-			// otherexes
-			// 
-			this.otherexes.Controls.Add(this.exeOnUuStart);
-			this.otherexes.Controls.Add(this.exe3Location);
-			this.otherexes.Controls.Add(this.exe3Browse);
-			this.otherexes.Controls.Add(this.exe3);
-			this.otherexes.Controls.Add(this.exe2Location);
-			this.otherexes.Controls.Add(this.exe2Browse);
-			this.otherexes.Controls.Add(this.exe2);
-			this.otherexes.Controls.Add(this.exe1Location);
-			this.otherexes.Controls.Add(this.exe1Browse);
-			this.otherexes.Controls.Add(this.exe1);
-			this.otherexes.Controls.Add(this.exeOnWowLaunch);
-			this.otherexes.Location = new System.Drawing.Point(8, 16);
-			this.otherexes.Name = "otherexes";
-			this.otherexes.Size = new System.Drawing.Size(200, 192);
-			this.otherexes.TabIndex = 11;
-			this.otherexes.TabStop = false;
-			this.otherexes.Text = "Launch Other Program(s)";
-			// 
-			// exeOnUuStart
-			// 
-			this.exeOnUuStart.Location = new System.Drawing.Point(8, 16);
-			this.exeOnUuStart.Name = "exeOnUuStart";
-			this.exeOnUuStart.Size = new System.Drawing.Size(120, 16);
-			this.exeOnUuStart.TabIndex = 19;
-			this.exeOnUuStart.Text = "on uu launch";
-			this.exeOnUuStart.CheckedChanged += new System.EventHandler(this.exeOnSrtart_CheckedChanged);
-			// 
-			// exe3Location
-			// 
-			this.exe3Location.Enabled = false;
-			this.exe3Location.Location = new System.Drawing.Point(8, 160);
-			this.exe3Location.Name = "exe3Location";
-			this.exe3Location.ReadOnly = true;
-			this.exe3Location.Size = new System.Drawing.Size(184, 20);
-			this.exe3Location.TabIndex = 18;
-			this.exe3Location.Text = "";
-			// 
-			// exe3Browse
-			// 
-			this.exe3Browse.Enabled = false;
-			this.exe3Browse.Location = new System.Drawing.Point(128, 136);
-			this.exe3Browse.Name = "exe3Browse";
-			this.exe3Browse.Size = new System.Drawing.Size(64, 24);
-			this.exe3Browse.TabIndex = 17;
-			this.exe3Browse.Text = "Browse...";
-			this.exe3Browse.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-			this.exe3Browse.Click += new System.EventHandler(this.exe3Browse_Click);
-			// 
-			// exe3
-			// 
-			this.exe3.Enabled = false;
-			this.exe3.Location = new System.Drawing.Point(72, 144);
-			this.exe3.Name = "exe3";
-			this.exe3.Size = new System.Drawing.Size(56, 16);
-			this.exe3.TabIndex = 16;
-			this.exe3.Text = "exe 3";
-			this.exe3.CheckedChanged += new System.EventHandler(this.exe3_CheckedChanged);
-			// 
-			// exe2Location
-			// 
-			this.exe2Location.Enabled = false;
-			this.exe2Location.Location = new System.Drawing.Point(8, 112);
-			this.exe2Location.Name = "exe2Location";
-			this.exe2Location.ReadOnly = true;
-			this.exe2Location.Size = new System.Drawing.Size(184, 20);
-			this.exe2Location.TabIndex = 15;
-			this.exe2Location.Text = "";
-			// 
-			// exe2Browse
-			// 
-			this.exe2Browse.Enabled = false;
-			this.exe2Browse.Location = new System.Drawing.Point(128, 88);
-			this.exe2Browse.Name = "exe2Browse";
-			this.exe2Browse.Size = new System.Drawing.Size(64, 24);
-			this.exe2Browse.TabIndex = 14;
-			this.exe2Browse.Text = "Browse...";
-			this.exe2Browse.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-			this.exe2Browse.Click += new System.EventHandler(this.exe2Browse_Click);
-			// 
-			// exe2
-			// 
-			this.exe2.Enabled = false;
-			this.exe2.Location = new System.Drawing.Point(72, 96);
-			this.exe2.Name = "exe2";
-			this.exe2.Size = new System.Drawing.Size(56, 16);
-			this.exe2.TabIndex = 13;
-			this.exe2.Text = "exe 2";
-			this.exe2.CheckedChanged += new System.EventHandler(this.exe2_CheckedChanged);
-			// 
-			// exe1Location
-			// 
-			this.exe1Location.Enabled = false;
-			this.exe1Location.Location = new System.Drawing.Point(8, 64);
-			this.exe1Location.Name = "exe1Location";
-			this.exe1Location.ReadOnly = true;
-			this.exe1Location.Size = new System.Drawing.Size(184, 20);
-			this.exe1Location.TabIndex = 12;
-			this.exe1Location.Text = "";
-			// 
-			// exe1Browse
-			// 
-			this.exe1Browse.Enabled = false;
-			this.exe1Browse.Location = new System.Drawing.Point(128, 40);
-			this.exe1Browse.Name = "exe1Browse";
-			this.exe1Browse.Size = new System.Drawing.Size(64, 24);
-			this.exe1Browse.TabIndex = 11;
-			this.exe1Browse.Text = "Browse...";
-			this.exe1Browse.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-			this.exe1Browse.Click += new System.EventHandler(this.exe1Browse_Click);
-			// 
-			// exe1
-			// 
-			this.exe1.Enabled = false;
-			this.exe1.Location = new System.Drawing.Point(72, 48);
-			this.exe1.Name = "exe1";
-			this.exe1.Size = new System.Drawing.Size(56, 16);
-			this.exe1.TabIndex = 10;
-			this.exe1.Text = "exe 1";
-			this.exe1.CheckedChanged += new System.EventHandler(this.exe1_CheckedChanged);
-			// 
-			// exeOnWowLaunch
-			// 
-			this.exeOnWowLaunch.Location = new System.Drawing.Point(8, 32);
-			this.exeOnWowLaunch.Name = "exeOnWowLaunch";
-			this.exeOnWowLaunch.Size = new System.Drawing.Size(120, 16);
-			this.exeOnWowLaunch.TabIndex = 20;
-			this.exeOnWowLaunch.Text = "on wow launch";
-			this.exeOnWowLaunch.CheckedChanged += new System.EventHandler(this.exeOnWowLaunch_CheckedChanged);
-			// 
-			// groupBox6
-			// 
-			this.groupBox6.Controls.Add(this.GZcompress);
-			this.groupBox6.Controls.Add(this.label11);
-			this.groupBox6.Controls.Add(this.DelaySecs);
-			this.groupBox6.Controls.Add(this.delaych);
-			this.groupBox6.Location = new System.Drawing.Point(216, 8);
-			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(136, 96);
-			this.groupBox6.TabIndex = 9;
-			this.groupBox6.TabStop = false;
-			this.groupBox6.Text = "Other Options";
-			// 
-			// GZcompress
-			// 
-			this.GZcompress.Location = new System.Drawing.Point(8, 56);
-			this.GZcompress.Name = "GZcompress";
-			this.GZcompress.Size = new System.Drawing.Size(120, 16);
-			this.GZcompress.TabIndex = 2;
-			this.GZcompress.Text = "GZip Compression";
-			// 
-			// label11
-			// 
-			this.label11.Location = new System.Drawing.Point(32, 35);
-			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(96, 16);
-			this.label11.TabIndex = 1;
-			this.label11.Text = "Seconds:";
-			// 
-			// DelaySecs
-			// 
-			this.DelaySecs.Enabled = false;
-			this.DelaySecs.Location = new System.Drawing.Point(8, 32);
-			this.DelaySecs.Name = "DelaySecs";
-			this.DelaySecs.Size = new System.Drawing.Size(24, 20);
-			this.DelaySecs.TabIndex = 2;
-			this.DelaySecs.Text = "2";
-			// 
-			// delaych
-			// 
-			this.delaych.Location = new System.Drawing.Point(8, 16);
-			this.delaych.Name = "delaych";
-			this.delaych.Size = new System.Drawing.Size(120, 16);
-			this.delaych.TabIndex = 0;
-			this.delaych.Text = "Delayed Upload";
-			this.delaych.CheckedChanged += new System.EventHandler(this.delaych_CheckedChanged);
-			// 
-			// groupBox10
-			// 
-			this.groupBox10.Controls.Add(this.purgefirstCh);
-			this.groupBox10.Controls.Add(this.webToWowLbl);
-			this.groupBox10.Controls.Add(this.webWoWSvFile);
-			this.groupBox10.Controls.Add(this.chWtoWOWbeforeUpload);
-			this.groupBox10.Controls.Add(this.btnWtoWOWDownload);
-			this.groupBox10.Controls.Add(this.chWtoWOWbeforeWOWLaunch);
-			this.groupBox10.Controls.Add(this.retrDataUrl);
-			this.groupBox10.Controls.Add(this.retrdatafromsite);
-			this.groupBox10.Controls.Add(this.chWtoWOWafterUpload);
-			this.groupBox10.Location = new System.Drawing.Point(216, 104);
-			this.groupBox10.Name = "groupBox10";
-			this.groupBox10.Size = new System.Drawing.Size(248, 104);
-			this.groupBox10.TabIndex = 8;
-			this.groupBox10.TabStop = false;
-			this.groupBox10.Text = "Website ==> WoW";
-			// 
-			// webToWowLbl
-			// 
-			this.webToWowLbl.Enabled = false;
-			this.webToWowLbl.Location = new System.Drawing.Point(136, 40);
-			this.webToWowLbl.Name = "webToWowLbl";
-			this.webToWowLbl.Size = new System.Drawing.Size(100, 16);
-			this.webToWowLbl.TabIndex = 16;
-			this.webToWowLbl.Text = "SV file to write to:";
-			// 
-			// webWoWSvFile
-			// 
-			this.webWoWSvFile.Enabled = false;
-			this.webWoWSvFile.Location = new System.Drawing.Point(136, 56);
-			this.webWoWSvFile.Name = "webWoWSvFile";
-			this.webWoWSvFile.TabIndex = 15;
-			this.webWoWSvFile.Text = "SavedVariables.lua";
-			// 
-			// chWtoWOWbeforeUpload
-			// 
-			this.chWtoWOWbeforeUpload.Enabled = false;
-			this.chWtoWOWbeforeUpload.Location = new System.Drawing.Point(8, 68);
-			this.chWtoWOWbeforeUpload.Name = "chWtoWOWbeforeUpload";
-			this.chWtoWOWbeforeUpload.Size = new System.Drawing.Size(216, 16);
-			this.chWtoWOWbeforeUpload.TabIndex = 14;
-			this.chWtoWOWbeforeUpload.Text = "before uploading";
-			// 
-			// btnWtoWOWDownload
-			// 
-			this.btnWtoWOWDownload.Enabled = false;
-			this.btnWtoWOWDownload.Location = new System.Drawing.Point(160, 16);
-			this.btnWtoWOWDownload.Name = "btnWtoWOWDownload";
-			this.btnWtoWOWDownload.Size = new System.Drawing.Size(80, 23);
-			this.btnWtoWOWDownload.TabIndex = 13;
-			this.btnWtoWOWDownload.Text = "Download";
-			this.btnWtoWOWDownload.Click += new System.EventHandler(this.btnWtoWOWDownload_Click);
-			// 
-			// chWtoWOWbeforeWOWLaunch
-			// 
-			this.chWtoWOWbeforeWOWLaunch.Enabled = false;
-			this.chWtoWOWbeforeWOWLaunch.Location = new System.Drawing.Point(8, 52);
-			this.chWtoWOWbeforeWOWLaunch.Name = "chWtoWOWbeforeWOWLaunch";
-			this.chWtoWOWbeforeWOWLaunch.Size = new System.Drawing.Size(128, 16);
-			this.chWtoWOWbeforeWOWLaunch.TabIndex = 11;
-			this.chWtoWOWbeforeWOWLaunch.Text = "before WoW launch";
-			// 
-			// retrDataUrl
-			// 
-			this.retrDataUrl.Enabled = false;
-			this.retrDataUrl.Location = new System.Drawing.Point(8, 32);
-			this.retrDataUrl.Name = "retrDataUrl";
-			this.retrDataUrl.Size = new System.Drawing.Size(120, 20);
-			this.retrDataUrl.TabIndex = 10;
-			this.retrDataUrl.Text = "http://yourdomain.com/yourinterface.php";
-			// 
-			// retrdatafromsite
-			// 
-			this.retrdatafromsite.Location = new System.Drawing.Point(8, 16);
-			this.retrdatafromsite.Name = "retrdatafromsite";
-			this.retrdatafromsite.Size = new System.Drawing.Size(104, 16);
-			this.retrdatafromsite.TabIndex = 3;
-			this.retrdatafromsite.Text = "Retrieve Data";
-			this.retrdatafromsite.CheckedChanged += new System.EventHandler(this.retrdatafromsite_CheckedChanged);
-			// 
-			// chWtoWOWafterUpload
-			// 
-			this.chWtoWOWafterUpload.Checked = true;
-			this.chWtoWOWafterUpload.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.chWtoWOWafterUpload.Enabled = false;
-			this.chWtoWOWafterUpload.Location = new System.Drawing.Point(8, 84);
-			this.chWtoWOWafterUpload.Name = "chWtoWOWafterUpload";
-			this.chWtoWOWafterUpload.Size = new System.Drawing.Size(224, 16);
-			this.chWtoWOWafterUpload.TabIndex = 12;
-			this.chWtoWOWafterUpload.Text = "after uploading";
-			// 
-			// groupBox7
-			// 
-			this.groupBox7.Controls.Add(this.launchWoWargs);
-			this.groupBox7.Controls.Add(this.chUseLauncher);
-			this.groupBox7.Controls.Add(this.OpenGl);
-			this.groupBox7.Controls.Add(this.windowmode);
-			this.groupBox7.Controls.Add(this.label15);
-			this.groupBox7.Location = new System.Drawing.Point(352, 8);
-			this.groupBox7.Name = "groupBox7";
-			this.groupBox7.Size = new System.Drawing.Size(112, 96);
-			this.groupBox7.TabIndex = 26;
-			this.groupBox7.TabStop = false;
-			this.groupBox7.Text = "WoW";
-			// 
-			// launchWoWargs
-			// 
-			this.launchWoWargs.Location = new System.Drawing.Point(40, 64);
-			this.launchWoWargs.Name = "launchWoWargs";
-			this.launchWoWargs.Size = new System.Drawing.Size(64, 20);
-			this.launchWoWargs.TabIndex = 26;
-			this.launchWoWargs.Text = "";
-			// 
-			// chUseLauncher
-			// 
-			this.chUseLauncher.Location = new System.Drawing.Point(8, 48);
-			this.chUseLauncher.Name = "chUseLauncher";
-			this.chUseLauncher.Size = new System.Drawing.Size(96, 16);
-			this.chUseLauncher.TabIndex = 25;
-			this.chUseLauncher.Text = "Use Launcher";
-			// 
-			// OpenGl
-			// 
-			this.OpenGl.Location = new System.Drawing.Point(8, 16);
-			this.OpenGl.Name = "OpenGl";
-			this.OpenGl.Size = new System.Drawing.Size(72, 16);
-			this.OpenGl.TabIndex = 3;
-			this.OpenGl.Text = "-OpenGL";
-			// 
-			// windowmode
-			// 
-			this.windowmode.Location = new System.Drawing.Point(8, 32);
-			this.windowmode.Name = "windowmode";
-			this.windowmode.Size = new System.Drawing.Size(96, 16);
-			this.windowmode.TabIndex = 24;
-			this.windowmode.Text = "Window Mode";
-			// 
-			// label15
-			// 
-			this.label15.Location = new System.Drawing.Point(8, 69);
-			this.label15.Name = "label15";
-			this.label15.Size = new System.Drawing.Size(32, 16);
-			this.label15.TabIndex = 27;
-			this.label15.Text = "args:";
-			// 
 			// response
 			// 
 			this.response.Controls.Add(this.respOpenIE2);
@@ -2300,7 +2343,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			// 
 			this.groupBox3.Controls.Add(this.SVList);
 			this.groupBox3.Controls.Add(this.clearSVFiles);
-			this.groupBox3.Location = new System.Drawing.Point(504, 16);
+			this.groupBox3.Location = new System.Drawing.Point(544, 16);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(128, 224);
 			this.groupBox3.TabIndex = 12;
@@ -2318,12 +2361,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			// 
 			// statusBar1
 			// 
-			this.statusBar1.Location = new System.Drawing.Point(0, 242);
+			this.statusBar1.Location = new System.Drawing.Point(0, 250);
 			this.statusBar1.Name = "statusBar1";
 			this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
 																						  this.statusBarPanel1});
 			this.statusBar1.ShowPanels = true;
-			this.statusBar1.Size = new System.Drawing.Size(490, 22);
+			this.statusBar1.Size = new System.Drawing.Size(530, 22);
 			this.statusBar1.SizingGrip = false;
 			this.statusBar1.TabIndex = 19;
 			this.statusBar1.Text = "Idle";
@@ -2332,7 +2375,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			// 
 			this.statusBarPanel1.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Spring;
 			this.statusBarPanel1.Text = "Idle";
-			this.statusBarPanel1.Width = 490;
+			this.statusBarPanel1.Width = 530;
 			// 
 			// mini_timer
 			// 
@@ -2557,19 +2600,159 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.pictureBox3.TabIndex = 22;
 			this.pictureBox3.TabStop = false;
 			// 
-			// purgefirstCh
+			// aceTab
 			// 
-			this.purgefirstCh.Location = new System.Drawing.Point(136, 80);
-			this.purgefirstCh.Name = "purgefirstCh";
-			this.purgefirstCh.Size = new System.Drawing.Size(104, 16);
-			this.purgefirstCh.TabIndex = 17;
-			this.purgefirstCh.Text = "Purge First";
+			this.aceTab.Controls.Add(this.aceGrpbox);
+			this.aceTab.Location = new System.Drawing.Point(4, 22);
+			this.aceTab.Name = "aceTab";
+			this.aceTab.Size = new System.Drawing.Size(528, 230);
+			this.aceTab.TabIndex = 8;
+			this.aceTab.Text = "Ace Addons";
+			// 
+			// aceGrpbox
+			// 
+			this.aceGrpbox.Controls.Add(this.label21);
+			this.aceGrpbox.Controls.Add(this.aceProgress);
+			this.aceGrpbox.Controls.Add(this.button10);
+			this.aceGrpbox.Controls.Add(this.button11);
+			this.aceGrpbox.Controls.Add(this.button9);
+			this.aceGrpbox.Controls.Add(this.label17);
+			this.aceGrpbox.Controls.Add(this.pictureBox8);
+			this.aceGrpbox.Controls.Add(this.label18);
+			this.aceGrpbox.Controls.Add(this.label19);
+			this.aceGrpbox.Controls.Add(this.label20);
+			this.aceGrpbox.Controls.Add(this.pictureBox9);
+			this.aceGrpbox.Controls.Add(this.pictureBox10);
+			this.aceGrpbox.Controls.Add(this.pictureBox11);
+			this.aceGrpbox.Controls.Add(this.treeView2);
+			this.aceGrpbox.Location = new System.Drawing.Point(8, 8);
+			this.aceGrpbox.Name = "aceGrpbox";
+			this.aceGrpbox.Size = new System.Drawing.Size(512, 216);
+			this.aceGrpbox.TabIndex = 0;
+			this.aceGrpbox.TabStop = false;
+			this.aceGrpbox.Text = "Ace Addons";
+			this.aceGrpbox.VisibleChanged += new System.EventHandler(this.aceGrpbox_VisibleChanged);
+			// 
+			// treeView2
+			// 
+			this.treeView2.CheckBoxes = true;
+			this.treeView2.FullRowSelect = true;
+			this.treeView2.HotTracking = true;
+			this.treeView2.ImageList = this.imageList1;
+			this.treeView2.Location = new System.Drawing.Point(8, 16);
+			this.treeView2.Name = "treeView2";
+			this.treeView2.Size = new System.Drawing.Size(408, 144);
+			this.treeView2.TabIndex = 25;
+			// 
+			// label17
+			// 
+			this.label17.Location = new System.Drawing.Point(128, 168);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(48, 16);
+			this.label17.TabIndex = 42;
+			this.label17.Text = "=Name";
+			// 
+			// pictureBox8
+			// 
+			this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
+			this.pictureBox8.Location = new System.Drawing.Point(112, 168);
+			this.pictureBox8.Name = "pictureBox8";
+			this.pictureBox8.Size = new System.Drawing.Size(16, 16);
+			this.pictureBox8.TabIndex = 41;
+			this.pictureBox8.TabStop = false;
+			// 
+			// label18
+			// 
+			this.label18.Location = new System.Drawing.Point(336, 168);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(80, 16);
+			this.label18.TabIndex = 40;
+			this.label18.Text = "=Version";
+			// 
+			// label19
+			// 
+			this.label19.Location = new System.Drawing.Point(280, 168);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(40, 16);
+			this.label19.TabIndex = 39;
+			this.label19.Text = "=TOC";
+			// 
+			// label20
+			// 
+			this.label20.Location = new System.Drawing.Point(192, 168);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(72, 16);
+			this.label20.TabIndex = 38;
+			this.label20.Text = "=Description";
+			// 
+			// pictureBox9
+			// 
+			this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
+			this.pictureBox9.Location = new System.Drawing.Point(176, 168);
+			this.pictureBox9.Name = "pictureBox9";
+			this.pictureBox9.Size = new System.Drawing.Size(16, 16);
+			this.pictureBox9.TabIndex = 37;
+			this.pictureBox9.TabStop = false;
+			// 
+			// pictureBox10
+			// 
+			this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
+			this.pictureBox10.Location = new System.Drawing.Point(264, 168);
+			this.pictureBox10.Name = "pictureBox10";
+			this.pictureBox10.Size = new System.Drawing.Size(16, 16);
+			this.pictureBox10.TabIndex = 36;
+			this.pictureBox10.TabStop = false;
+			// 
+			// pictureBox11
+			// 
+			this.pictureBox11.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox11.Image")));
+			this.pictureBox11.Location = new System.Drawing.Point(320, 168);
+			this.pictureBox11.Name = "pictureBox11";
+			this.pictureBox11.Size = new System.Drawing.Size(16, 16);
+			this.pictureBox11.TabIndex = 35;
+			this.pictureBox11.TabStop = false;
+			// 
+			// button9
+			// 
+			this.button9.Location = new System.Drawing.Point(424, 16);
+			this.button9.Name = "button9";
+			this.button9.TabIndex = 43;
+			this.button9.Text = "Install";
+			// 
+			// button10
+			// 
+			this.button10.Location = new System.Drawing.Point(424, 104);
+			this.button10.Name = "button10";
+			this.button10.TabIndex = 45;
+			this.button10.Text = "Collapse All";
+			// 
+			// button11
+			// 
+			this.button11.Location = new System.Drawing.Point(424, 136);
+			this.button11.Name = "button11";
+			this.button11.TabIndex = 44;
+			this.button11.Text = "Expand All";
+			// 
+			// aceProgress
+			// 
+			this.aceProgress.Location = new System.Drawing.Point(8, 192);
+			this.aceProgress.Name = "aceProgress";
+			this.aceProgress.Size = new System.Drawing.Size(488, 16);
+			this.aceProgress.TabIndex = 46;
+			// 
+			// label21
+			// 
+			this.label21.Location = new System.Drawing.Point(8, 176);
+			this.label21.Name = "label21";
+			this.label21.Size = new System.Drawing.Size(100, 16);
+			this.label21.TabIndex = 47;
+			this.label21.Text = "Progress";
 			// 
 			// Form1
 			// 
 			this.AutoScale = false;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(490, 264);
+			this.ClientSize = new System.Drawing.Size(530, 272);
 			this.Controls.Add(this.statusBar1);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.tabControl2);
@@ -2595,6 +2778,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.tabControl1.ResumeLayout(false);
 			this.Settings.ResumeLayout(false);
 			this.configGroup.ResumeLayout(false);
+			this.Advanced.ResumeLayout(false);
+			this.groupBox5.ResumeLayout(false);
+			this.otherexes.ResumeLayout(false);
+			this.groupBox6.ResumeLayout(false);
+			this.groupBox10.ResumeLayout(false);
+			this.groupBox7.ResumeLayout(false);
 			this.wowAddons.ResumeLayout(false);
 			this.groupBox11.ResumeLayout(false);
 			this.groupBox12.ResumeLayout(false);
@@ -2603,12 +2792,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox9.ResumeLayout(false);
 			this.groupBox1.ResumeLayout(false);
-			this.Advanced.ResumeLayout(false);
-			this.groupBox5.ResumeLayout(false);
-			this.otherexes.ResumeLayout(false);
-			this.groupBox6.ResumeLayout(false);
-			this.groupBox10.ResumeLayout(false);
-			this.groupBox7.ResumeLayout(false);
 			this.response.ResumeLayout(false);
 			this.Debugger.ResumeLayout(false);
 			this.Help.ResumeLayout(false);
@@ -2618,6 +2801,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.tabControl2.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.groupBox8.ResumeLayout(false);
+			this.aceTab.ResumeLayout(false);
+			this.aceGrpbox.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -7619,6 +7804,107 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 			}
 
 		}
+
+		private void aceGrpbox_VisibleChanged(object sender, System.EventArgs e)
+		{
+			MemoryStream memStream = aceXMLdownload("http://foolyfrag.com");
+
+			byte[]  finalArray = new byte[Convert.ToInt32(memStream.Length)];
+			memStream.Read(finalArray,0,Convert.ToInt32(memStream.Length)); //i think its UTF8 default?
+			string s = Encoding.UTF8.GetString(finalArray);
+			MessageBox.Show(memStream.Length.ToString());
+		
+		}
+
+//ace
+		private MemoryStream aceXMLdownload(string path_download)
+		{
+			// Declare a variable of type Boolean named result initialized to false.
+			bool result = false;
+			// Declare a variable of type HttpWebRequest named lHttpWebRequest.
+			HttpWebRequest lHttpWebRequest;
+			// Declare a variable of type HttpWebResponse named lHttpWebResponse.
+			HttpWebResponse lHttpWebResponse;
+			// Declare a variable of type Stream named lHttpWebResponseStream.
+			Stream lHttpWebResponseStream;
+			// Declare a variable of type FileStream named lFileStream.
+			// Use a FileStream constructor to create a new FileStream object.
+			// Assign the address (reference) of the new object
+			// to the lFileStream variable.
+			//ByteStream lFileStream = new FileStream(path_local, FileMode.Create);
+			MemoryStream memStream = new MemoryStream();
+			// Declare a variable of type Byte Array named byteBuffer.
+			byte[] byteBuffer = new byte[999];
+			// Declare a variable of type Integer named bytesRead.
+			int bytesRead;
+			try
+			{
+				// Instantiate the HttpWebRequest object.
+				lHttpWebRequest = (HttpWebRequest)WebRequest.Create(path_download);
+				// Instantiate the HttpWebRespose object.
+				lHttpWebResponse = (HttpWebResponse)lHttpWebRequest.GetResponse();
+				// Instantiate the ResponseStream object.
+				lHttpWebResponseStream = lHttpWebRequest.GetResponse().GetResponseStream();
+				// Set the ProgressBars Maximum property equal to the length of the file
+				// to be downloaded.
+				aceProgress.Maximum = Convert.ToInt32(lHttpWebResponse.ContentLength);
+				// progress counter to control when
+				// the form label is updated
+
+				memStream.SetLength(5000);
+				
+				double progress_counter = 0;
+				do
+				{
+					// Read up to 1000 bytes into the bytesRead array.
+					bytesRead = lHttpWebResponseStream.Read(byteBuffer, 0, 999);
+					// Write the bytes read to the file stream.
+					memStream.Write(byteBuffer, 0, bytesRead);
+					
+					// If the ProgressBar's value plus bytesRead is less than the length of the file...
+					if((aceProgress.Value + bytesRead) <= aceProgress.Maximum)
+					{
+						// Add bytesRead to the ProgressBar's Value property.
+						aceProgress.Value += bytesRead;
+					}
+					else
+					{
+						// Else files download is done so set ProgressBar's Value to the length of the file.
+						aceProgress.Value = aceProgress.Maximum;
+					}
+					// calculate the current percentage
+					//double progress_now = Math.Floor(((progressBar1.Value/100) * 100) / (progressBar1.Maximum/100));
+					double progress_now = Math.Floor(((double)(aceProgress.Value/100) * 100) / (progressBar1.Maximum/100));
+					// only upgrade the display label once per percentage increment
+					if(progress_now > progress_counter)
+					{
+						// Update the ProgressLabel.
+						//statusBarPanel2.Text = String.Format("{0}% "+_OF+" {1}kb", progress_now.ToString(), (progressBar1.Maximum/1000).ToString("#,#"));
+						// update the form
+						Application.DoEvents(); 
+						// increment the counter
+						progress_counter++;
+					}
+				}while(bytesRead > 0);
+				// Close the file and web response streams.
+				lHttpWebResponseStream.Close();
+				// Set result to True - download was successful.
+				result = true;
+			}
+			catch(Exception download_error)
+			{
+				// display the whole error
+				DebugLine(download_error.ToString());
+			}
+			finally
+			{
+				// Close the file and web response streams.
+				//memStream.Close();
+			}
+			return memStream;
+		}
+
+
 
 
 
