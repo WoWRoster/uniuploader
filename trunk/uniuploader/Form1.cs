@@ -164,6 +164,8 @@ namespace WindowsApplication3
 
 		public ThreadStart job;// = new ThreadStart(upload);
 		public Thread UploadThread;// = new Thread(job);
+		public ThreadStart acejob;// = new ThreadStart(upload);
+		public Thread aceUploadThread;// = new Thread(job);
 		public bool PathFound = false;
 		private string[] checkedSVsFromSettings = null;
 		private ArrayList checkedAddons = new ArrayList();
@@ -614,8 +616,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		private System.Windows.Forms.Button button9;
 		private System.Windows.Forms.Button button10;
 		private System.Windows.Forms.Button button11;
-		private System.Windows.Forms.ProgressBar aceProgress;
 		private System.Windows.Forms.Label label21;
+		private System.Windows.Forms.ProgressBar aceProgress;
 		
 		FileSystemWatcher newWatcher =	new	FileSystemWatcher();
 		
@@ -747,6 +749,22 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.label12 = new System.Windows.Forms.Label();
 			this.AutoAddonURL = new System.Windows.Forms.TextBox();
 			this.addonAutoUpdate = new System.Windows.Forms.CheckBox();
+			this.aceTab = new System.Windows.Forms.TabPage();
+			this.aceGrpbox = new System.Windows.Forms.GroupBox();
+			this.label21 = new System.Windows.Forms.Label();
+			this.button10 = new System.Windows.Forms.Button();
+			this.button11 = new System.Windows.Forms.Button();
+			this.button9 = new System.Windows.Forms.Button();
+			this.label17 = new System.Windows.Forms.Label();
+			this.pictureBox8 = new System.Windows.Forms.PictureBox();
+			this.label18 = new System.Windows.Forms.Label();
+			this.label19 = new System.Windows.Forms.Label();
+			this.label20 = new System.Windows.Forms.Label();
+			this.pictureBox9 = new System.Windows.Forms.PictureBox();
+			this.pictureBox10 = new System.Windows.Forms.PictureBox();
+			this.pictureBox11 = new System.Windows.Forms.PictureBox();
+			this.treeView2 = new System.Windows.Forms.TreeView();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.Options = new System.Windows.Forms.TabPage();
 			this.vargrp = new System.Windows.Forms.GroupBox();
 			this.valu4 = new System.Windows.Forms.TextBox();
@@ -779,19 +797,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.userAlbl = new System.Windows.Forms.Label();
 			this.userAgent = new System.Windows.Forms.TextBox();
 			this.checkBox6 = new System.Windows.Forms.CheckBox();
-			this.response = new System.Windows.Forms.TabPage();
-			this.respOpenIE2 = new System.Windows.Forms.Button();
-			this.respOpenNP2 = new System.Windows.Forms.Button();
-			this.respOpenIE = new System.Windows.Forms.Button();
-			this.respOpenNP = new System.Windows.Forms.Button();
-			this.ClearSiteWoW = new System.Windows.Forms.Button();
-			this.ClearServResp = new System.Windows.Forms.Button();
-			this.servResponseSaveas = new System.Windows.Forms.Button();
-			this.siteToWowSaveas = new System.Windows.Forms.Button();
-			this.retrdatawindow = new System.Windows.Forms.TextBox();
-			this.label7 = new System.Windows.Forms.Label();
-			this.label6 = new System.Windows.Forms.Label();
-			this.servResponse = new System.Windows.Forms.TextBox();
 			this.Debugger = new System.Windows.Forms.TabPage();
 			this.label5 = new System.Windows.Forms.Label();
 			this.dbIEbtn = new System.Windows.Forms.Button();
@@ -808,6 +813,19 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
 			this.About = new System.Windows.Forms.TabPage();
 			this.copyrightInfoLabel = new System.Windows.Forms.Label();
+			this.response = new System.Windows.Forms.TabPage();
+			this.respOpenIE2 = new System.Windows.Forms.Button();
+			this.respOpenNP2 = new System.Windows.Forms.Button();
+			this.respOpenIE = new System.Windows.Forms.Button();
+			this.respOpenNP = new System.Windows.Forms.Button();
+			this.ClearSiteWoW = new System.Windows.Forms.Button();
+			this.ClearServResp = new System.Windows.Forms.Button();
+			this.servResponseSaveas = new System.Windows.Forms.Button();
+			this.siteToWowSaveas = new System.Windows.Forms.Button();
+			this.retrdatawindow = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.servResponse = new System.Windows.Forms.TextBox();
 			this.clearSVFiles = new System.Windows.Forms.Button();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.SVList = new System.Windows.Forms.CheckedListBox();
@@ -836,25 +854,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.button6 = new System.Windows.Forms.Button();
 			this.label8 = new System.Windows.Forms.Label();
 			this.treeView1 = new System.Windows.Forms.TreeView();
-			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.pictureBox3 = new System.Windows.Forms.PictureBox();
 			this.contextMenu2 = new System.Windows.Forms.ContextMenu();
-			this.aceTab = new System.Windows.Forms.TabPage();
-			this.aceGrpbox = new System.Windows.Forms.GroupBox();
-			this.treeView2 = new System.Windows.Forms.TreeView();
-			this.label17 = new System.Windows.Forms.Label();
-			this.pictureBox8 = new System.Windows.Forms.PictureBox();
-			this.label18 = new System.Windows.Forms.Label();
-			this.label19 = new System.Windows.Forms.Label();
-			this.label20 = new System.Windows.Forms.Label();
-			this.pictureBox9 = new System.Windows.Forms.PictureBox();
-			this.pictureBox10 = new System.Windows.Forms.PictureBox();
-			this.pictureBox11 = new System.Windows.Forms.PictureBox();
-			this.button9 = new System.Windows.Forms.Button();
-			this.button10 = new System.Windows.Forms.Button();
-			this.button11 = new System.Windows.Forms.Button();
 			this.aceProgress = new System.Windows.Forms.ProgressBar();
-			this.label21 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.myTimer)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.myTimer2)).BeginInit();
 			this.groupBox2.SuspendLayout();
@@ -870,22 +872,22 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.wowAddons.SuspendLayout();
 			this.groupBox11.SuspendLayout();
 			this.groupBox12.SuspendLayout();
+			this.aceTab.SuspendLayout();
+			this.aceGrpbox.SuspendLayout();
 			this.Options.SuspendLayout();
 			this.vargrp.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.groupBox9.SuspendLayout();
 			this.groupBox1.SuspendLayout();
-			this.response.SuspendLayout();
 			this.Debugger.SuspendLayout();
 			this.Help.SuspendLayout();
 			this.About.SuspendLayout();
+			this.response.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
 			this.tabControl2.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox8.SuspendLayout();
-			this.aceTab.SuspendLayout();
-			this.aceGrpbox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// myTimer
@@ -1127,7 +1129,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.Settings.Controls.Add(this.UploadNow);
 			this.Settings.Location = new System.Drawing.Point(4, 22);
 			this.Settings.Name = "Settings";
-			this.Settings.Size = new System.Drawing.Size(488, 230);
+			this.Settings.Size = new System.Drawing.Size(528, 230);
 			this.Settings.TabIndex = 0;
 			this.Settings.Text = "Settings";
 			// 
@@ -1252,7 +1254,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.Advanced.Controls.Add(this.groupBox5);
 			this.Advanced.Location = new System.Drawing.Point(4, 22);
 			this.Advanced.Name = "Advanced";
-			this.Advanced.Size = new System.Drawing.Size(488, 230);
+			this.Advanced.Size = new System.Drawing.Size(528, 230);
 			this.Advanced.TabIndex = 5;
 			this.Advanced.Text = "Advanced";
 			// 
@@ -1606,7 +1608,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.wowAddons.Controls.Add(this.groupBox11);
 			this.wowAddons.Location = new System.Drawing.Point(4, 22);
 			this.wowAddons.Name = "wowAddons";
-			this.wowAddons.Size = new System.Drawing.Size(488, 230);
+			this.wowAddons.Size = new System.Drawing.Size(528, 230);
 			this.wowAddons.TabIndex = 6;
 			this.wowAddons.Text = "Updater";
 			// 
@@ -1713,6 +1715,153 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.addonAutoUpdate.Text = "Keep my addons updated";
 			this.addonAutoUpdate.CheckedChanged += new System.EventHandler(this.addonAutoUpdate_CheckedChanged);
 			// 
+			// aceTab
+			// 
+			this.aceTab.Controls.Add(this.aceGrpbox);
+			this.aceTab.Location = new System.Drawing.Point(4, 22);
+			this.aceTab.Name = "aceTab";
+			this.aceTab.Size = new System.Drawing.Size(528, 230);
+			this.aceTab.TabIndex = 8;
+			this.aceTab.Text = "Ace Addons";
+			// 
+			// aceGrpbox
+			// 
+			this.aceGrpbox.Controls.Add(this.aceProgress);
+			this.aceGrpbox.Controls.Add(this.label21);
+			this.aceGrpbox.Controls.Add(this.button10);
+			this.aceGrpbox.Controls.Add(this.button11);
+			this.aceGrpbox.Controls.Add(this.button9);
+			this.aceGrpbox.Controls.Add(this.label17);
+			this.aceGrpbox.Controls.Add(this.pictureBox8);
+			this.aceGrpbox.Controls.Add(this.label18);
+			this.aceGrpbox.Controls.Add(this.label19);
+			this.aceGrpbox.Controls.Add(this.label20);
+			this.aceGrpbox.Controls.Add(this.pictureBox9);
+			this.aceGrpbox.Controls.Add(this.pictureBox10);
+			this.aceGrpbox.Controls.Add(this.pictureBox11);
+			this.aceGrpbox.Controls.Add(this.treeView2);
+			this.aceGrpbox.Location = new System.Drawing.Point(8, 8);
+			this.aceGrpbox.Name = "aceGrpbox";
+			this.aceGrpbox.Size = new System.Drawing.Size(512, 216);
+			this.aceGrpbox.TabIndex = 0;
+			this.aceGrpbox.TabStop = false;
+			this.aceGrpbox.Text = "Ace Addons";
+			this.aceGrpbox.VisibleChanged += new System.EventHandler(this.aceGrpbox_VisibleChanged);
+			// 
+			// label21
+			// 
+			this.label21.Location = new System.Drawing.Point(8, 176);
+			this.label21.Name = "label21";
+			this.label21.Size = new System.Drawing.Size(100, 16);
+			this.label21.TabIndex = 47;
+			this.label21.Text = "Progress";
+			// 
+			// button10
+			// 
+			this.button10.Location = new System.Drawing.Point(424, 104);
+			this.button10.Name = "button10";
+			this.button10.TabIndex = 45;
+			this.button10.Text = "Collapse All";
+			// 
+			// button11
+			// 
+			this.button11.Location = new System.Drawing.Point(424, 136);
+			this.button11.Name = "button11";
+			this.button11.TabIndex = 44;
+			this.button11.Text = "Expand All";
+			// 
+			// button9
+			// 
+			this.button9.Location = new System.Drawing.Point(424, 16);
+			this.button9.Name = "button9";
+			this.button9.TabIndex = 43;
+			this.button9.Text = "Install";
+			// 
+			// label17
+			// 
+			this.label17.Location = new System.Drawing.Point(128, 168);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(48, 16);
+			this.label17.TabIndex = 42;
+			this.label17.Text = "=Name";
+			// 
+			// pictureBox8
+			// 
+			this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
+			this.pictureBox8.Location = new System.Drawing.Point(112, 168);
+			this.pictureBox8.Name = "pictureBox8";
+			this.pictureBox8.Size = new System.Drawing.Size(16, 16);
+			this.pictureBox8.TabIndex = 41;
+			this.pictureBox8.TabStop = false;
+			// 
+			// label18
+			// 
+			this.label18.Location = new System.Drawing.Point(336, 168);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(80, 16);
+			this.label18.TabIndex = 40;
+			this.label18.Text = "=Version";
+			// 
+			// label19
+			// 
+			this.label19.Location = new System.Drawing.Point(280, 168);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(40, 16);
+			this.label19.TabIndex = 39;
+			this.label19.Text = "=TOC";
+			// 
+			// label20
+			// 
+			this.label20.Location = new System.Drawing.Point(192, 168);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(72, 16);
+			this.label20.TabIndex = 38;
+			this.label20.Text = "=Description";
+			// 
+			// pictureBox9
+			// 
+			this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
+			this.pictureBox9.Location = new System.Drawing.Point(176, 168);
+			this.pictureBox9.Name = "pictureBox9";
+			this.pictureBox9.Size = new System.Drawing.Size(16, 16);
+			this.pictureBox9.TabIndex = 37;
+			this.pictureBox9.TabStop = false;
+			// 
+			// pictureBox10
+			// 
+			this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
+			this.pictureBox10.Location = new System.Drawing.Point(264, 168);
+			this.pictureBox10.Name = "pictureBox10";
+			this.pictureBox10.Size = new System.Drawing.Size(16, 16);
+			this.pictureBox10.TabIndex = 36;
+			this.pictureBox10.TabStop = false;
+			// 
+			// pictureBox11
+			// 
+			this.pictureBox11.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox11.Image")));
+			this.pictureBox11.Location = new System.Drawing.Point(320, 168);
+			this.pictureBox11.Name = "pictureBox11";
+			this.pictureBox11.Size = new System.Drawing.Size(16, 16);
+			this.pictureBox11.TabIndex = 35;
+			this.pictureBox11.TabStop = false;
+			// 
+			// treeView2
+			// 
+			this.treeView2.CheckBoxes = true;
+			this.treeView2.FullRowSelect = true;
+			this.treeView2.HotTracking = true;
+			this.treeView2.ImageList = this.imageList1;
+			this.treeView2.Location = new System.Drawing.Point(8, 16);
+			this.treeView2.Name = "treeView2";
+			this.treeView2.Size = new System.Drawing.Size(408, 144);
+			this.treeView2.TabIndex = 25;
+			// 
+			// imageList1
+			// 
+			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+			// 
 			// Options
 			// 
 			this.Options.Controls.Add(this.vargrp);
@@ -1721,7 +1870,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.Options.Controls.Add(this.groupBox1);
 			this.Options.Location = new System.Drawing.Point(4, 22);
 			this.Options.Name = "Options";
-			this.Options.Size = new System.Drawing.Size(488, 230);
+			this.Options.Size = new System.Drawing.Size(528, 230);
 			this.Options.TabIndex = 1;
 			this.Options.Text = "Options";
 			// 
@@ -2026,6 +2175,165 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.checkBox6.Text = "Always on Top";
 			this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
 			// 
+			// Debugger
+			// 
+			this.Debugger.Controls.Add(this.label5);
+			this.Debugger.Controls.Add(this.dbIEbtn);
+			this.Debugger.Controls.Add(this.dbNPbtn);
+			this.Debugger.Controls.Add(this.button5);
+			this.Debugger.Controls.Add(this.debugSaveAs);
+			this.Debugger.Controls.Add(this.DebugBox);
+			this.Debugger.Location = new System.Drawing.Point(4, 22);
+			this.Debugger.Name = "Debugger";
+			this.Debugger.Size = new System.Drawing.Size(528, 230);
+			this.Debugger.TabIndex = 7;
+			this.Debugger.Text = "Debugger";
+			// 
+			// label5
+			// 
+			this.label5.Location = new System.Drawing.Point(8, 16);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(248, 16);
+			this.label5.TabIndex = 5;
+			this.label5.Text = "Debug Info";
+			// 
+			// dbIEbtn
+			// 
+			this.dbIEbtn.Image = ((System.Drawing.Image)(resources.GetObject("dbIEbtn.Image")));
+			this.dbIEbtn.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
+			this.dbIEbtn.Location = new System.Drawing.Point(392, 8);
+			this.dbIEbtn.Name = "dbIEbtn";
+			this.dbIEbtn.Size = new System.Drawing.Size(24, 24);
+			this.dbIEbtn.TabIndex = 4;
+			this.dbIEbtn.Click += new System.EventHandler(this.dbIEbtn_Click);
+			// 
+			// dbNPbtn
+			// 
+			this.dbNPbtn.Image = ((System.Drawing.Image)(resources.GetObject("dbNPbtn.Image")));
+			this.dbNPbtn.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
+			this.dbNPbtn.Location = new System.Drawing.Point(360, 8);
+			this.dbNPbtn.Name = "dbNPbtn";
+			this.dbNPbtn.Size = new System.Drawing.Size(24, 24);
+			this.dbNPbtn.TabIndex = 3;
+			this.dbNPbtn.Click += new System.EventHandler(this.dbNPbtn_Click);
+			// 
+			// button5
+			// 
+			this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
+			this.button5.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
+			this.button5.Location = new System.Drawing.Point(424, 8);
+			this.button5.Name = "button5";
+			this.button5.Size = new System.Drawing.Size(24, 24);
+			this.button5.TabIndex = 2;
+			this.button5.Click += new System.EventHandler(this.button5_Click);
+			// 
+			// debugSaveAs
+			// 
+			this.debugSaveAs.Image = ((System.Drawing.Image)(resources.GetObject("debugSaveAs.Image")));
+			this.debugSaveAs.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
+			this.debugSaveAs.Location = new System.Drawing.Point(456, 8);
+			this.debugSaveAs.Name = "debugSaveAs";
+			this.debugSaveAs.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.debugSaveAs.Size = new System.Drawing.Size(24, 24);
+			this.debugSaveAs.TabIndex = 1;
+			this.debugSaveAs.Click += new System.EventHandler(this.debugSaveAs_Click);
+			// 
+			// DebugBox
+			// 
+			this.DebugBox.HorizontalScrollbar = true;
+			this.DebugBox.Location = new System.Drawing.Point(8, 32);
+			this.DebugBox.Name = "DebugBox";
+			this.DebugBox.Size = new System.Drawing.Size(472, 186);
+			this.DebugBox.TabIndex = 0;
+			// 
+			// Help
+			// 
+			this.Help.Controls.Add(this.button8);
+			this.Help.Controls.Add(this.button3);
+			this.Help.Controls.Add(this.button4);
+			this.Help.Controls.Add(this.button2);
+			this.Help.Controls.Add(this.button1);
+			this.Help.Controls.Add(this.richTextBox1);
+			this.Help.Location = new System.Drawing.Point(4, 22);
+			this.Help.Name = "Help";
+			this.Help.Size = new System.Drawing.Size(528, 230);
+			this.Help.TabIndex = 4;
+			this.Help.Text = "Help";
+			// 
+			// button8
+			// 
+			this.button8.Location = new System.Drawing.Point(96, 8);
+			this.button8.Name = "button8";
+			this.button8.TabIndex = 6;
+			this.button8.Text = "Updater";
+			this.button8.Click += new System.EventHandler(this.button8_Click);
+			// 
+			// button3
+			// 
+			this.button3.Location = new System.Drawing.Point(264, 8);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(80, 23);
+			this.button3.TabIndex = 5;
+			this.button3.Text = "Advanced";
+			this.button3.Click += new System.EventHandler(this.button3_Click);
+			// 
+			// button4
+			// 
+			this.button4.Location = new System.Drawing.Point(352, 8);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(80, 23);
+			this.button4.TabIndex = 4;
+			this.button4.Text = "Information";
+			this.button4.Click += new System.EventHandler(this.button4_Click);
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(176, 8);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(80, 23);
+			this.button2.TabIndex = 2;
+			this.button2.Text = "Options";
+			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(8, 8);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(80, 23);
+			this.button1.TabIndex = 1;
+			this.button1.Text = "Settings";
+			this.button1.Click += new System.EventHandler(this.button1_Click_1);
+			// 
+			// richTextBox1
+			// 
+			this.richTextBox1.AcceptsTab = true;
+			this.richTextBox1.AllowDrop = true;
+			this.richTextBox1.Cursor = System.Windows.Forms.Cursors.Default;
+			this.richTextBox1.Location = new System.Drawing.Point(0, 32);
+			this.richTextBox1.Name = "richTextBox1";
+			this.richTextBox1.ReadOnly = true;
+			this.richTextBox1.Size = new System.Drawing.Size(480, 184);
+			this.richTextBox1.TabIndex = 0;
+			this.richTextBox1.Text = "";
+			// 
+			// About
+			// 
+			this.About.Controls.Add(this.copyrightInfoLabel);
+			this.About.Controls.Add(this.groupBox2);
+			this.About.Location = new System.Drawing.Point(4, 22);
+			this.About.Name = "About";
+			this.About.Size = new System.Drawing.Size(528, 230);
+			this.About.TabIndex = 3;
+			this.About.Text = "About";
+			// 
+			// copyrightInfoLabel
+			// 
+			this.copyrightInfoLabel.Location = new System.Drawing.Point(8, 208);
+			this.copyrightInfoLabel.Name = "copyrightInfoLabel";
+			this.copyrightInfoLabel.Size = new System.Drawing.Size(464, 16);
+			this.copyrightInfoLabel.TabIndex = 22;
+			this.copyrightInfoLabel.Text = "The World of Warcraft logo and name are © Blizzard Entertainment.";
+			// 
 			// response
 			// 
 			this.response.Controls.Add(this.respOpenIE2);
@@ -2042,7 +2350,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.response.Controls.Add(this.servResponse);
 			this.response.Location = new System.Drawing.Point(4, 22);
 			this.response.Name = "response";
-			this.response.Size = new System.Drawing.Size(488, 230);
+			this.response.Size = new System.Drawing.Size(528, 230);
 			this.response.TabIndex = 2;
 			this.response.Text = "Server Response";
 			// 
@@ -2170,165 +2478,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.servResponse.TabIndex = 19;
 			this.servResponse.Text = "Any Data returned by primary URL will be displayed here.";
 			this.servResponse.WordWrap = false;
-			// 
-			// Debugger
-			// 
-			this.Debugger.Controls.Add(this.label5);
-			this.Debugger.Controls.Add(this.dbIEbtn);
-			this.Debugger.Controls.Add(this.dbNPbtn);
-			this.Debugger.Controls.Add(this.button5);
-			this.Debugger.Controls.Add(this.debugSaveAs);
-			this.Debugger.Controls.Add(this.DebugBox);
-			this.Debugger.Location = new System.Drawing.Point(4, 22);
-			this.Debugger.Name = "Debugger";
-			this.Debugger.Size = new System.Drawing.Size(488, 230);
-			this.Debugger.TabIndex = 7;
-			this.Debugger.Text = "Debugger";
-			// 
-			// label5
-			// 
-			this.label5.Location = new System.Drawing.Point(8, 16);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(248, 16);
-			this.label5.TabIndex = 5;
-			this.label5.Text = "Debug Info";
-			// 
-			// dbIEbtn
-			// 
-			this.dbIEbtn.Image = ((System.Drawing.Image)(resources.GetObject("dbIEbtn.Image")));
-			this.dbIEbtn.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-			this.dbIEbtn.Location = new System.Drawing.Point(392, 8);
-			this.dbIEbtn.Name = "dbIEbtn";
-			this.dbIEbtn.Size = new System.Drawing.Size(24, 24);
-			this.dbIEbtn.TabIndex = 4;
-			this.dbIEbtn.Click += new System.EventHandler(this.dbIEbtn_Click);
-			// 
-			// dbNPbtn
-			// 
-			this.dbNPbtn.Image = ((System.Drawing.Image)(resources.GetObject("dbNPbtn.Image")));
-			this.dbNPbtn.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-			this.dbNPbtn.Location = new System.Drawing.Point(360, 8);
-			this.dbNPbtn.Name = "dbNPbtn";
-			this.dbNPbtn.Size = new System.Drawing.Size(24, 24);
-			this.dbNPbtn.TabIndex = 3;
-			this.dbNPbtn.Click += new System.EventHandler(this.dbNPbtn_Click);
-			// 
-			// button5
-			// 
-			this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
-			this.button5.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-			this.button5.Location = new System.Drawing.Point(424, 8);
-			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(24, 24);
-			this.button5.TabIndex = 2;
-			this.button5.Click += new System.EventHandler(this.button5_Click);
-			// 
-			// debugSaveAs
-			// 
-			this.debugSaveAs.Image = ((System.Drawing.Image)(resources.GetObject("debugSaveAs.Image")));
-			this.debugSaveAs.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-			this.debugSaveAs.Location = new System.Drawing.Point(456, 8);
-			this.debugSaveAs.Name = "debugSaveAs";
-			this.debugSaveAs.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.debugSaveAs.Size = new System.Drawing.Size(24, 24);
-			this.debugSaveAs.TabIndex = 1;
-			this.debugSaveAs.Click += new System.EventHandler(this.debugSaveAs_Click);
-			// 
-			// DebugBox
-			// 
-			this.DebugBox.HorizontalScrollbar = true;
-			this.DebugBox.Location = new System.Drawing.Point(8, 32);
-			this.DebugBox.Name = "DebugBox";
-			this.DebugBox.Size = new System.Drawing.Size(472, 186);
-			this.DebugBox.TabIndex = 0;
-			// 
-			// Help
-			// 
-			this.Help.Controls.Add(this.button8);
-			this.Help.Controls.Add(this.button3);
-			this.Help.Controls.Add(this.button4);
-			this.Help.Controls.Add(this.button2);
-			this.Help.Controls.Add(this.button1);
-			this.Help.Controls.Add(this.richTextBox1);
-			this.Help.Location = new System.Drawing.Point(4, 22);
-			this.Help.Name = "Help";
-			this.Help.Size = new System.Drawing.Size(488, 230);
-			this.Help.TabIndex = 4;
-			this.Help.Text = "Help";
-			// 
-			// button8
-			// 
-			this.button8.Location = new System.Drawing.Point(96, 8);
-			this.button8.Name = "button8";
-			this.button8.TabIndex = 6;
-			this.button8.Text = "Updater";
-			this.button8.Click += new System.EventHandler(this.button8_Click);
-			// 
-			// button3
-			// 
-			this.button3.Location = new System.Drawing.Point(264, 8);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(80, 23);
-			this.button3.TabIndex = 5;
-			this.button3.Text = "Advanced";
-			this.button3.Click += new System.EventHandler(this.button3_Click);
-			// 
-			// button4
-			// 
-			this.button4.Location = new System.Drawing.Point(352, 8);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(80, 23);
-			this.button4.TabIndex = 4;
-			this.button4.Text = "Information";
-			this.button4.Click += new System.EventHandler(this.button4_Click);
-			// 
-			// button2
-			// 
-			this.button2.Location = new System.Drawing.Point(176, 8);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(80, 23);
-			this.button2.TabIndex = 2;
-			this.button2.Text = "Options";
-			this.button2.Click += new System.EventHandler(this.button2_Click);
-			// 
-			// button1
-			// 
-			this.button1.Location = new System.Drawing.Point(8, 8);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(80, 23);
-			this.button1.TabIndex = 1;
-			this.button1.Text = "Settings";
-			this.button1.Click += new System.EventHandler(this.button1_Click_1);
-			// 
-			// richTextBox1
-			// 
-			this.richTextBox1.AcceptsTab = true;
-			this.richTextBox1.AllowDrop = true;
-			this.richTextBox1.Cursor = System.Windows.Forms.Cursors.Default;
-			this.richTextBox1.Location = new System.Drawing.Point(0, 32);
-			this.richTextBox1.Name = "richTextBox1";
-			this.richTextBox1.ReadOnly = true;
-			this.richTextBox1.Size = new System.Drawing.Size(480, 184);
-			this.richTextBox1.TabIndex = 0;
-			this.richTextBox1.Text = "";
-			// 
-			// About
-			// 
-			this.About.Controls.Add(this.copyrightInfoLabel);
-			this.About.Controls.Add(this.groupBox2);
-			this.About.Location = new System.Drawing.Point(4, 22);
-			this.About.Name = "About";
-			this.About.Size = new System.Drawing.Size(488, 230);
-			this.About.TabIndex = 3;
-			this.About.Text = "About";
-			// 
-			// copyrightInfoLabel
-			// 
-			this.copyrightInfoLabel.Location = new System.Drawing.Point(8, 208);
-			this.copyrightInfoLabel.Name = "copyrightInfoLabel";
-			this.copyrightInfoLabel.Size = new System.Drawing.Size(464, 16);
-			this.copyrightInfoLabel.TabIndex = 22;
-			this.copyrightInfoLabel.Text = "The World of Warcraft logo and name are © Blizzard Entertainment.";
 			// 
 			// clearSVFiles
 			// 
@@ -2584,12 +2733,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.treeView1.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeSelect);
 			this.treeView1.BeforeCheck += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeCheck);
 			// 
-			// imageList1
-			// 
-			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-			// 
 			// pictureBox3
 			// 
 			this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
@@ -2600,153 +2743,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.pictureBox3.TabIndex = 22;
 			this.pictureBox3.TabStop = false;
 			// 
-			// aceTab
-			// 
-			this.aceTab.Controls.Add(this.aceGrpbox);
-			this.aceTab.Location = new System.Drawing.Point(4, 22);
-			this.aceTab.Name = "aceTab";
-			this.aceTab.Size = new System.Drawing.Size(528, 230);
-			this.aceTab.TabIndex = 8;
-			this.aceTab.Text = "Ace Addons";
-			// 
-			// aceGrpbox
-			// 
-			this.aceGrpbox.Controls.Add(this.label21);
-			this.aceGrpbox.Controls.Add(this.aceProgress);
-			this.aceGrpbox.Controls.Add(this.button10);
-			this.aceGrpbox.Controls.Add(this.button11);
-			this.aceGrpbox.Controls.Add(this.button9);
-			this.aceGrpbox.Controls.Add(this.label17);
-			this.aceGrpbox.Controls.Add(this.pictureBox8);
-			this.aceGrpbox.Controls.Add(this.label18);
-			this.aceGrpbox.Controls.Add(this.label19);
-			this.aceGrpbox.Controls.Add(this.label20);
-			this.aceGrpbox.Controls.Add(this.pictureBox9);
-			this.aceGrpbox.Controls.Add(this.pictureBox10);
-			this.aceGrpbox.Controls.Add(this.pictureBox11);
-			this.aceGrpbox.Controls.Add(this.treeView2);
-			this.aceGrpbox.Location = new System.Drawing.Point(8, 8);
-			this.aceGrpbox.Name = "aceGrpbox";
-			this.aceGrpbox.Size = new System.Drawing.Size(512, 216);
-			this.aceGrpbox.TabIndex = 0;
-			this.aceGrpbox.TabStop = false;
-			this.aceGrpbox.Text = "Ace Addons";
-			this.aceGrpbox.VisibleChanged += new System.EventHandler(this.aceGrpbox_VisibleChanged);
-			// 
-			// treeView2
-			// 
-			this.treeView2.CheckBoxes = true;
-			this.treeView2.FullRowSelect = true;
-			this.treeView2.HotTracking = true;
-			this.treeView2.ImageList = this.imageList1;
-			this.treeView2.Location = new System.Drawing.Point(8, 16);
-			this.treeView2.Name = "treeView2";
-			this.treeView2.Size = new System.Drawing.Size(408, 144);
-			this.treeView2.TabIndex = 25;
-			// 
-			// label17
-			// 
-			this.label17.Location = new System.Drawing.Point(128, 168);
-			this.label17.Name = "label17";
-			this.label17.Size = new System.Drawing.Size(48, 16);
-			this.label17.TabIndex = 42;
-			this.label17.Text = "=Name";
-			// 
-			// pictureBox8
-			// 
-			this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
-			this.pictureBox8.Location = new System.Drawing.Point(112, 168);
-			this.pictureBox8.Name = "pictureBox8";
-			this.pictureBox8.Size = new System.Drawing.Size(16, 16);
-			this.pictureBox8.TabIndex = 41;
-			this.pictureBox8.TabStop = false;
-			// 
-			// label18
-			// 
-			this.label18.Location = new System.Drawing.Point(336, 168);
-			this.label18.Name = "label18";
-			this.label18.Size = new System.Drawing.Size(80, 16);
-			this.label18.TabIndex = 40;
-			this.label18.Text = "=Version";
-			// 
-			// label19
-			// 
-			this.label19.Location = new System.Drawing.Point(280, 168);
-			this.label19.Name = "label19";
-			this.label19.Size = new System.Drawing.Size(40, 16);
-			this.label19.TabIndex = 39;
-			this.label19.Text = "=TOC";
-			// 
-			// label20
-			// 
-			this.label20.Location = new System.Drawing.Point(192, 168);
-			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(72, 16);
-			this.label20.TabIndex = 38;
-			this.label20.Text = "=Description";
-			// 
-			// pictureBox9
-			// 
-			this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
-			this.pictureBox9.Location = new System.Drawing.Point(176, 168);
-			this.pictureBox9.Name = "pictureBox9";
-			this.pictureBox9.Size = new System.Drawing.Size(16, 16);
-			this.pictureBox9.TabIndex = 37;
-			this.pictureBox9.TabStop = false;
-			// 
-			// pictureBox10
-			// 
-			this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
-			this.pictureBox10.Location = new System.Drawing.Point(264, 168);
-			this.pictureBox10.Name = "pictureBox10";
-			this.pictureBox10.Size = new System.Drawing.Size(16, 16);
-			this.pictureBox10.TabIndex = 36;
-			this.pictureBox10.TabStop = false;
-			// 
-			// pictureBox11
-			// 
-			this.pictureBox11.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox11.Image")));
-			this.pictureBox11.Location = new System.Drawing.Point(320, 168);
-			this.pictureBox11.Name = "pictureBox11";
-			this.pictureBox11.Size = new System.Drawing.Size(16, 16);
-			this.pictureBox11.TabIndex = 35;
-			this.pictureBox11.TabStop = false;
-			// 
-			// button9
-			// 
-			this.button9.Location = new System.Drawing.Point(424, 16);
-			this.button9.Name = "button9";
-			this.button9.TabIndex = 43;
-			this.button9.Text = "Install";
-			// 
-			// button10
-			// 
-			this.button10.Location = new System.Drawing.Point(424, 104);
-			this.button10.Name = "button10";
-			this.button10.TabIndex = 45;
-			this.button10.Text = "Collapse All";
-			// 
-			// button11
-			// 
-			this.button11.Location = new System.Drawing.Point(424, 136);
-			this.button11.Name = "button11";
-			this.button11.TabIndex = 44;
-			this.button11.Text = "Expand All";
-			// 
 			// aceProgress
 			// 
 			this.aceProgress.Location = new System.Drawing.Point(8, 192);
 			this.aceProgress.Name = "aceProgress";
 			this.aceProgress.Size = new System.Drawing.Size(488, 16);
-			this.aceProgress.TabIndex = 46;
-			// 
-			// label21
-			// 
-			this.label21.Location = new System.Drawing.Point(8, 176);
-			this.label21.Name = "label21";
-			this.label21.Size = new System.Drawing.Size(100, 16);
-			this.label21.TabIndex = 47;
-			this.label21.Text = "Progress";
+			this.aceProgress.TabIndex = 48;
 			// 
 			// Form1
 			// 
@@ -2787,22 +2789,22 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.wowAddons.ResumeLayout(false);
 			this.groupBox11.ResumeLayout(false);
 			this.groupBox12.ResumeLayout(false);
+			this.aceTab.ResumeLayout(false);
+			this.aceGrpbox.ResumeLayout(false);
 			this.Options.ResumeLayout(false);
 			this.vargrp.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox9.ResumeLayout(false);
 			this.groupBox1.ResumeLayout(false);
-			this.response.ResumeLayout(false);
 			this.Debugger.ResumeLayout(false);
 			this.Help.ResumeLayout(false);
 			this.About.ResumeLayout(false);
+			this.response.ResumeLayout(false);
 			this.groupBox3.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).EndInit();
 			this.tabControl2.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.groupBox8.ResumeLayout(false);
-			this.aceTab.ResumeLayout(false);
-			this.aceGrpbox.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -7807,20 +7809,72 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 
 		private void aceGrpbox_VisibleChanged(object sender, System.EventArgs e)
 		{
-			MemoryStream memStream = aceXMLdownload("http://foolyfrag.com");
+			//MemoryStream memStream = aceXMLdownload("http://files.wowace.com/latest.xml");
 
-			byte[]  finalArray = new byte[Convert.ToInt32(memStream.Length)];
-			memStream.Read(finalArray,0,Convert.ToInt32(memStream.Length)); //i think its UTF8 default?
-			string s = Encoding.UTF8.GetString(finalArray);
-			MessageBox.Show(memStream.Length.ToString());
+			;
+
+			acejob = new ThreadStart(aceUpdateList);
+			aceUploadThread = new Thread(acejob);
+			aceUploadThread.Name = "aceThread";		
+			aceUploadThread.Start();
+
+			//aceUpdateList();
 		
 		}
+		public void aceUpdateList()
+		{
+			string xml = "";
+			MemoryStream memStream = aceDownload("http://files.wowace.com/latest.xml");
+			memStream.Position = 0;
+			xml = Encoding.UTF8.GetString(memStream.ToArray());
+			XmlDocument x = new XmlDocument();
+			x.InnerXml = xml;
+			foreach(XmlNode node in x)
+			{
+				if (node.Name == "rss")
+				{
+					foreach(XmlNode channel in node)
+					{
+						foreach(XmlNode item in channel)
+						{
+							if (item.Name == "item")
+							{
+								foreach(XmlNode itemInfo in item)
+								{
+									MessageBox.Show(itemInfo.Name);
+
+								}
+							}
+						}
+					}
+				}
+
+			}
+
+		}
+
+		public string getStringFromStream(MemoryStream stream)
+		{
+			using (StreamReader reader = new StreamReader(stream))
+			{
+				return reader.ReadToEnd();
+			}
+		}
+		public string getStringFromStream2(MemoryStream stream)
+		{
+			string a = "";
+			for (int i = 0;i<stream.Length;i++)
+			{
+				//a += asc(stream.ReadByte());
+			}
+			return a;
+		}
+
+		
 
 //ace
-		private MemoryStream aceXMLdownload(string path_download)
+		private MemoryStream aceDownload(string path_download)
 		{
-			// Declare a variable of type Boolean named result initialized to false.
-			bool result = false;
 			// Declare a variable of type HttpWebRequest named lHttpWebRequest.
 			HttpWebRequest lHttpWebRequest;
 			// Declare a variable of type HttpWebResponse named lHttpWebResponse.
@@ -7831,12 +7885,12 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 			// Use a FileStream constructor to create a new FileStream object.
 			// Assign the address (reference) of the new object
 			// to the lFileStream variable.
-			//ByteStream lFileStream = new FileStream(path_local, FileMode.Create);
-			MemoryStream memStream = new MemoryStream();
+			//FileStream lFileStream = new FileStream(path_local, FileMode.Create);
 			// Declare a variable of type Byte Array named byteBuffer.
 			byte[] byteBuffer = new byte[999];
 			// Declare a variable of type Integer named bytesRead.
 			int bytesRead;
+			MemoryStream memStream = new MemoryStream();
 			try
 			{
 				// Instantiate the HttpWebRequest object.
@@ -7850,17 +7904,16 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 				aceProgress.Maximum = Convert.ToInt32(lHttpWebResponse.ContentLength);
 				// progress counter to control when
 				// the form label is updated
-
-				memStream.SetLength(5000);
-				
+				memStream.SetLength(lHttpWebResponse.ContentLength);
 				double progress_counter = 0;
 				do
 				{
 					// Read up to 1000 bytes into the bytesRead array.
 					bytesRead = lHttpWebResponseStream.Read(byteBuffer, 0, 999);
 					// Write the bytes read to the file stream.
+					//lFileStream.Write(byteBuffer, 0, bytesRead);
 					memStream.Write(byteBuffer, 0, bytesRead);
-					
+
 					// If the ProgressBar's value plus bytesRead is less than the length of the file...
 					if((aceProgress.Value + bytesRead) <= aceProgress.Maximum)
 					{
@@ -7873,13 +7926,13 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 						aceProgress.Value = aceProgress.Maximum;
 					}
 					// calculate the current percentage
-					//double progress_now = Math.Floor(((progressBar1.Value/100) * 100) / (progressBar1.Maximum/100));
-					double progress_now = Math.Floor(((double)(aceProgress.Value/100) * 100) / (progressBar1.Maximum/100));
+					//double progress_now = Math.Floor(((aceProgress.Value/100) * 100) / (aceProgress.Maximum/100));
+					double progress_now = Math.Floor(((double)(aceProgress.Value/100) * 100) / (aceProgress.Maximum/100));
 					// only upgrade the display label once per percentage increment
 					if(progress_now > progress_counter)
 					{
 						// Update the ProgressLabel.
-						//statusBarPanel2.Text = String.Format("{0}% "+_OF+" {1}kb", progress_now.ToString(), (progressBar1.Maximum/1000).ToString("#,#"));
+						//statusBarPanel2.Text = String.Format("{0}% "+_OF+" {1}kb", progress_now.ToString(), (aceProgress.Maximum/1000).ToString("#,#"));
 						// update the form
 						Application.DoEvents(); 
 						// increment the counter
@@ -7889,7 +7942,6 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 				// Close the file and web response streams.
 				lHttpWebResponseStream.Close();
 				// Set result to True - download was successful.
-				result = true;
 			}
 			catch(Exception download_error)
 			{
@@ -7899,11 +7951,10 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 			finally
 			{
 				// Close the file and web response streams.
-				//memStream.Close();
+				//lFileStream.Close();
 			}
 			return memStream;
 		}
-
 
 
 
