@@ -7824,6 +7824,7 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 		public void aceUpdateList()
 		{
 			string xml = "";
+			aceProgress.Value = 0;
 			MemoryStream memStream = aceDownload("http://files.wowace.com/latest.xml");
 			memStream.Position = 0;
 			xml = Encoding.UTF8.GetString(memStream.ToArray());
@@ -7839,11 +7840,7 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 						{
 							if (item.Name == "item")
 							{
-								foreach(XmlNode itemInfo in item)
-								{
-									MessageBox.Show(itemInfo.Name);
-
-								}
+								aceAddItem(item);
 							}
 						}
 					}
@@ -7853,24 +7850,66 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 
 		}
 
-		public string getStringFromStream(MemoryStream stream)
+		public void aceAddItem(XmlNode item)
 		{
-			using (StreamReader reader = new StreamReader(stream))
+			string title = "";
+			string descr = "";
+			string toc = "";
+			string version = "";
+			string guid = "";
+
+			foreach(XmlNode itemInfo in item)
 			{
-				return reader.ReadToEnd();
+				switch(itemInfo.Name)
+				{
+					case "title":
+						title = itemInfo.InnerText;
+						break;
+					case "description":
+						descr = itemInfo.InnerText;
+						break;
+					case "wowaddon:interface":
+						toc = itemInfo.InnerText;
+						break;
+					case "wowaddon:version":
+						version = itemInfo.InnerText;
+						break;
+					case "guid":
+						guid = itemInfo.InnerText;
+						break;
+					default:
+						break;
+				}
 			}
-		}
-		public string getStringFromStream2(MemoryStream stream)
-		{
-			string a = "";
-			for (int i = 0;i<stream.Length;i++)
+			//MessageBox.Show(title);
+			TreeNode myNode = new TreeNode();
+			myNode.Text=title;
+			myNode.Nodes.Add(new TreeNode(version,1,1));
+			myNode.Nodes.Add(new TreeNode(toc,2,2));
+			myNode.Nodes.Add(new TreeNode(descr,3,3));
+			myNode.Checked = false;
+			myNode.ImageIndex = 0;
+			// Check if we need to call BeginInvoke.
+			if (this.InvokeRequired)
 			{
-				//a += asc(stream.ReadByte());
+				// Pass the same function to BeginInvoke,
+				// but the call would come on the correct
+				// thread and InvokeRequired will be false.
+				this.BeginInvoke(new aceAddAddonNodeDelegate(aceAddAddonNode), 
+					new object[] {myNode});
+
+				return;
 			}
-			return a;
+			treeView2.Nodes.Add(myNode);
 		}
 
-		
+		private delegate void aceAddAddonNodeDelegate(TreeNode myNode);
+		private void aceAddAddonNode(TreeNode myNode)
+		{
+			treeView2.Nodes.Add(myNode);
+			//if (myNode.Checked)
+				//CheckAllChildNodes(myNode,true);
+		}
 
 //ace
 		private MemoryStream aceDownload(string path_download)
