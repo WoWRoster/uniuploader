@@ -751,6 +751,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.addonAutoUpdate = new System.Windows.Forms.CheckBox();
 			this.aceTab = new System.Windows.Forms.TabPage();
 			this.aceGrpbox = new System.Windows.Forms.GroupBox();
+			this.aceProgress = new System.Windows.Forms.ProgressBar();
 			this.label21 = new System.Windows.Forms.Label();
 			this.button10 = new System.Windows.Forms.Button();
 			this.button11 = new System.Windows.Forms.Button();
@@ -856,7 +857,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.treeView1 = new System.Windows.Forms.TreeView();
 			this.pictureBox3 = new System.Windows.Forms.PictureBox();
 			this.contextMenu2 = new System.Windows.Forms.ContextMenu();
-			this.aceProgress = new System.Windows.Forms.ProgressBar();
 			((System.ComponentModel.ISupportInitialize)(this.myTimer)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.myTimer2)).BeginInit();
 			this.groupBox2.SuspendLayout();
@@ -1748,6 +1748,13 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.aceGrpbox.Text = "Ace Addons";
 			this.aceGrpbox.VisibleChanged += new System.EventHandler(this.aceGrpbox_VisibleChanged);
 			// 
+			// aceProgress
+			// 
+			this.aceProgress.Location = new System.Drawing.Point(8, 192);
+			this.aceProgress.Name = "aceProgress";
+			this.aceProgress.Size = new System.Drawing.Size(488, 16);
+			this.aceProgress.TabIndex = 48;
+			// 
 			// label21
 			// 
 			this.label21.Location = new System.Drawing.Point(8, 176);
@@ -1762,6 +1769,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.button10.Name = "button10";
 			this.button10.TabIndex = 45;
 			this.button10.Text = "Collapse All";
+			this.button10.Click += new System.EventHandler(this.button10_Click);
 			// 
 			// button11
 			// 
@@ -1769,6 +1777,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.button11.Name = "button11";
 			this.button11.TabIndex = 44;
 			this.button11.Text = "Expand All";
+			this.button11.Click += new System.EventHandler(this.button11_Click);
 			// 
 			// button9
 			// 
@@ -2742,13 +2751,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox3.TabIndex = 22;
 			this.pictureBox3.TabStop = false;
-			// 
-			// aceProgress
-			// 
-			this.aceProgress.Location = new System.Drawing.Point(8, 192);
-			this.aceProgress.Name = "aceProgress";
-			this.aceProgress.Size = new System.Drawing.Size(488, 16);
-			this.aceProgress.TabIndex = 48;
 			// 
 			// Form1
 			// 
@@ -7807,6 +7809,7 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 
 		}
 
+		//ace
 		private void aceGrpbox_VisibleChanged(object sender, System.EventArgs e)
 		{
 			//MemoryStream memStream = aceXMLdownload("http://files.wowace.com/latest.xml");
@@ -7840,7 +7843,7 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 						{
 							if (item.Name == "item")
 							{
-								aceAddItem(item);
+								aceParseItem(item);
 							}
 						}
 					}
@@ -7850,13 +7853,16 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 
 		}
 
-		public void aceAddItem(XmlNode item)
+		public void aceParseItem(XmlNode item)
 		{
 			string title = "";
 			string descr = "";
 			string toc = "";
 			string version = "";
 			string guid = "";
+			string category = "";
+			string author = "";
+			Hashtable allAceItems = new Hashtable();
 
 			foreach(XmlNode itemInfo in item)
 			{
@@ -7877,6 +7883,12 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 					case "guid":
 						guid = itemInfo.InnerText;
 						break;
+					case "category":
+						category = itemInfo.InnerText;
+						break;
+					case "author":
+						author = itemInfo.InnerText;
+						break;
 					default:
 						break;
 				}
@@ -7887,8 +7899,13 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 			myNode.Nodes.Add(new TreeNode(version,1,1));
 			myNode.Nodes.Add(new TreeNode(toc,2,2));
 			myNode.Nodes.Add(new TreeNode(descr,3,3));
+			myNode.Nodes.Add(new TreeNode(author));
 			myNode.Checked = false;
 			myNode.ImageIndex = 0;
+			myNode.Tag = category;
+			allAceItems[title] = myNode;
+
+
 			// Check if we need to call BeginInvoke.
 			if (this.InvokeRequired)
 			{
@@ -7911,7 +7928,6 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 				//CheckAllChildNodes(myNode,true);
 		}
 
-//ace
 		private MemoryStream aceDownload(string path_download)
 		{
 			// Declare a variable of type HttpWebRequest named lHttpWebRequest.
@@ -7993,6 +8009,16 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 				//lFileStream.Close();
 			}
 			return memStream;
+		}
+
+		private void button11_Click(object sender, System.EventArgs e)
+		{
+			treeView2.ExpandAll();
+		}
+
+		private void button10_Click(object sender, System.EventArgs e)
+		{
+			treeView2.CollapseAll();
 		}
 
 
