@@ -613,11 +613,10 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		private System.Windows.Forms.PictureBox pictureBox9;
 		private System.Windows.Forms.PictureBox pictureBox10;
 		private System.Windows.Forms.PictureBox pictureBox11;
-		private System.Windows.Forms.Button button9;
-		private System.Windows.Forms.Button button10;
-		private System.Windows.Forms.Button button11;
 		private System.Windows.Forms.Label label21;
 		private System.Windows.Forms.ProgressBar aceProgress;
+		private System.Windows.Forms.Button btn_ace_collapse;
+		private System.Windows.Forms.Button btn_ace_expand;
 		
 		FileSystemWatcher newWatcher =	new	FileSystemWatcher();
 		
@@ -753,9 +752,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.aceGrpbox = new System.Windows.Forms.GroupBox();
 			this.aceProgress = new System.Windows.Forms.ProgressBar();
 			this.label21 = new System.Windows.Forms.Label();
-			this.button10 = new System.Windows.Forms.Button();
-			this.button11 = new System.Windows.Forms.Button();
-			this.button9 = new System.Windows.Forms.Button();
+			this.btn_ace_collapse = new System.Windows.Forms.Button();
+			this.btn_ace_expand = new System.Windows.Forms.Button();
 			this.label17 = new System.Windows.Forms.Label();
 			this.pictureBox8 = new System.Windows.Forms.PictureBox();
 			this.label18 = new System.Windows.Forms.Label();
@@ -1728,9 +1726,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			// 
 			this.aceGrpbox.Controls.Add(this.aceProgress);
 			this.aceGrpbox.Controls.Add(this.label21);
-			this.aceGrpbox.Controls.Add(this.button10);
-			this.aceGrpbox.Controls.Add(this.button11);
-			this.aceGrpbox.Controls.Add(this.button9);
+			this.aceGrpbox.Controls.Add(this.btn_ace_collapse);
+			this.aceGrpbox.Controls.Add(this.btn_ace_expand);
 			this.aceGrpbox.Controls.Add(this.label17);
 			this.aceGrpbox.Controls.Add(this.pictureBox8);
 			this.aceGrpbox.Controls.Add(this.label18);
@@ -1763,28 +1760,21 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.label21.TabIndex = 47;
 			this.label21.Text = "Progress";
 			// 
-			// button10
+			// btn_ace_collapse
 			// 
-			this.button10.Location = new System.Drawing.Point(424, 104);
-			this.button10.Name = "button10";
-			this.button10.TabIndex = 45;
-			this.button10.Text = "Collapse All";
-			this.button10.Click += new System.EventHandler(this.button10_Click);
+			this.btn_ace_collapse.Location = new System.Drawing.Point(424, 104);
+			this.btn_ace_collapse.Name = "btn_ace_collapse";
+			this.btn_ace_collapse.TabIndex = 45;
+			this.btn_ace_collapse.Text = "Collapse All";
+			this.btn_ace_collapse.Click += new System.EventHandler(this.btn_ace_collapse_Click);
 			// 
-			// button11
+			// btn_ace_expand
 			// 
-			this.button11.Location = new System.Drawing.Point(424, 136);
-			this.button11.Name = "button11";
-			this.button11.TabIndex = 44;
-			this.button11.Text = "Expand All";
-			this.button11.Click += new System.EventHandler(this.button11_Click);
-			// 
-			// button9
-			// 
-			this.button9.Location = new System.Drawing.Point(424, 16);
-			this.button9.Name = "button9";
-			this.button9.TabIndex = 43;
-			this.button9.Text = "Install";
+			this.btn_ace_expand.Location = new System.Drawing.Point(424, 136);
+			this.btn_ace_expand.Name = "btn_ace_expand";
+			this.btn_ace_expand.TabIndex = 44;
+			this.btn_ace_expand.Text = "Expand All";
+			this.btn_ace_expand.Click += new System.EventHandler(this.btn_ace_expand_Click);
 			// 
 			// label17
 			// 
@@ -8011,14 +8001,15 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 			return memStream;
 		}
 
-		private void button11_Click(object sender, System.EventArgs e)
+
+		private void btn_ace_collapse_Click(object sender, System.EventArgs e)
 		{
-			treeView2.ExpandAll();
+			treeView2.CollapseAll();		
 		}
 
-		private void button10_Click(object sender, System.EventArgs e)
+		private void btn_ace_expand_Click(object sender, System.EventArgs e)
 		{
-			treeView2.CollapseAll();
+			treeView2.ExpandAll();		
 		}
 
 
