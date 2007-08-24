@@ -194,6 +194,7 @@ namespace WindowsApplication3
 		public bool filesysDelay_enabled = false;
 		public bool filesysDelay_flag1 = false;
 		public string singleUpdateTmp = "";
+		public Hashtable acelist = new Hashtable();
 		
 
 		public string[] presets = {
@@ -604,19 +605,26 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		private System.Windows.Forms.CheckBox purgefirstCh;
 		private System.Windows.Forms.TabPage aceTab;
 		private System.Windows.Forms.GroupBox aceGrpbox;
-		private System.Windows.Forms.TreeView treeView2;
-		private System.Windows.Forms.Label label17;
-		private System.Windows.Forms.PictureBox pictureBox8;
+		private System.Windows.Forms.Label label21;
+		private System.Windows.Forms.ProgressBar aceProgress;
+		private System.Windows.Forms.TabControl tabControl3;
+		private System.Windows.Forms.TabPage tabPage2;
+		private System.Windows.Forms.TabPage tabPage4;
+		private System.Windows.Forms.TabPage tabPage5;
+		private System.Windows.Forms.TabPage tabPage6;
+		private System.Windows.Forms.RadioButton radioButton1;
+		private System.Windows.Forms.RadioButton radioButton2;
+		private System.Windows.Forms.GroupBox groupBox13;
+		private System.Windows.Forms.RadioButton radioButton3;
+		private System.Windows.Forms.RadioButton radioButton4;
+		private System.Windows.Forms.CheckBox checkBox2;
+		private System.Windows.Forms.Button button9;
 		private System.Windows.Forms.Label label18;
 		private System.Windows.Forms.Label label19;
 		private System.Windows.Forms.Label label20;
-		private System.Windows.Forms.PictureBox pictureBox9;
-		private System.Windows.Forms.PictureBox pictureBox10;
-		private System.Windows.Forms.PictureBox pictureBox11;
-		private System.Windows.Forms.Label label21;
-		private System.Windows.Forms.ProgressBar aceProgress;
-		private System.Windows.Forms.Button btn_ace_collapse;
-		private System.Windows.Forms.Button btn_ace_expand;
+		private System.Windows.Forms.Label label17;
+		private System.Windows.Forms.LinkLabel linkLabel3;
+		private System.Windows.Forms.CheckedListBox clb_acelist;
 		
 		FileSystemWatcher newWatcher =	new	FileSystemWatcher();
 		
@@ -750,20 +758,26 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.addonAutoUpdate = new System.Windows.Forms.CheckBox();
 			this.aceTab = new System.Windows.Forms.TabPage();
 			this.aceGrpbox = new System.Windows.Forms.GroupBox();
+			this.button9 = new System.Windows.Forms.Button();
+			this.checkBox2 = new System.Windows.Forms.CheckBox();
+			this.groupBox13 = new System.Windows.Forms.GroupBox();
+			this.radioButton4 = new System.Windows.Forms.RadioButton();
+			this.radioButton3 = new System.Windows.Forms.RadioButton();
+			this.radioButton1 = new System.Windows.Forms.RadioButton();
+			this.radioButton2 = new System.Windows.Forms.RadioButton();
+			this.tabControl3 = new System.Windows.Forms.TabControl();
+			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+			this.label17 = new System.Windows.Forms.Label();
+			this.label20 = new System.Windows.Forms.Label();
+			this.label19 = new System.Windows.Forms.Label();
+			this.label18 = new System.Windows.Forms.Label();
+			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.clb_acelist = new System.Windows.Forms.CheckedListBox();
 			this.aceProgress = new System.Windows.Forms.ProgressBar();
 			this.label21 = new System.Windows.Forms.Label();
-			this.btn_ace_collapse = new System.Windows.Forms.Button();
-			this.btn_ace_expand = new System.Windows.Forms.Button();
-			this.label17 = new System.Windows.Forms.Label();
-			this.pictureBox8 = new System.Windows.Forms.PictureBox();
-			this.label18 = new System.Windows.Forms.Label();
-			this.label19 = new System.Windows.Forms.Label();
-			this.label20 = new System.Windows.Forms.Label();
-			this.pictureBox9 = new System.Windows.Forms.PictureBox();
-			this.pictureBox10 = new System.Windows.Forms.PictureBox();
-			this.pictureBox11 = new System.Windows.Forms.PictureBox();
-			this.treeView2 = new System.Windows.Forms.TreeView();
-			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.Options = new System.Windows.Forms.TabPage();
 			this.vargrp = new System.Windows.Forms.GroupBox();
 			this.valu4 = new System.Windows.Forms.TextBox();
@@ -825,6 +839,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.label7 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
 			this.servResponse = new System.Windows.Forms.TextBox();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.clearSVFiles = new System.Windows.Forms.Button();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.SVList = new System.Windows.Forms.CheckedListBox();
@@ -872,6 +887,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox12.SuspendLayout();
 			this.aceTab.SuspendLayout();
 			this.aceGrpbox.SuspendLayout();
+			this.groupBox13.SuspendLayout();
+			this.tabControl3.SuspendLayout();
+			this.tabPage4.SuspendLayout();
 			this.Options.SuspendLayout();
 			this.vargrp.SuspendLayout();
 			this.groupBox4.SuspendLayout();
@@ -1720,146 +1738,198 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.aceTab.Name = "aceTab";
 			this.aceTab.Size = new System.Drawing.Size(528, 230);
 			this.aceTab.TabIndex = 8;
-			this.aceTab.Text = "Ace Addons";
+			this.aceTab.Text = "Ace";
 			// 
 			// aceGrpbox
 			// 
+			this.aceGrpbox.Controls.Add(this.button9);
+			this.aceGrpbox.Controls.Add(this.checkBox2);
+			this.aceGrpbox.Controls.Add(this.groupBox13);
+			this.aceGrpbox.Controls.Add(this.tabControl3);
+			this.aceGrpbox.Controls.Add(this.clb_acelist);
 			this.aceGrpbox.Controls.Add(this.aceProgress);
 			this.aceGrpbox.Controls.Add(this.label21);
-			this.aceGrpbox.Controls.Add(this.btn_ace_collapse);
-			this.aceGrpbox.Controls.Add(this.btn_ace_expand);
-			this.aceGrpbox.Controls.Add(this.label17);
-			this.aceGrpbox.Controls.Add(this.pictureBox8);
-			this.aceGrpbox.Controls.Add(this.label18);
-			this.aceGrpbox.Controls.Add(this.label19);
-			this.aceGrpbox.Controls.Add(this.label20);
-			this.aceGrpbox.Controls.Add(this.pictureBox9);
-			this.aceGrpbox.Controls.Add(this.pictureBox10);
-			this.aceGrpbox.Controls.Add(this.pictureBox11);
-			this.aceGrpbox.Controls.Add(this.treeView2);
 			this.aceGrpbox.Location = new System.Drawing.Point(8, 8);
 			this.aceGrpbox.Name = "aceGrpbox";
-			this.aceGrpbox.Size = new System.Drawing.Size(512, 216);
+			this.aceGrpbox.Size = new System.Drawing.Size(472, 216);
 			this.aceGrpbox.TabIndex = 0;
 			this.aceGrpbox.TabStop = false;
 			this.aceGrpbox.Text = "Ace Addons";
 			this.aceGrpbox.VisibleChanged += new System.EventHandler(this.aceGrpbox_VisibleChanged);
 			// 
+			// button9
+			// 
+			this.button9.Location = new System.Drawing.Point(376, 112);
+			this.button9.Name = "button9";
+			this.button9.TabIndex = 55;
+			this.button9.Text = "Update";
+			// 
+			// checkBox2
+			// 
+			this.checkBox2.Location = new System.Drawing.Point(368, 144);
+			this.checkBox2.Name = "checkBox2";
+			this.checkBox2.Size = new System.Drawing.Size(88, 16);
+			this.checkBox2.TabIndex = 54;
+			this.checkBox2.Text = "Auto Update";
+			// 
+			// groupBox13
+			// 
+			this.groupBox13.Controls.Add(this.radioButton4);
+			this.groupBox13.Controls.Add(this.radioButton3);
+			this.groupBox13.Controls.Add(this.radioButton1);
+			this.groupBox13.Controls.Add(this.radioButton2);
+			this.groupBox13.Location = new System.Drawing.Point(144, 112);
+			this.groupBox13.Name = "groupBox13";
+			this.groupBox13.Size = new System.Drawing.Size(136, 88);
+			this.groupBox13.TabIndex = 53;
+			this.groupBox13.TabStop = false;
+			this.groupBox13.Text = "Sort By";
+			// 
+			// radioButton4
+			// 
+			this.radioButton4.Location = new System.Drawing.Point(8, 64);
+			this.radioButton4.Name = "radioButton4";
+			this.radioButton4.Size = new System.Drawing.Size(104, 16);
+			this.radioButton4.TabIndex = 54;
+			this.radioButton4.Text = "Author";
+			// 
+			// radioButton3
+			// 
+			this.radioButton3.Location = new System.Drawing.Point(8, 48);
+			this.radioButton3.Name = "radioButton3";
+			this.radioButton3.Size = new System.Drawing.Size(104, 16);
+			this.radioButton3.TabIndex = 53;
+			this.radioButton3.Text = "TOC";
+			// 
+			// radioButton1
+			// 
+			this.radioButton1.Checked = true;
+			this.radioButton1.Location = new System.Drawing.Point(8, 16);
+			this.radioButton1.Name = "radioButton1";
+			this.radioButton1.Size = new System.Drawing.Size(104, 16);
+			this.radioButton1.TabIndex = 51;
+			this.radioButton1.TabStop = true;
+			this.radioButton1.Text = "Name";
+			// 
+			// radioButton2
+			// 
+			this.radioButton2.Location = new System.Drawing.Point(8, 32);
+			this.radioButton2.Name = "radioButton2";
+			this.radioButton2.Size = new System.Drawing.Size(104, 16);
+			this.radioButton2.TabIndex = 52;
+			this.radioButton2.Text = "Category";
+			// 
+			// tabControl3
+			// 
+			this.tabControl3.Controls.Add(this.tabPage2);
+			this.tabControl3.Controls.Add(this.tabPage5);
+			this.tabControl3.Controls.Add(this.tabPage4);
+			this.tabControl3.Controls.Add(this.tabPage6);
+			this.tabControl3.Location = new System.Drawing.Point(144, 16);
+			this.tabControl3.Name = "tabControl3";
+			this.tabControl3.SelectedIndex = 0;
+			this.tabControl3.Size = new System.Drawing.Size(304, 88);
+			this.tabControl3.TabIndex = 50;
+			// 
+			// tabPage2
+			// 
+			this.tabPage2.Location = new System.Drawing.Point(4, 22);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Size = new System.Drawing.Size(296, 62);
+			this.tabPage2.TabIndex = 0;
+			this.tabPage2.Text = "Description";
+			// 
+			// tabPage5
+			// 
+			this.tabPage5.Location = new System.Drawing.Point(4, 22);
+			this.tabPage5.Name = "tabPage5";
+			this.tabPage5.Size = new System.Drawing.Size(296, 62);
+			this.tabPage5.TabIndex = 3;
+			this.tabPage5.Text = "Author";
+			// 
+			// tabPage4
+			// 
+			this.tabPage4.Controls.Add(this.linkLabel3);
+			this.tabPage4.Controls.Add(this.label17);
+			this.tabPage4.Controls.Add(this.label20);
+			this.tabPage4.Controls.Add(this.label19);
+			this.tabPage4.Controls.Add(this.label18);
+			this.tabPage4.Location = new System.Drawing.Point(4, 22);
+			this.tabPage4.Name = "tabPage4";
+			this.tabPage4.Size = new System.Drawing.Size(296, 62);
+			this.tabPage4.TabIndex = 2;
+			this.tabPage4.Text = "Version";
+			// 
+			// linkLabel3
+			// 
+			this.linkLabel3.Location = new System.Drawing.Point(152, 24);
+			this.linkLabel3.Name = "linkLabel3";
+			this.linkLabel3.Size = new System.Drawing.Size(96, 16);
+			this.linkLabel3.TabIndex = 4;
+			this.linkLabel3.TabStop = true;
+			this.linkLabel3.Text = "Download Zip File";
+			// 
+			// label17
+			// 
+			this.label17.Location = new System.Drawing.Point(152, 8);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(40, 16);
+			this.label17.TabIndex = 3;
+			this.label17.Text = "Stable:";
+			// 
+			// label20
+			// 
+			this.label20.Location = new System.Drawing.Point(8, 24);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(32, 16);
+			this.label20.TabIndex = 2;
+			this.label20.Text = "TOC:";
+			// 
+			// label19
+			// 
+			this.label19.Location = new System.Drawing.Point(8, 8);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(48, 16);
+			this.label19.TabIndex = 1;
+			this.label19.Text = "Version:";
+			// 
+			// label18
+			// 
+			this.label18.Location = new System.Drawing.Point(8, 40);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(56, 16);
+			this.label18.TabIndex = 0;
+			this.label18.Text = "Published:";
+			// 
+			// tabPage6
+			// 
+			this.tabPage6.Location = new System.Drawing.Point(4, 22);
+			this.tabPage6.Name = "tabPage6";
+			this.tabPage6.Size = new System.Drawing.Size(296, 62);
+			this.tabPage6.TabIndex = 4;
+			this.tabPage6.Text = "Dependencies";
+			// 
+			// clb_acelist
+			// 
+			this.clb_acelist.Location = new System.Drawing.Point(8, 16);
+			this.clb_acelist.Name = "clb_acelist";
+			this.clb_acelist.Size = new System.Drawing.Size(128, 184);
+			this.clb_acelist.TabIndex = 49;
+			// 
 			// aceProgress
 			// 
-			this.aceProgress.Location = new System.Drawing.Point(8, 192);
+			this.aceProgress.Location = new System.Drawing.Point(288, 184);
 			this.aceProgress.Name = "aceProgress";
-			this.aceProgress.Size = new System.Drawing.Size(488, 16);
+			this.aceProgress.Size = new System.Drawing.Size(168, 16);
 			this.aceProgress.TabIndex = 48;
 			// 
 			// label21
 			// 
-			this.label21.Location = new System.Drawing.Point(8, 176);
+			this.label21.Location = new System.Drawing.Point(288, 168);
 			this.label21.Name = "label21";
 			this.label21.Size = new System.Drawing.Size(100, 16);
 			this.label21.TabIndex = 47;
 			this.label21.Text = "Progress";
-			// 
-			// btn_ace_collapse
-			// 
-			this.btn_ace_collapse.Location = new System.Drawing.Point(424, 104);
-			this.btn_ace_collapse.Name = "btn_ace_collapse";
-			this.btn_ace_collapse.TabIndex = 45;
-			this.btn_ace_collapse.Text = "Collapse All";
-			this.btn_ace_collapse.Click += new System.EventHandler(this.btn_ace_collapse_Click);
-			// 
-			// btn_ace_expand
-			// 
-			this.btn_ace_expand.Location = new System.Drawing.Point(424, 136);
-			this.btn_ace_expand.Name = "btn_ace_expand";
-			this.btn_ace_expand.TabIndex = 44;
-			this.btn_ace_expand.Text = "Expand All";
-			this.btn_ace_expand.Click += new System.EventHandler(this.btn_ace_expand_Click);
-			// 
-			// label17
-			// 
-			this.label17.Location = new System.Drawing.Point(128, 168);
-			this.label17.Name = "label17";
-			this.label17.Size = new System.Drawing.Size(48, 16);
-			this.label17.TabIndex = 42;
-			this.label17.Text = "=Name";
-			// 
-			// pictureBox8
-			// 
-			this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
-			this.pictureBox8.Location = new System.Drawing.Point(112, 168);
-			this.pictureBox8.Name = "pictureBox8";
-			this.pictureBox8.Size = new System.Drawing.Size(16, 16);
-			this.pictureBox8.TabIndex = 41;
-			this.pictureBox8.TabStop = false;
-			// 
-			// label18
-			// 
-			this.label18.Location = new System.Drawing.Point(336, 168);
-			this.label18.Name = "label18";
-			this.label18.Size = new System.Drawing.Size(80, 16);
-			this.label18.TabIndex = 40;
-			this.label18.Text = "=Version";
-			// 
-			// label19
-			// 
-			this.label19.Location = new System.Drawing.Point(280, 168);
-			this.label19.Name = "label19";
-			this.label19.Size = new System.Drawing.Size(40, 16);
-			this.label19.TabIndex = 39;
-			this.label19.Text = "=TOC";
-			// 
-			// label20
-			// 
-			this.label20.Location = new System.Drawing.Point(192, 168);
-			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(72, 16);
-			this.label20.TabIndex = 38;
-			this.label20.Text = "=Description";
-			// 
-			// pictureBox9
-			// 
-			this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
-			this.pictureBox9.Location = new System.Drawing.Point(176, 168);
-			this.pictureBox9.Name = "pictureBox9";
-			this.pictureBox9.Size = new System.Drawing.Size(16, 16);
-			this.pictureBox9.TabIndex = 37;
-			this.pictureBox9.TabStop = false;
-			// 
-			// pictureBox10
-			// 
-			this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
-			this.pictureBox10.Location = new System.Drawing.Point(264, 168);
-			this.pictureBox10.Name = "pictureBox10";
-			this.pictureBox10.Size = new System.Drawing.Size(16, 16);
-			this.pictureBox10.TabIndex = 36;
-			this.pictureBox10.TabStop = false;
-			// 
-			// pictureBox11
-			// 
-			this.pictureBox11.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox11.Image")));
-			this.pictureBox11.Location = new System.Drawing.Point(320, 168);
-			this.pictureBox11.Name = "pictureBox11";
-			this.pictureBox11.Size = new System.Drawing.Size(16, 16);
-			this.pictureBox11.TabIndex = 35;
-			this.pictureBox11.TabStop = false;
-			// 
-			// treeView2
-			// 
-			this.treeView2.CheckBoxes = true;
-			this.treeView2.FullRowSelect = true;
-			this.treeView2.HotTracking = true;
-			this.treeView2.ImageList = this.imageList1;
-			this.treeView2.Location = new System.Drawing.Point(8, 16);
-			this.treeView2.Name = "treeView2";
-			this.treeView2.Size = new System.Drawing.Size(408, 144);
-			this.treeView2.TabIndex = 25;
-			// 
-			// imageList1
-			// 
-			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
 			// 
 			// Options
 			// 
@@ -2478,6 +2548,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.servResponse.Text = "Any Data returned by primary URL will be displayed here.";
 			this.servResponse.WordWrap = false;
 			// 
+			// imageList1
+			// 
+			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+			// 
 			// clearSVFiles
 			// 
 			this.clearSVFiles.Location = new System.Drawing.Point(8, 192);
@@ -2514,7 +2590,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
 																						  this.statusBarPanel1});
 			this.statusBar1.ShowPanels = true;
-			this.statusBar1.Size = new System.Drawing.Size(530, 22);
+			this.statusBar1.Size = new System.Drawing.Size(494, 22);
 			this.statusBar1.SizingGrip = false;
 			this.statusBar1.TabIndex = 19;
 			this.statusBar1.Text = "Idle";
@@ -2523,7 +2599,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			// 
 			this.statusBarPanel1.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Spring;
 			this.statusBarPanel1.Text = "Idle";
-			this.statusBarPanel1.Width = 530;
+			this.statusBarPanel1.Width = 494;
 			// 
 			// mini_timer
 			// 
@@ -2746,7 +2822,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			// 
 			this.AutoScale = false;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(530, 272);
+			this.ClientSize = new System.Drawing.Size(494, 272);
 			this.Controls.Add(this.statusBar1);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.tabControl2);
@@ -2783,6 +2859,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox12.ResumeLayout(false);
 			this.aceTab.ResumeLayout(false);
 			this.aceGrpbox.ResumeLayout(false);
+			this.groupBox13.ResumeLayout(false);
+			this.tabControl3.ResumeLayout(false);
+			this.tabPage4.ResumeLayout(false);
 			this.Options.ResumeLayout(false);
 			this.vargrp.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
@@ -7816,6 +7895,8 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 		}
 		public void aceUpdateList()
 		{
+			acelist = new Hashtable();
+			clb_acelist.Enabled = false;
 			string xml = "";
 			aceProgress.Value = 0;
 			MemoryStream memStream = aceDownload("http://files.wowace.com/latest.xml");
@@ -7833,90 +7914,77 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 						{
 							if (item.Name == "item")
 							{
-								aceParseItem(item);
+								Hashtable parsedItem = aceParseItem(item);
+								String title = (String)parsedItem["title"];
+								acelist[title] = parsedItem;
 							}
 						}
 					}
 				}
-
 			}
-
+			pop_ace_gui();
+			clb_acelist.Enabled = true;
+		}
+		private void pop_ace_gui()
+		{
+			clb_acelist.Items.Clear();
+			Hashtable aceAddon;
+			IDictionaryEnumerator en = acelist.GetEnumerator();
+			while (en.MoveNext())
+			{
+				aceAddon = (Hashtable) acelist [en.Key];
+				clb_acelist.Items.Add((string)aceAddon["title"]);
+			}
 		}
 
-		public void aceParseItem(XmlNode item)
+		public Hashtable aceParseItem(XmlNode item)
 		{
-			string title = "";
-			string descr = "";
-			string toc = "";
-			string version = "";
-			string guid = "";
-			string category = "";
-			string author = "";
-			Hashtable allAceItems = new Hashtable();
-
+			Hashtable parsedItem = new Hashtable();
+			ArrayList dependencies = new ArrayList();
 			foreach(XmlNode itemInfo in item)
 			{
 				switch(itemInfo.Name)
 				{
 					case "title":
-						title = itemInfo.InnerText;
+						parsedItem["title"] = itemInfo.InnerText;
 						break;
 					case "description":
-						descr = itemInfo.InnerText;
+						parsedItem["description"] = itemInfo.InnerText;
 						break;
 					case "wowaddon:interface":
-						toc = itemInfo.InnerText;
+						parsedItem["interface"] = itemInfo.InnerText;
 						break;
 					case "wowaddon:version":
-						version = itemInfo.InnerText;
+						parsedItem["version"] = itemInfo.InnerText;
 						break;
 					case "guid":
-						guid = itemInfo.InnerText;
+						parsedItem["guid"] = itemInfo.InnerText;
 						break;
 					case "category":
-						category = itemInfo.InnerText;
+						parsedItem["category"] = itemInfo.InnerText;
 						break;
 					case "author":
-						author = itemInfo.InnerText;
+						parsedItem["author"] = itemInfo.InnerText;
+						break;
+					case "enclosure":
+						parsedItem["length"] = itemInfo.Attributes["length"].InnerText;
+						parsedItem["type"] = itemInfo.Attributes["type"].InnerText;
+						parsedItem["url"] = itemInfo.Attributes["url"].InnerText;
+						break;
+					case "pubDate":
+						parsedItem["pubdate"] = itemInfo.InnerText;
+						break;
+					case "wowaddon:dependencies":
+						dependencies.Add(itemInfo.InnerText);
 						break;
 					default:
 						break;
 				}
 			}
-			//MessageBox.Show(title);
-			TreeNode myNode = new TreeNode();
-			myNode.Text=title;
-			myNode.Nodes.Add(new TreeNode(version,1,1));
-			myNode.Nodes.Add(new TreeNode(toc,2,2));
-			myNode.Nodes.Add(new TreeNode(descr,3,3));
-			myNode.Nodes.Add(new TreeNode(author));
-			myNode.Checked = false;
-			myNode.ImageIndex = 0;
-			myNode.Tag = category;
-			allAceItems[title] = myNode;
-
-
-			// Check if we need to call BeginInvoke.
-			if (this.InvokeRequired)
-			{
-				// Pass the same function to BeginInvoke,
-				// but the call would come on the correct
-				// thread and InvokeRequired will be false.
-				this.BeginInvoke(new aceAddAddonNodeDelegate(aceAddAddonNode), 
-					new object[] {myNode});
-
-				return;
-			}
-			treeView2.Nodes.Add(myNode);
+			parsedItem["dependencies"] = dependencies;
+			return parsedItem;
 		}
 
-		private delegate void aceAddAddonNodeDelegate(TreeNode myNode);
-		private void aceAddAddonNode(TreeNode myNode)
-		{
-			treeView2.Nodes.Add(myNode);
-			//if (myNode.Checked)
-				//CheckAllChildNodes(myNode,true);
-		}
 
 		private MemoryStream aceDownload(string path_download)
 		{
@@ -8002,15 +8070,7 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 		}
 
 
-		private void btn_ace_collapse_Click(object sender, System.EventArgs e)
-		{
-			treeView2.CollapseAll();		
-		}
 
-		private void btn_ace_expand_Click(object sender, System.EventArgs e)
-		{
-			treeView2.ExpandAll();		
-		}
 
 
 
