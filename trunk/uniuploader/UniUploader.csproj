@@ -94,6 +94,11 @@
                     AssemblyName = "System.Management"
                     HintPath = "..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Management.dll"
                 />
+                <Reference
+                    Name = "PluginInterface"
+                    AssemblyName = "PluginInterface"
+                    HintPath = "PluginInterface\bin\Debug\PluginInterface.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -158,6 +163,11 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Global.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "GZIPConstants.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -219,6 +229,11 @@
                 />
                 <File
                     RelPath = "PendingBuffer.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "PluginServices.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

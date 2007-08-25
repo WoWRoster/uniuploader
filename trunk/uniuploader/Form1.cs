@@ -19,15 +19,8 @@ using cs_IniHandlerDevelop;
 using System.Globalization;
 using System.Text.RegularExpressions; 
 
-namespace WindowsApplication3
+namespace UniUploader
 {
-	///	<summary>
-	///	uploader for "World of Warcraft" SavedVariables.lua files
-	///	</summary>
-	///	
-
-
-
 	public class Form1 : System.Windows.Forms.Form
 	{
 		private	System.Windows.Forms.TextBox URL;
@@ -164,8 +157,7 @@ namespace WindowsApplication3
 
 		public ThreadStart job;// = new ThreadStart(upload);
 		public Thread UploadThread;// = new Thread(job);
-		public ThreadStart acejob;// = new ThreadStart(upload);
-		public Thread aceUploadThread;// = new Thread(job);
+
 		public bool PathFound = false;
 		private string[] checkedSVsFromSettings = null;
 		private ArrayList checkedAddons = new ArrayList();
@@ -194,7 +186,7 @@ namespace WindowsApplication3
 		public bool filesysDelay_enabled = false;
 		public bool filesysDelay_flag1 = false;
 		public string singleUpdateTmp = "";
-		public Hashtable acelist = new Hashtable();
+
 		
 
 		public string[] presets = {
@@ -603,28 +595,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		private System.Windows.Forms.Button addonSyncBtn;
 		private System.Windows.Forms.ContextMenu contextMenu2;
 		private System.Windows.Forms.CheckBox purgefirstCh;
-		private System.Windows.Forms.TabPage aceTab;
-		private System.Windows.Forms.GroupBox aceGrpbox;
-		private System.Windows.Forms.Label label21;
-		private System.Windows.Forms.ProgressBar aceProgress;
-		private System.Windows.Forms.TabControl tabControl3;
-		private System.Windows.Forms.TabPage tabPage2;
-		private System.Windows.Forms.TabPage tabPage4;
-		private System.Windows.Forms.TabPage tabPage5;
-		private System.Windows.Forms.TabPage tabPage6;
-		private System.Windows.Forms.RadioButton radioButton1;
-		private System.Windows.Forms.RadioButton radioButton2;
-		private System.Windows.Forms.GroupBox groupBox13;
-		private System.Windows.Forms.RadioButton radioButton3;
-		private System.Windows.Forms.RadioButton radioButton4;
-		private System.Windows.Forms.CheckBox checkBox2;
-		private System.Windows.Forms.Button button9;
-		private System.Windows.Forms.Label label18;
-		private System.Windows.Forms.Label label19;
-		private System.Windows.Forms.Label label20;
-		private System.Windows.Forms.Label label17;
-		private System.Windows.Forms.LinkLabel linkLabel3;
-		private System.Windows.Forms.CheckedListBox clb_acelist;
 		
 		FileSystemWatcher newWatcher =	new	FileSystemWatcher();
 		
@@ -756,28 +726,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.label12 = new System.Windows.Forms.Label();
 			this.AutoAddonURL = new System.Windows.Forms.TextBox();
 			this.addonAutoUpdate = new System.Windows.Forms.CheckBox();
-			this.aceTab = new System.Windows.Forms.TabPage();
-			this.aceGrpbox = new System.Windows.Forms.GroupBox();
-			this.button9 = new System.Windows.Forms.Button();
-			this.checkBox2 = new System.Windows.Forms.CheckBox();
-			this.groupBox13 = new System.Windows.Forms.GroupBox();
-			this.radioButton4 = new System.Windows.Forms.RadioButton();
-			this.radioButton3 = new System.Windows.Forms.RadioButton();
-			this.radioButton1 = new System.Windows.Forms.RadioButton();
-			this.radioButton2 = new System.Windows.Forms.RadioButton();
-			this.tabControl3 = new System.Windows.Forms.TabControl();
-			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.tabPage5 = new System.Windows.Forms.TabPage();
-			this.tabPage4 = new System.Windows.Forms.TabPage();
-			this.linkLabel3 = new System.Windows.Forms.LinkLabel();
-			this.label17 = new System.Windows.Forms.Label();
-			this.label20 = new System.Windows.Forms.Label();
-			this.label19 = new System.Windows.Forms.Label();
-			this.label18 = new System.Windows.Forms.Label();
-			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.clb_acelist = new System.Windows.Forms.CheckedListBox();
-			this.aceProgress = new System.Windows.Forms.ProgressBar();
-			this.label21 = new System.Windows.Forms.Label();
 			this.Options = new System.Windows.Forms.TabPage();
 			this.vargrp = new System.Windows.Forms.GroupBox();
 			this.valu4 = new System.Windows.Forms.TextBox();
@@ -885,11 +833,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.wowAddons.SuspendLayout();
 			this.groupBox11.SuspendLayout();
 			this.groupBox12.SuspendLayout();
-			this.aceTab.SuspendLayout();
-			this.aceGrpbox.SuspendLayout();
-			this.groupBox13.SuspendLayout();
-			this.tabControl3.SuspendLayout();
-			this.tabPage4.SuspendLayout();
 			this.Options.SuspendLayout();
 			this.vargrp.SuspendLayout();
 			this.groupBox4.SuspendLayout();
@@ -1121,7 +1064,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.tabControl1.Controls.Add(this.Settings);
 			this.tabControl1.Controls.Add(this.Advanced);
 			this.tabControl1.Controls.Add(this.wowAddons);
-			this.tabControl1.Controls.Add(this.aceTab);
 			this.tabControl1.Controls.Add(this.Options);
 			this.tabControl1.Controls.Add(this.Debugger);
 			this.tabControl1.Controls.Add(this.Help);
@@ -1730,206 +1672,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.addonAutoUpdate.TabIndex = 0;
 			this.addonAutoUpdate.Text = "Keep my addons updated";
 			this.addonAutoUpdate.CheckedChanged += new System.EventHandler(this.addonAutoUpdate_CheckedChanged);
-			// 
-			// aceTab
-			// 
-			this.aceTab.Controls.Add(this.aceGrpbox);
-			this.aceTab.Location = new System.Drawing.Point(4, 22);
-			this.aceTab.Name = "aceTab";
-			this.aceTab.Size = new System.Drawing.Size(528, 230);
-			this.aceTab.TabIndex = 8;
-			this.aceTab.Text = "Ace";
-			// 
-			// aceGrpbox
-			// 
-			this.aceGrpbox.Controls.Add(this.button9);
-			this.aceGrpbox.Controls.Add(this.checkBox2);
-			this.aceGrpbox.Controls.Add(this.groupBox13);
-			this.aceGrpbox.Controls.Add(this.tabControl3);
-			this.aceGrpbox.Controls.Add(this.clb_acelist);
-			this.aceGrpbox.Controls.Add(this.aceProgress);
-			this.aceGrpbox.Controls.Add(this.label21);
-			this.aceGrpbox.Location = new System.Drawing.Point(8, 8);
-			this.aceGrpbox.Name = "aceGrpbox";
-			this.aceGrpbox.Size = new System.Drawing.Size(472, 216);
-			this.aceGrpbox.TabIndex = 0;
-			this.aceGrpbox.TabStop = false;
-			this.aceGrpbox.Text = "Ace Addons";
-			this.aceGrpbox.VisibleChanged += new System.EventHandler(this.aceGrpbox_VisibleChanged);
-			// 
-			// button9
-			// 
-			this.button9.Location = new System.Drawing.Point(376, 112);
-			this.button9.Name = "button9";
-			this.button9.TabIndex = 55;
-			this.button9.Text = "Update";
-			// 
-			// checkBox2
-			// 
-			this.checkBox2.Location = new System.Drawing.Point(368, 144);
-			this.checkBox2.Name = "checkBox2";
-			this.checkBox2.Size = new System.Drawing.Size(88, 16);
-			this.checkBox2.TabIndex = 54;
-			this.checkBox2.Text = "Auto Update";
-			// 
-			// groupBox13
-			// 
-			this.groupBox13.Controls.Add(this.radioButton4);
-			this.groupBox13.Controls.Add(this.radioButton3);
-			this.groupBox13.Controls.Add(this.radioButton1);
-			this.groupBox13.Controls.Add(this.radioButton2);
-			this.groupBox13.Location = new System.Drawing.Point(144, 112);
-			this.groupBox13.Name = "groupBox13";
-			this.groupBox13.Size = new System.Drawing.Size(136, 88);
-			this.groupBox13.TabIndex = 53;
-			this.groupBox13.TabStop = false;
-			this.groupBox13.Text = "Sort By";
-			// 
-			// radioButton4
-			// 
-			this.radioButton4.Location = new System.Drawing.Point(8, 64);
-			this.radioButton4.Name = "radioButton4";
-			this.radioButton4.Size = new System.Drawing.Size(104, 16);
-			this.radioButton4.TabIndex = 54;
-			this.radioButton4.Text = "Author";
-			// 
-			// radioButton3
-			// 
-			this.radioButton3.Location = new System.Drawing.Point(8, 48);
-			this.radioButton3.Name = "radioButton3";
-			this.radioButton3.Size = new System.Drawing.Size(104, 16);
-			this.radioButton3.TabIndex = 53;
-			this.radioButton3.Text = "TOC";
-			// 
-			// radioButton1
-			// 
-			this.radioButton1.Checked = true;
-			this.radioButton1.Location = new System.Drawing.Point(8, 16);
-			this.radioButton1.Name = "radioButton1";
-			this.radioButton1.Size = new System.Drawing.Size(104, 16);
-			this.radioButton1.TabIndex = 51;
-			this.radioButton1.TabStop = true;
-			this.radioButton1.Text = "Name";
-			// 
-			// radioButton2
-			// 
-			this.radioButton2.Location = new System.Drawing.Point(8, 32);
-			this.radioButton2.Name = "radioButton2";
-			this.radioButton2.Size = new System.Drawing.Size(104, 16);
-			this.radioButton2.TabIndex = 52;
-			this.radioButton2.Text = "Category";
-			// 
-			// tabControl3
-			// 
-			this.tabControl3.Controls.Add(this.tabPage2);
-			this.tabControl3.Controls.Add(this.tabPage5);
-			this.tabControl3.Controls.Add(this.tabPage4);
-			this.tabControl3.Controls.Add(this.tabPage6);
-			this.tabControl3.Location = new System.Drawing.Point(144, 16);
-			this.tabControl3.Name = "tabControl3";
-			this.tabControl3.SelectedIndex = 0;
-			this.tabControl3.Size = new System.Drawing.Size(304, 88);
-			this.tabControl3.TabIndex = 50;
-			// 
-			// tabPage2
-			// 
-			this.tabPage2.Location = new System.Drawing.Point(4, 22);
-			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(296, 62);
-			this.tabPage2.TabIndex = 0;
-			this.tabPage2.Text = "Description";
-			// 
-			// tabPage5
-			// 
-			this.tabPage5.Location = new System.Drawing.Point(4, 22);
-			this.tabPage5.Name = "tabPage5";
-			this.tabPage5.Size = new System.Drawing.Size(296, 62);
-			this.tabPage5.TabIndex = 3;
-			this.tabPage5.Text = "Author";
-			// 
-			// tabPage4
-			// 
-			this.tabPage4.Controls.Add(this.linkLabel3);
-			this.tabPage4.Controls.Add(this.label17);
-			this.tabPage4.Controls.Add(this.label20);
-			this.tabPage4.Controls.Add(this.label19);
-			this.tabPage4.Controls.Add(this.label18);
-			this.tabPage4.Location = new System.Drawing.Point(4, 22);
-			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Size = new System.Drawing.Size(296, 62);
-			this.tabPage4.TabIndex = 2;
-			this.tabPage4.Text = "Version";
-			// 
-			// linkLabel3
-			// 
-			this.linkLabel3.Location = new System.Drawing.Point(152, 24);
-			this.linkLabel3.Name = "linkLabel3";
-			this.linkLabel3.Size = new System.Drawing.Size(96, 16);
-			this.linkLabel3.TabIndex = 4;
-			this.linkLabel3.TabStop = true;
-			this.linkLabel3.Text = "Download Zip File";
-			// 
-			// label17
-			// 
-			this.label17.Location = new System.Drawing.Point(152, 8);
-			this.label17.Name = "label17";
-			this.label17.Size = new System.Drawing.Size(40, 16);
-			this.label17.TabIndex = 3;
-			this.label17.Text = "Stable:";
-			// 
-			// label20
-			// 
-			this.label20.Location = new System.Drawing.Point(8, 24);
-			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(32, 16);
-			this.label20.TabIndex = 2;
-			this.label20.Text = "TOC:";
-			// 
-			// label19
-			// 
-			this.label19.Location = new System.Drawing.Point(8, 8);
-			this.label19.Name = "label19";
-			this.label19.Size = new System.Drawing.Size(48, 16);
-			this.label19.TabIndex = 1;
-			this.label19.Text = "Version:";
-			// 
-			// label18
-			// 
-			this.label18.Location = new System.Drawing.Point(8, 40);
-			this.label18.Name = "label18";
-			this.label18.Size = new System.Drawing.Size(56, 16);
-			this.label18.TabIndex = 0;
-			this.label18.Text = "Published:";
-			// 
-			// tabPage6
-			// 
-			this.tabPage6.Location = new System.Drawing.Point(4, 22);
-			this.tabPage6.Name = "tabPage6";
-			this.tabPage6.Size = new System.Drawing.Size(296, 62);
-			this.tabPage6.TabIndex = 4;
-			this.tabPage6.Text = "Dependencies";
-			// 
-			// clb_acelist
-			// 
-			this.clb_acelist.Location = new System.Drawing.Point(8, 16);
-			this.clb_acelist.Name = "clb_acelist";
-			this.clb_acelist.Size = new System.Drawing.Size(128, 184);
-			this.clb_acelist.TabIndex = 49;
-			// 
-			// aceProgress
-			// 
-			this.aceProgress.Location = new System.Drawing.Point(288, 184);
-			this.aceProgress.Name = "aceProgress";
-			this.aceProgress.Size = new System.Drawing.Size(168, 16);
-			this.aceProgress.TabIndex = 48;
-			// 
-			// label21
-			// 
-			this.label21.Location = new System.Drawing.Point(288, 168);
-			this.label21.Name = "label21";
-			this.label21.Size = new System.Drawing.Size(100, 16);
-			this.label21.TabIndex = 47;
-			this.label21.Text = "Progress";
 			// 
 			// Options
 			// 
@@ -2857,11 +2599,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.wowAddons.ResumeLayout(false);
 			this.groupBox11.ResumeLayout(false);
 			this.groupBox12.ResumeLayout(false);
-			this.aceTab.ResumeLayout(false);
-			this.aceGrpbox.ResumeLayout(false);
-			this.groupBox13.ResumeLayout(false);
-			this.tabControl3.ResumeLayout(false);
-			this.tabPage4.ResumeLayout(false);
 			this.Options.ResumeLayout(false);
 			this.vargrp.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
@@ -2908,6 +2645,60 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			DebugLine(_STING);
 			DebugLine(".NET Framework "+System.Runtime.InteropServices.RuntimeEnvironment.GetSystemVersion());
 			Thread.CurrentThread.Name = "Main thread";
+
+			//Call the find plugins routine, to search in our Plugins Folder
+			Global.Plugins.FindPlugins(Application.StartupPath + @".\");
+			
+			//Add each plugin to the treeview
+			foreach (Types.AvailablePlugin pluginOn in Global.Plugins.AvailablePlugins)
+			{
+				Types.AvailablePlugin selectedPlugin = Global.Plugins.AvailablePlugins.Find(pluginOn.Instance.Name);
+				if (selectedPlugin != null)
+				{
+					//Again, if the plugin is found, do some work...
+					
+					//TreeNode newNode = new TreeNode(pluginOn.Instance.Name);
+					System.Windows.Forms.TabPage addonTab = new TabPage(pluginOn.Instance.Name);
+					System.Windows.Forms.Panel addonPanel = new Panel();
+
+					addonPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+						| System.Windows.Forms.AnchorStyles.Left) 
+						| System.Windows.Forms.AnchorStyles.Right)));
+					addonPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+					addonPanel.Location = new System.Drawing.Point(0, 0);
+					addonPanel.Name = "pnlPlugin";
+					addonPanel.Size = new System.Drawing.Size(383, 339);
+					addonPanel.TabIndex = 1;
+				
+
+					
+
+
+					
+					//This part adds the plugin's info to the 'Plugin Information:' Frame
+					//this.lblPluginName.Text = selectedPlugin.Instance.Name;
+					//this.lblPluginVersion.Text = "(" + selectedPlugin.Instance.Version + ")";					
+					//this.lblPluginAuthor.Text = "By: " + selectedPlugin.Instance.Author;
+					//this.lblPluginDesc.Text = selectedPlugin.Instance.Description;
+
+					
+					//Set the dockstyle of the plugin to fill, to fill up the space provided
+
+					
+					selectedPlugin.Instance.MainInterface.Dock = DockStyle.Fill;
+					
+					//Finally, add the usercontrol to the panel... Tadah!
+					
+					addonPanel.Controls.Add(selectedPlugin.Instance.MainInterface);
+					addonTab.Controls.Add(addonPanel);
+					tabControl1.TabPages.Add(addonTab);
+					
+				}
+
+				//this.tvwPlugins.Nodes.Add(newNode);
+				//newNode = null;
+			}
+
 
 			statusBarPanel1.Text = _INIT;
 			UUuserAgent = buildUserAgent();
@@ -7879,114 +7670,9 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 		}
 
 		//ace
-		private void aceGrpbox_VisibleChanged(object sender, System.EventArgs e)
-		{
-			//MemoryStream memStream = aceXMLdownload("http://files.wowace.com/latest.xml");
-
-			;
-
-			acejob = new ThreadStart(aceUpdateList);
-			aceUploadThread = new Thread(acejob);
-			aceUploadThread.Name = "aceThread";		
-			aceUploadThread.Start();
-
-			//aceUpdateList();
-		
-		}
-		public void aceUpdateList()
-		{
-			acelist = new Hashtable();
-			clb_acelist.Enabled = false;
-			string xml = "";
-			aceProgress.Value = 0;
-			MemoryStream memStream = aceDownload("http://files.wowace.com/latest.xml");
-			memStream.Position = 0;
-			xml = Encoding.UTF8.GetString(memStream.ToArray());
-			XmlDocument x = new XmlDocument();
-			x.InnerXml = xml;
-			foreach(XmlNode node in x)
-			{
-				if (node.Name == "rss")
-				{
-					foreach(XmlNode channel in node)
-					{
-						foreach(XmlNode item in channel)
-						{
-							if (item.Name == "item")
-							{
-								Hashtable parsedItem = aceParseItem(item);
-								String title = (String)parsedItem["title"];
-								acelist[title] = parsedItem;
-							}
-						}
-					}
-				}
-			}
-			pop_ace_gui();
-			clb_acelist.Enabled = true;
-		}
-		private void pop_ace_gui()
-		{
-			clb_acelist.Items.Clear();
-			Hashtable aceAddon;
-			IDictionaryEnumerator en = acelist.GetEnumerator();
-			while (en.MoveNext())
-			{
-				aceAddon = (Hashtable) acelist [en.Key];
-				clb_acelist.Items.Add((string)aceAddon["title"]);
-			}
-		}
-
-		public Hashtable aceParseItem(XmlNode item)
-		{
-			Hashtable parsedItem = new Hashtable();
-			ArrayList dependencies = new ArrayList();
-			foreach(XmlNode itemInfo in item)
-			{
-				switch(itemInfo.Name)
-				{
-					case "title":
-						parsedItem["title"] = itemInfo.InnerText;
-						break;
-					case "description":
-						parsedItem["description"] = itemInfo.InnerText;
-						break;
-					case "wowaddon:interface":
-						parsedItem["interface"] = itemInfo.InnerText;
-						break;
-					case "wowaddon:version":
-						parsedItem["version"] = itemInfo.InnerText;
-						break;
-					case "guid":
-						parsedItem["guid"] = itemInfo.InnerText;
-						break;
-					case "category":
-						parsedItem["category"] = itemInfo.InnerText;
-						break;
-					case "author":
-						parsedItem["author"] = itemInfo.InnerText;
-						break;
-					case "enclosure":
-						parsedItem["length"] = itemInfo.Attributes["length"].InnerText;
-						parsedItem["type"] = itemInfo.Attributes["type"].InnerText;
-						parsedItem["url"] = itemInfo.Attributes["url"].InnerText;
-						break;
-					case "pubDate":
-						parsedItem["pubdate"] = itemInfo.InnerText;
-						break;
-					case "wowaddon:dependencies":
-						dependencies.Add(itemInfo.InnerText);
-						break;
-					default:
-						break;
-				}
-			}
-			parsedItem["dependencies"] = dependencies;
-			return parsedItem;
-		}
 
 
-		private MemoryStream aceDownload(string path_download)
+		private MemoryStream download_stream(string path_download)
 		{
 			// Declare a variable of type HttpWebRequest named lHttpWebRequest.
 			HttpWebRequest lHttpWebRequest;
@@ -8014,7 +7700,7 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 				lHttpWebResponseStream = lHttpWebRequest.GetResponse().GetResponseStream();
 				// Set the ProgressBars Maximum property equal to the length of the file
 				// to be downloaded.
-				aceProgress.Maximum = Convert.ToInt32(lHttpWebResponse.ContentLength);
+				//aceProgress.Maximum = Convert.ToInt32(lHttpWebResponse.ContentLength);
 				// progress counter to control when
 				// the form label is updated
 				memStream.SetLength(lHttpWebResponse.ContentLength);
@@ -8028,6 +7714,7 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 					memStream.Write(byteBuffer, 0, bytesRead);
 
 					// If the ProgressBar's value plus bytesRead is less than the length of the file...
+					/*
 					if((aceProgress.Value + bytesRead) <= aceProgress.Maximum)
 					{
 						// Add bytesRead to the ProgressBar's Value property.
@@ -8038,8 +7725,10 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 						// Else files download is done so set ProgressBar's Value to the length of the file.
 						aceProgress.Value = aceProgress.Maximum;
 					}
+					*/
 					// calculate the current percentage
 					//double progress_now = Math.Floor(((aceProgress.Value/100) * 100) / (aceProgress.Maximum/100));
+					/*
 					double progress_now = Math.Floor(((double)(aceProgress.Value/100) * 100) / (aceProgress.Maximum/100));
 					// only upgrade the display label once per percentage increment
 					if(progress_now > progress_counter)
@@ -8051,6 +7740,7 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 						// increment the counter
 						progress_counter++;
 					}
+					*/
 				}while(bytesRead > 0);
 				// Close the file and web response streams.
 				lHttpWebResponseStream.Close();
@@ -8068,8 +7758,6 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 			}
 			return memStream;
 		}
-
-
 
 
 
