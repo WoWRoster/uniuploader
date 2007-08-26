@@ -2684,7 +2684,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 			Hashtable h = new Hashtable();
 			h["line"] = uuver;
-			msg("uu_starting",h);
+			msg("uu_starting1",h);
 
 			statusBarPanel1.Text = _INIT;
 			UUuserAgent = buildUserAgent();
@@ -2771,7 +2771,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			statusBarPanel1.Text = _READY;
 			IsUploading = false;
 			windowstate = "";
-			msg("uu_started",h);
+			msg("uu_starting2",h);
 		}
 		private void msg(string msg)
 		{
