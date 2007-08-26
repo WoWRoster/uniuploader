@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 
 namespace PluginInterface
 {
@@ -15,11 +16,14 @@ namespace PluginInterface
 		
 		void Initialize();
 		void Dispose();
-	
+		void message(Hashtable data);
 	}
 	
 	public interface IPluginHost
 	{
-		void Feedback(string Feedback, IPlugin Plugin);	
+		void plugin_send_message(string message, IPlugin Plugin);	
+		void plugin_send_message(string message, Hashtable data, IPlugin Plugin);	
+		Hashtable uu_get_message();
+		void uu_send_message(string message, Hashtable data);
 	}
 }

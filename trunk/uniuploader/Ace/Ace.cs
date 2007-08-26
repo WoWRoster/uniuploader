@@ -17,6 +17,11 @@ namespace Ace
 	/// </summary>
 	public class Ace : System.Windows.Forms.UserControl, IPlugin
 	{
+		string myPluginName = "Ace";
+		string myPluginAuthor = "Matt Miller";
+		string myPluginDescription = "This adds the WoWAce Addon Repository to UU";
+		string myPluginVersion = "1.0.0";
+
 		private System.Windows.Forms.GroupBox aceGrpbox;
 		private System.Windows.Forms.Button button9;
 		private System.Windows.Forms.CheckBox checkBox2;
@@ -312,6 +317,25 @@ namespace Ace
 		}
 		#endregion
 
+		public void message(Hashtable idata)
+		{
+			string msg = (string)idata["message"];
+			msg = msg.ToUpper();
+			Hashtable data = (Hashtable)idata["data"];
+			switch(msg)
+			{
+				case "UU_STARTING":
+					Hashtable h = new Hashtable();
+					h["line"] = myPluginName+" Version "+myPluginVersion+" by "+myPluginAuthor+" Ready!";
+					this.Host.plugin_send_message("debugLine",h,this);
+					break;
+				default:
+					//Hashtable h = new Hashtable();
+					//h["line"] = myPluginName+": Unknown message \""+msg+"\" from UU";
+					//this.Host.plugin_send_message("debugLine",h,this);
+					break;
+			}
+		}
 		private void Ace_VisibleChanged(object sender, System.EventArgs e)
 		{
 			acejob = new ThreadStart(aceUpdateList);
@@ -326,7 +350,11 @@ namespace Ace
 			string xml = "";
 			aceProgress.Value = 0;
 			//MemoryStream memStream = this.Host.Feedback("http://files.wowace.com/latest.xml",this);
-			this.Host.Feedback("http://files.wowace.com/latest.xml",this);
+			//this.Host.Feedback("http://files.wowace.com/latest.xml",this);
+			Hashtable h = new Hashtable();
+			h["line"] = "ACE TEST MESSAGE";
+			this.Host.plugin_send_message("debugLine",h,this);
+			this.Host.plugin_send_message("asdf",h,this);
 			/*
 			memStream.Position = 0;
 			xml = Encoding.UTF8.GetString(memStream.ToArray());
@@ -414,17 +442,10 @@ namespace Ace
 			parsedItem["dependencies"] = dependencies;
 			return parsedItem;
 		}
-
-
-		
-
 		#region IPlugin Members
-		
+		//you must be brave to mess with this stuff :P
 		IPluginHost myPluginHost = null;
-		string myPluginName = "Plugin4";
-		string myPluginAuthor = "Jonathan Dick";
-		string myPluginDescription = "This Combines the User Control and Plugin Class into one Class";
-		string myPluginVersion = "1.0.0";
+
 		
         
 		void PluginInterface.IPlugin.Dispose()

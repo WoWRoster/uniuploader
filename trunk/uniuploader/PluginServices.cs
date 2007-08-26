@@ -2,17 +2,15 @@ using System;
 using System.IO;
 using System.Reflection;
 using PluginInterface;
+using System.Collections;
 
 namespace UniUploader 
 {
-	/// <summary>
-	/// Summary description for PluginServices.
-	/// </summary>
 	public class PluginServices : IPluginHost   //<--- Notice how it inherits IPluginHost interface!
 	{
-		/// <summary>
-		/// Constructor of the Class
-		/// </summary>
+		private ArrayList inbox_uu = new ArrayList();
+		private ArrayList inbox_plugins = new ArrayList();
+
 		public PluginServices()
 		{
 		}
@@ -130,37 +128,41 @@ namespace UniUploader
 			pluginAssembly = null; //more cleanup
 		}
 
-		/// <summary>
-		/// Displays a feedback dialog from the plugin
-		/// </summary>
-		/// <param name="Feedback">String message for feedback</param>
-		/// <param name="Plugin">The plugin that called the feedback</param>
-		public void Feedback(string Feedback, IPlugin Plugin)
+		public void plugin_send_message(string message, Hashtable data, IPlugin Plugin)
 		{
-			//This sub makes a new feedback form and fills it out
-			//With the appropriate information
-			//This method can be called from the actual plugin with its Host Property
+			Hashtable msg = new Hashtable();
+			msg["message"] = message;
+			msg["data"] = data;
+			msg["plugin"] = Plugin;
+			inbox_uu.Add(msg);
+		}
+		public void plugin_send_message(string message, IPlugin Plugin)
+		{
+			Hashtable msg = new Hashtable();
+			msg["message"] = message;
+			msg["data"] = new Hashtable();
+			inbox_uu.Add(msg);
+		}
+		public Hashtable uu_get_message()
+		{
+			Hashtable msg = null;
+			if (inbox_uu.Count > 0)
+			{
+				msg = (Hashtable)inbox_uu[0];
+				inbox_uu.RemoveAt(0);
+			}
+			return msg;
+		}
+		public void uu_send_message(string message, Hashtable data)
+		{
+			Hashtable msg = new Hashtable();
+			msg["message"] = message;
+			msg["data"] = data;
 
-			//System.Windows.Forms.Form newForm = null;
-			////frmFeedback newFeedbackForm = new frmFeedback();
-			
-			//Here we set the frmFeedback's properties that i made custom
-			////newFeedbackForm.PluginAuthor = "By: " + Plugin.Author;
-			////newFeedbackForm.PluginDesc = Plugin.Description;
-			////newFeedbackForm.PluginName = Plugin.Name;
-			////newFeedbackForm.PluginVersion = Plugin.Version;
-			////newFeedbackForm.Feedback = Feedback;
-			
-			//We also made a Form object to hold the frmFeedback instance
-			//If we were to declare if not as  frmFeedback object at first,
-			//We wouldn't have access to the properties we need on it
-			////newForm = newFeedbackForm;
-			//newForm.ShowDialog();
-
-			////newFeedbackForm = null;
-			//newForm = null;
-			System.Windows.Forms.MessageBox.Show(Feedback);
-			
+			foreach (Types.AvailablePlugin pluginOn in colAvailablePlugins)
+			{
+				pluginOn.Instance.message(msg);
+			}
 		}
 	}
 	namespace Types

@@ -595,6 +595,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		private System.Windows.Forms.Button addonSyncBtn;
 		private System.Windows.Forms.ContextMenu contextMenu2;
 		private System.Windows.Forms.CheckBox purgefirstCh;
+		private System.Timers.Timer message_ticker;
 		
 		FileSystemWatcher newWatcher =	new	FileSystemWatcher();
 		
@@ -818,6 +819,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.treeView1 = new System.Windows.Forms.TreeView();
 			this.pictureBox3 = new System.Windows.Forms.PictureBox();
 			this.contextMenu2 = new System.Windows.Forms.ContextMenu();
+			this.message_ticker = new System.Timers.Timer();
 			((System.ComponentModel.ISupportInitialize)(this.myTimer)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.myTimer2)).BeginInit();
 			this.groupBox2.SuspendLayout();
@@ -847,6 +849,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.tabControl2.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox8.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.message_ticker)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// myTimer
@@ -2560,6 +2563,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.pictureBox3.TabIndex = 22;
 			this.pictureBox3.TabStop = false;
 			// 
+			// message_ticker
+			// 
+			this.message_ticker.Enabled = true;
+			this.message_ticker.SynchronizingObject = this;
+			this.message_ticker.Elapsed += new System.Timers.ElapsedEventHandler(this.message_ticker_Elapsed);
+			// 
 			// Form1
 			// 
 			this.AutoScale = false;
@@ -2613,6 +2622,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.tabControl2.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.groupBox8.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.message_ticker)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -2640,27 +2650,20 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		private	void Form1_Load(object sender, System.EventArgs	e)
 		{
+			string uuver = uniVersionMajor+"."+uniVersionMinor+"."+uniVersionRevision;
 			windowstate = "starting";
 			IsUploading = true;
 			DebugLine(_STING);
 			DebugLine(".NET Framework "+System.Runtime.InteropServices.RuntimeEnvironment.GetSystemVersion());
 			Thread.CurrentThread.Name = "Main thread";
-
-			//Call the find plugins routine, to search in our Plugins Folder
 			Global.Plugins.FindPlugins(Application.StartupPath + @".\");
-			
-			//Add each plugin to the treeview
 			foreach (Types.AvailablePlugin pluginOn in Global.Plugins.AvailablePlugins)
 			{
 				Types.AvailablePlugin selectedPlugin = Global.Plugins.AvailablePlugins.Find(pluginOn.Instance.Name);
 				if (selectedPlugin != null)
 				{
-					//Again, if the plugin is found, do some work...
-					
-					//TreeNode newNode = new TreeNode(pluginOn.Instance.Name);
 					System.Windows.Forms.TabPage addonTab = new TabPage(pluginOn.Instance.Name);
 					System.Windows.Forms.Panel addonPanel = new Panel();
-
 					addonPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 						| System.Windows.Forms.AnchorStyles.Left) 
 						| System.Windows.Forms.AnchorStyles.Right)));
@@ -2669,36 +2672,16 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 					addonPanel.Name = "pnlPlugin";
 					addonPanel.Size = new System.Drawing.Size(383, 339);
 					addonPanel.TabIndex = 1;
-				
-
-					
-
-
-					
-					//This part adds the plugin's info to the 'Plugin Information:' Frame
-					//this.lblPluginName.Text = selectedPlugin.Instance.Name;
-					//this.lblPluginVersion.Text = "(" + selectedPlugin.Instance.Version + ")";					
-					//this.lblPluginAuthor.Text = "By: " + selectedPlugin.Instance.Author;
-					//this.lblPluginDesc.Text = selectedPlugin.Instance.Description;
-
-					
-					//Set the dockstyle of the plugin to fill, to fill up the space provided
-
-					
 					selectedPlugin.Instance.MainInterface.Dock = DockStyle.Fill;
-					
-					//Finally, add the usercontrol to the panel... Tadah!
-					
 					addonPanel.Controls.Add(selectedPlugin.Instance.MainInterface);
 					addonTab.Controls.Add(addonPanel);
 					tabControl1.TabPages.Add(addonTab);
-					
 				}
-
-				//this.tvwPlugins.Nodes.Add(newNode);
-				//newNode = null;
 			}
 
+			Hashtable h = new Hashtable();
+			h["line"] = uuver;
+			msg("uu_starting",h);
 
 			statusBarPanel1.Text = _INIT;
 			UUuserAgent = buildUserAgent();
@@ -2708,25 +2691,15 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			libLink.Links.Add(0, libLink.Text.Length, "http://wowroster.net");
 			this.Resize += new EventHandler(Form1_Resize);
 			notifyIcon1.DoubleClick += new EventHandler(notifyIcon1_DoubleClick); 
-
 			watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.Attributes |  NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.Security | NotifyFilters.Size;
 			watcher.Changed += new FileSystemEventHandler(OnChanged);
 			newWatcher.Created += new FileSystemEventHandler(newWatcherHandler);
-
-
 			PopulateLanguageSelector();
-			
-			
 			ReadSettings();
 			populateAccountList();
 			populateSvList();
 			SwitchMode();
 			setupWatchers();
-
-			
-
-
-
 			if (stmin.Checked)
 			{
 				if (checkBox1.Checked)
@@ -2736,31 +2709,18 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 					WindowState = FormWindowState.Minimized;
 					mini_timer.Enabled = true;
 					mini_timer.Start();
-
-
-					//Hide(); //for some reason this doesent always work, is it timing?
 				}
 				else
 				{
 					WindowState = FormWindowState.Minimized;
 				}
 			}
-
 			if(stwowlaunch.Checked){LaunchWoW();}
-
 			Upload_Timer.Enabled = true;
 			Upload_Timer.Stop();
 			close_timer.Enabled = true;
 			close_timer.Stop();
-
 			myTimer.Enabled = false;
-			/*
-			if(checkBox6.Checked==true)
-			{
-				Form1.ActiveForm.TopMost=true;
-				
-			}
-			*/
 			if (addonAutoUpdate.Checked || uuSettingsUpdater.Checked || UUUpdaterCheck.Checked)
 			{
 				autoAddonSyncNow_Click(null,new System.EventArgs());
@@ -2804,14 +2764,19 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 				UUUpdaterCheck.Enabled = false;
 			}
 			populateContextMenu2();
-
-			string uuver = uniVersionMajor+"."+uniVersionMinor+"."+uniVersionRevision;
 			DebugLine("v"+uuver+" "+_READY);
 			statusBarPanel1.Text = _READY;
 			IsUploading = false;
 			windowstate = "";
-
-			//UpdateAddons();
+			msg("uu_started",h);
+		}
+		private void msg(string msg)
+		{
+			Global.Plugins.uu_send_message(msg,null);
+		}
+		private void msg(string msg,Hashtable h)
+		{
+			Global.Plugins.uu_send_message(msg,h);
 		}
 
 		private void setupWatchers()
@@ -2822,6 +2787,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			{
 				mainSvLocation = goodpath+"\\SavedVariables.lua";
 			}
+			Hashtable h = new Hashtable();
+
+			h["mainSvLocation"] = mainSvLocation;
+			h["InstallPath"] = InstallPath;
+			h["goodpath"] = goodpath;
+			msg("setupWatchers1",h);
 
 			if (Directory.Exists(mainSvLocation.Replace(".lua","")))
 			{
@@ -2836,12 +2807,17 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 				newWatcher.Path = "";
 				newWatcher.EnableRaisingEvents = false;
 			}
-
+			msg("setupWatchers2",null);
 		}
 		private void doLogos(string url)
 		{
 			string filename = Path.GetFileName(url);
 			string serverMD5 = RetrData(AutoAddonURL.Text,null,null,"OPERATION","GETFILEMD5","FILENAME",filename,null,null,20000,null,null);
+			Hashtable h = new Hashtable();
+			h["serverMD5"] = serverMD5;
+			h["filename"] = filename;
+			msg("doLogos",h);
+
 			if (serverMD5 != "")
 			{
 				string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Replace("file:\\","") + "\\" + filename;
@@ -2972,6 +2948,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		public void doWebsiteToWow()
 		{
+			msg("doWebsiteToWow1",null);
 			statusBarPanel1.Text = _RETRDATA;
 			string retrdatadfromsite = "";
 			string pw = "";
@@ -3029,6 +3006,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			
 			
 			statusBarPanel1.Text = _READY;
+			msg("doWebsiteToWow2",null);
 		}
 
 		private	string ReadFileToString(string fullPath)
@@ -3050,6 +3028,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		private	void ReadSettings()
 		{
+			msg("ReadSettings1",null);
 			string file = System.IO.Path.GetDirectoryName( System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase ).Replace("file:\\","")+"\\settings.ini";
 			try
 			{
@@ -3376,10 +3355,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 				}
 				return;
 			}
+			msg("ReadSettings2",null);
 		}
 
 		private	void WriteSettings()
 		{
+			msg("WriteSettings1",null);
 			try
 			{
 				if (windowstate != "starting")
@@ -3521,6 +3502,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 				DebugLine("ReadSettings: "+e.Message);
 				return;
 			}
+			msg("WriteSettings2",null);
 		}
 
 		private	void button1_Click(object sender, System.EventArgs e)
@@ -3551,6 +3533,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		{
 			string InstallPath = GetInstallPath();
 			string[] Accounts = GetAccounts(InstallPath);
+
+
+			Hashtable h = new Hashtable();
+			h["Accounts"] = Accounts;
+			h["InstallPath"] = InstallPath;
+			msg("populateAccountList1",h);
 
 			if (Accounts == null)
 			{
@@ -3583,10 +3571,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 
 			}
+			msg("populateAccountList2",null);
 		}
 
 		private void LaunchWoW()
 		{
+			msg("LaunchWoW1",null);
 			if (retrdatafromsite.Checked && chWtoWOWbeforeWOWLaunch.Checked)
 			{
 				doWebsiteToWow();
@@ -3640,11 +3630,14 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			{
 				DebugLine(_WOWNOTFOUND);
 			}
+			msg("LaunchWoW2",null);
 		}
 		private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
+			msg("UU_CLOSING1");
 			WriteSettings();
 			cleanUpTempFiles();
+			msg("UU_CLOSING2");
 		}
 		private void cleanUpTempFiles()
 		{
@@ -3859,6 +3852,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 						filesysDelay_flag1 = false;
 						if (UploadNow.Enabled == true && IsUploading == false && myTimer2.Enabled == false && windowstate != "starting")
 						{
+							Hashtable h = new Hashtable();
+							h["e"] = e;
+							msg("OnChanged",h);
 							UploadNow.Enabled = false;
 							DebugLine(_FILECHDET);
 							if (delaych.Checked == true)
@@ -3929,6 +3925,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		private void notifyIcon1_DoubleClick(object sender, System.EventArgs e)
 		{
+			msg("notifyIcon1_DoubleClick",null);
+
 			this.Show();
 			this.TopLevel = true;
 			this.WindowState = FormWindowState.Normal;
@@ -3973,12 +3971,18 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		private void AccountList_SelectedIndexChanged_1(object sender, System.EventArgs e)
 		{
+			msg("AccountList_SelectedIndexChanged_11");
 			setupWatchers();
 			populateSvList();
+			msg("AccountList_SelectedIndexChanged_12");
 		}
 
 		private void arg1check_CheckedChanged(object sender, System.EventArgs e)
 		{
+			Hashtable h = new Hashtable();
+			h["arrg1"] = arrg1;
+			h["arg1check"] = arg1check;
+			msg("arg1check_CheckedChanged",h);
 			if (arrg1.Enabled == false)
 			{
 				arrg1.Enabled=true;
@@ -3995,6 +3999,10 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		private void arg2check_CheckedChanged(object sender, System.EventArgs e)
 		{
+			Hashtable h = new Hashtable();
+			h["arrg2"] = arrg2;
+			h["arg2check"] = arg2check;
+			msg("arg2check_CheckedChanged",h);
 			if (arrg2.Enabled == false)
 			{
 				arrg2.Enabled=true;
@@ -4011,12 +4019,21 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		private void arg3check_CheckedChanged(object sender, System.EventArgs e)
 		{
+			Hashtable h = new Hashtable();
+			h["arrg3"] = arrg3;
+			h["arg3check"] = arg3check;
+			msg("arg3check_CheckedChanged",h);
+
 			if (arrg3.Enabled == false){arrg3.Enabled=true;valu3.Enabled=true;}
 			else{arrg3.Enabled=false;valu3.Enabled=false;}
 		}
 
 		private void arg4check_CheckedChanged(object sender, System.EventArgs e)
 		{
+			Hashtable h = new Hashtable();
+			h["arrg4"] = arrg4;
+			h["arg4check"] = arg4check;
+			msg("arg4check_CheckedChanged",h);
 			if (arrg4.Enabled == false){arrg4.Enabled=true;valu4.Enabled=true;}
 			else{arrg4.Enabled=false;valu4.Enabled=false;}
 		}
@@ -4117,12 +4134,18 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 				inFile.Close();
 			}
 			*/
+			Hashtable h = new Hashtable();
+			h["data"] = data;
+			h["file"] = file;
+			msg("WriteNewDataToSavedVariables1",h);
+
 			byte[]  finalArray = new UTF8Encoding().GetBytes(data  + "\n"); //i think its UTF8 default?
 			using (FileStream inFile = new FileStream(file, FileMode.Append)) 
 			{
 				inFile.Write(finalArray,0,finalArray.Length);
 				inFile.Close();
 			}
+			msg("WriteNewDataToSavedVariables2",h);
 
 		}
 
@@ -4465,6 +4488,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		public void UpdateUUSettings()
 		{
+			msg("UpdateUUSettings1");
+
 			string UpdateQueryResponse = "";
 			string synchroUrl = AutoAddonURL.Text;
 
@@ -4797,6 +4822,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 						break;
 				}
 			}
+			msg("UpdateUUSettings2");
 		}
 
 		private void setSVlist(XmlNode svlist)
@@ -4818,6 +4844,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		public void CheckForUpdates()
 		{
+			msg("CheckForUpdates1");
+
 			string updaterLocation = "http://www.wowroster.net/uniuploader_updater2/update.php";
 			string UpdateQueryResponse = "";
 			UpdateQueryResponse = RetrData(updaterLocation,null,null,"OPERATION","CHECKUPDATES",null,null,null,null,20000,null,null);
@@ -4868,7 +4896,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 					}
 				}
 			}
-
+			msg("CheckForUpdates2");
 		}
 		public void ConvertTextFileFromNtoRN(string fullPath)
 		{
@@ -4886,6 +4914,10 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		private bool download(string path_download, string path_local)
 		{
+			Hashtable h = new Hashtable();
+			h["path_download"] = path_download;
+			h["path_local"] = path_local;
+			msg("download1",h);
 			// Declare a variable of type Boolean named result initialized to false.
 			bool result = false;
 			// Declare a variable of type HttpWebRequest named lHttpWebRequest.
@@ -4963,6 +4995,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 				// Close the file and web response streams.
 				lFileStream.Close();
 			}
+			msg("download2",h);
 			return result;
 		}
 		public void updateLogo(string fileLocation)
@@ -5228,6 +5261,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		public void UpdateAddons()
 		{
+			msg("UpdateAddons1");
 			string URL = AutoAddonURL.Text;
 			//servResponse.Clear();
 			DebugLine(_UPDADDONSST);
@@ -5321,6 +5355,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 					DebugLine(UpdateCount+_ADDONUPD);
 				}
 			}
+			msg("UpdateAddons2");
 		}
 
 		public bool IsFileUpDated(string addonName, string ServerMd5Sum, string filename)
@@ -5402,6 +5437,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		public void UpdateSingleAddon (string AddonName, string URL,ArrayList files)
 		{
+			Hashtable h = new Hashtable();
+			h["AddonName"] = AddonName;
+			h["URL"] = URL;
+			h["files"] = files;
+			msg("UpdateSingleAddon1",h);
+
 			DebugLine("= = = = = = = = = = = = = = = = = =");
 			DebugLine("");
 			string AddonRetrievalResponse;
@@ -5440,6 +5481,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			DebugLine(_DELZIPFILE);
 			File.Delete(zipFileLocalLocation);//dont need the zip file anymore
 			DebugLine(_UPDFOR+AddonName+_ISCOMP);
+			msg("UpdateSingleAddon2",h);
 		}
 
 		private void Mode_Click(object sender, System.EventArgs e)
@@ -5449,6 +5491,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		public void SwitchMode()
 		{
+			Hashtable h = new Hashtable();
+			h["ProgramMode"] = ProgramMode;
+			msg("SwitchMode1",h);
 			if (ProgramMode == "Advanced")
 			{
 				Mode.Text = _ADVMODE;
@@ -5528,6 +5573,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 				ProgramMode = "Advanced";
 			}
+			msg("SwitchMode2",h);
 		}
 
 		public void PopulateLanguageSelector()
@@ -6403,6 +6449,11 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		private void LaunchEXE(string EXELocation, string Arguments)
 		{
+			Hashtable h = new Hashtable();
+			h["EXELocation"] = EXELocation;
+			h["Arguments"] = Arguments;
+			msg("LaunchEXE1",h);
+
 			System.Diagnostics.ProcessStartInfo start = null;
 			if (Arguments == null)
 			{
@@ -6414,6 +6465,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			}
 			start.WindowStyle = System.Diagnostics.ProcessWindowStyle.Maximized;
 			System.Diagnostics.Process.Start(start);
+			msg("LaunchEXE2",h);
 		}
 
 		private void exe1Browse_Click(object sender, System.EventArgs e)
@@ -6484,6 +6536,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 		private void populateSvList()
 		{
+			msg("populateSvList1");
 			bool checkThem = false; //unchecked by default
 			if (checkedSVsFromSettings != null)checkThem = false;
 			SVList.Items.Clear();
@@ -6522,6 +6575,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 				//the SavedVariables folder isn't there, tell the user to log into wow
 				//MessageBox.Show(_LOGINONCE);
 			}
+			Hashtable h = new Hashtable();
+			h["SVList"] = SVList;
+			msg("populateSvList2",h);
 
 			
 
@@ -6893,6 +6949,20 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 
 		public string Upload(string fileName, string url,string fieldname, CookieContainer cookies, CredentialCache credentials, string param1, string param2, string param3, string param4, string val1, string val2, string val3, string val4) 
 		{
+			Hashtable h = new Hashtable();
+			h["fileName"] = fileName;
+			h["url"] = url;
+			h["fieldname"] = fieldname;
+			h["param1"] = param1;
+			h["param2"] = param2;
+			h["param3"] = param3;
+			h["param4"] = param4;
+			h["val1"] = val1;
+			h["val2"] = val2;
+			h["val3"] = val3;
+			h["val4"] = val4;
+			msg("Upload1",h);
+
 			System.Net.ServicePointManager.Expect100Continue= false;
 
 			string path = mainSvLocation.Replace(".lua","");
@@ -7047,7 +7117,9 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 				DebugLine(_UPLERR+e.Message);
 			}
 
-			
+			h["responseString"] = responseString;
+			msg("Upload2",h);
+
 			return (responseString);
 		}
 		private Hashtable getQueryStringParams(string url)
@@ -7074,6 +7146,18 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 
 		public string RetrData(string url, CookieContainer cookies, CredentialCache credentials, string param1, string val1, string param2, string val2, string param3, string val3, int Timeout, string param4, string val4) 
 		{
+			Hashtable h = new Hashtable();
+			h["param1"] = param1;
+			h["param2"] = param2;
+			h["param3"] = param3;
+			h["param4"] = param4;
+			h["val1"] = val1;
+			h["val2"] = val2;
+			h["val3"] = val3;
+			h["val4"] = val4;
+			h["Timeout"] = Timeout;
+			msg("RetrData1",h);
+
 			DebugLine("");
 			DebugLine("RetrData: url: " + url);
 			if (param1 != null)
@@ -7186,6 +7270,9 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 			DebugLines(responseString.Split(new Char[] {'\n'}));
 			DebugLine("RetrData: ------------------------------------------------------------------------");
 			DebugLine("");
+
+			h["responseString"] = responseString;
+			msg("RetrData2",h);
 			
 			return (responseString);
 		}
@@ -7704,7 +7791,7 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 				// progress counter to control when
 				// the form label is updated
 				memStream.SetLength(lHttpWebResponse.ContentLength);
-				double progress_counter = 0;
+				//double progress_counter = 0;
 				do
 				{
 					// Read up to 1000 bytes into the bytesRead array.
@@ -7759,10 +7846,27 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 			return memStream;
 		}
 
-
-
-
-
+		private void message_ticker_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+		{
+			Hashtable h = null;
+			h = Global.Plugins.uu_get_message();
+			while(h != null)
+			{
+				string msg = (string)h["message"];
+				msg = msg.ToUpper();
+				PluginInterface.IPlugin plugin = (PluginInterface.IPlugin)h["plugin"];
+				Hashtable data = (Hashtable)h["data"];
+				switch(msg)
+				{
+					case "DEBUGLINE":
+						DebugLine((string)data["line"]);
+						break;
+					default:
+						DebugLine("Unknown message \""+msg+"\" from plugin: "+plugin.Name);
+						break;
+				}
+				h = Global.Plugins.uu_get_message();
+			}
+		}
 	}
-
 }
