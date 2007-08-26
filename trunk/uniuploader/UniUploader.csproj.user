@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP LastOpenVersion = "7.10.3077" >
         <Build>
-            <Settings ReferencePath = "C:\Documents and Settings\Matthew Miller\Desktop\Interface\;C:\uu\trunk\uniuploader\PluginInterface\bin\Debug\" >
+            <Settings ReferencePath = "C:\Documents and Settings\Matthew Miller\Desktop\Interface\;C:\uu\trunk\uniuploader\PluginInterface\bin\Debug\;C:\trunk\uniuploader\PluginInterface\bin\Debug\" >
                 <Config
                     Name = "Debug"
                     EnableASPDebugging = "false"
