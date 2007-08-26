@@ -14,6 +14,7 @@ namespace Plugin
 		string myPluginAuthor = "Author name - email@xxxxxx.xxx";
 		string myPluginDescription = "Adds Functionality to UU";
 		string myPluginVersion = "1.0.0";
+		private System.Windows.Forms.GroupBox aceGrpbox;
 
 		/// <summary> 
 		/// Required designer variable.
@@ -51,7 +52,25 @@ namespace Plugin
 		/// </summary>
 		private void InitializeComponent()
 		{
-			
+			this.aceGrpbox = new System.Windows.Forms.GroupBox();
+			this.SuspendLayout();
+			// 
+			// aceGrpbox
+			// 
+			this.aceGrpbox.Location = new System.Drawing.Point(8, 0);
+			this.aceGrpbox.Name = "aceGrpbox";
+			this.aceGrpbox.Size = new System.Drawing.Size(472, 216);
+			this.aceGrpbox.TabIndex = 2;
+			this.aceGrpbox.TabStop = false;
+			this.aceGrpbox.Text = "Plugin";
+			// 
+			// Plugin
+			// 
+			this.Controls.Add(this.aceGrpbox);
+			this.Name = "Plugin";
+			this.Size = new System.Drawing.Size(488, 224);
+			this.ResumeLayout(false);
+
 		}
 		#endregion
 

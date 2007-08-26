@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = ""
+                PostBuildEvent = "copy $(TargetFileName) $(SolutionDir)bin\Debug\$(TargetFileName)"
                 RootNamespace = "Plugin"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
@@ -89,10 +89,20 @@
                     AssemblyName = "System.Xml"
                     HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
+                <Reference
+                    Name = "PluginInterface"
+                    AssemblyName = "PluginInterface"
+                    HintPath = "..\PluginInterface\bin\Debug\PluginInterface.dll"
+                />
             </References>
         </Build>
         <Files>
             <Include>
+                <File
+                    RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
                 <File
                     RelPath = "Plugin.cs"
                     SubType = "UserControl"
