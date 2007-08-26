@@ -1072,10 +1072,13 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.tabControl1.Controls.Add(this.Help);
 			this.tabControl1.Controls.Add(this.About);
 			this.tabControl1.Controls.Add(this.response);
+			this.tabControl1.HotTrack = true;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
+			this.tabControl1.Multiline = true;
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(536, 256);
+			this.tabControl1.Size = new System.Drawing.Size(496, 272);
+			this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
 			this.tabControl1.TabIndex = 18;
 			// 
 			// Settings
@@ -1090,7 +1093,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.Settings.Controls.Add(this.UploadNow);
 			this.Settings.Location = new System.Drawing.Point(4, 22);
 			this.Settings.Name = "Settings";
-			this.Settings.Size = new System.Drawing.Size(528, 230);
+			this.Settings.Size = new System.Drawing.Size(488, 246);
 			this.Settings.TabIndex = 0;
 			this.Settings.Text = "Settings";
 			// 
@@ -2136,7 +2139,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.About.Controls.Add(this.groupBox2);
 			this.About.Location = new System.Drawing.Point(4, 22);
 			this.About.Name = "About";
-			this.About.Size = new System.Drawing.Size(528, 230);
+			this.About.Size = new System.Drawing.Size(488, 246);
 			this.About.TabIndex = 3;
 			this.About.Text = "About";
 			// 
@@ -2312,7 +2315,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			// 
 			this.groupBox3.Controls.Add(this.SVList);
 			this.groupBox3.Controls.Add(this.clearSVFiles);
-			this.groupBox3.Location = new System.Drawing.Point(544, 16);
+			this.groupBox3.Location = new System.Drawing.Point(504, 16);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(128, 224);
 			this.groupBox3.TabIndex = 12;
@@ -2330,12 +2333,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			// 
 			// statusBar1
 			// 
-			this.statusBar1.Location = new System.Drawing.Point(0, 250);
+			this.statusBar1.Location = new System.Drawing.Point(0, 266);
 			this.statusBar1.Name = "statusBar1";
 			this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
 																						  this.statusBarPanel1});
 			this.statusBar1.ShowPanels = true;
-			this.statusBar1.Size = new System.Drawing.Size(494, 22);
+			this.statusBar1.Size = new System.Drawing.Size(490, 22);
 			this.statusBar1.SizingGrip = false;
 			this.statusBar1.TabIndex = 19;
 			this.statusBar1.Text = "Idle";
@@ -2344,7 +2347,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			// 
 			this.statusBarPanel1.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Spring;
 			this.statusBarPanel1.Text = "Idle";
-			this.statusBarPanel1.Width = 494;
+			this.statusBarPanel1.Width = 490;
 			// 
 			// mini_timer
 			// 
@@ -2367,7 +2370,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.tabControl2.Location = new System.Drawing.Point(0, 0);
 			this.tabControl2.Name = "tabControl2";
 			this.tabControl2.SelectedIndex = 0;
-			this.tabControl2.Size = new System.Drawing.Size(496, 256);
+			this.tabControl2.Size = new System.Drawing.Size(496, 272);
 			this.tabControl2.TabIndex = 20;
 			this.tabControl2.Visible = false;
 			// 
@@ -2377,7 +2380,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.tabPage1.Controls.Add(this.groupBox15);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(488, 230);
+			this.tabPage1.Size = new System.Drawing.Size(488, 246);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Settings";
 			// 
@@ -2429,7 +2432,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox8.Controls.Add(this.button6);
 			this.groupBox8.Controls.Add(this.label8);
 			this.groupBox8.Controls.Add(this.treeView1);
-			this.groupBox8.Location = new System.Drawing.Point(8, 256);
+			this.groupBox8.Location = new System.Drawing.Point(8, 272);
 			this.groupBox8.Name = "groupBox8";
 			this.groupBox8.Size = new System.Drawing.Size(480, 168);
 			this.groupBox8.TabIndex = 21;
@@ -2573,7 +2576,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			// 
 			this.AutoScale = false;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(494, 272);
+			this.ClientSize = new System.Drawing.Size(490, 288);
 			this.Controls.Add(this.statusBar1);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.tabControl2);
@@ -2667,7 +2670,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 					addonPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 						| System.Windows.Forms.AnchorStyles.Left) 
 						| System.Windows.Forms.AnchorStyles.Right)));
-					addonPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+					addonPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 					addonPanel.Location = new System.Drawing.Point(0, 0);
 					addonPanel.Name = "pnlPlugin";
 					addonPanel.Size = new System.Drawing.Size(383, 339);
@@ -7300,12 +7303,12 @@ Swedish - KaThogh","",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.F
 			if (Form1.ActiveForm.Size.Height < 450)
 			{
 				showAddonsBtn.Text = _HIDEADDONSBUT;
-				this.Height = 472;
+				this.Height = 496;
 			}
 			else
 			{
 				showAddonsBtn.Text = _SHOWADDONSBUT;
-				this.Height = 296;
+				this.Height = 320;
 			}
 		}
 

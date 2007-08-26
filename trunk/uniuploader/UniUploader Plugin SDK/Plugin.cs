@@ -57,7 +57,7 @@ namespace Plugin
 			// 
 			// aceGrpbox
 			// 
-			this.aceGrpbox.Location = new System.Drawing.Point(8, 0);
+			this.aceGrpbox.Location = new System.Drawing.Point(8, 8);
 			this.aceGrpbox.Name = "aceGrpbox";
 			this.aceGrpbox.Size = new System.Drawing.Size(472, 216);
 			this.aceGrpbox.TabIndex = 2;
@@ -68,7 +68,7 @@ namespace Plugin
 			// 
 			this.Controls.Add(this.aceGrpbox);
 			this.Name = "Plugin";
-			this.Size = new System.Drawing.Size(488, 224);
+			this.Size = new System.Drawing.Size(624, 392);
 			this.ResumeLayout(false);
 
 		}
