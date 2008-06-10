@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle("UniUploader")]
 [assembly: AssemblyDescription("Uploads selected World of Warcraft addon saved variable files to the specified url(s) and/or retrieve data from a url and append that to SavedVariables.lua")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("http://wowroster.net")]
+[assembly: AssemblyCompany("wowroster.net")]
 [assembly: AssemblyProduct("UniUploader")]
 [assembly: AssemblyCopyright("Matthew J.Miller - millerm@lscc.edu")]
 [assembly: AssemblyTrademark("UniUploader")]
@@ -53,5 +53,5 @@ using System.Runtime.CompilerServices;
 //       documentation for more information on this.
 //
 [assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("uniKey.snk")]
+//[assembly: AssemblyKeyFile("uniKey.snk")]
 //[assembly: AssemblyKeyName("")]
