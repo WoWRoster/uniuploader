@@ -1,21 +1,19 @@
-Microsoft Visual Studio Solution File, Format Version 8.00
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C# Express 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniUploader", "UniUploader.csproj", "{A1344382-5BB9-4650-B98D-E8CBAD49F44D}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
 Global
-	GlobalSection(SolutionConfiguration) = preSolution
-		Debug = Debug
-		Release = Release
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(ProjectConfiguration) = postSolution
-		{A1344382-5BB9-4650-B98D-E8CBAD49F44D}.Debug.ActiveCfg = Debug|.NET
-		{A1344382-5BB9-4650-B98D-E8CBAD49F44D}.Debug.Build.0 = Debug|.NET
-		{A1344382-5BB9-4650-B98D-E8CBAD49F44D}.Release.ActiveCfg = Release|.NET
-		{A1344382-5BB9-4650-B98D-E8CBAD49F44D}.Release.Build.0 = Release|.NET
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1344382-5BB9-4650-B98D-E8CBAD49F44D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1344382-5BB9-4650-B98D-E8CBAD49F44D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1344382-5BB9-4650-B98D-E8CBAD49F44D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1344382-5BB9-4650-B98D-E8CBAD49F44D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
