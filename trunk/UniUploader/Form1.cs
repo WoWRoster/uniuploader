@@ -126,7 +126,7 @@ namespace WindowsApplication3
         private bool updating = false;
         private string uniVersionMajor = "2";
         private string uniVersionMinor = "6";
-        private string uniVersionRevision = "8 BETA";
+        private string uniVersionRevision = "8 BETA 2";
         private bool testVersion = true;
         private string UUuserAgent;
         private CookieContainer cookieJar = new CookieContainer();
@@ -523,6 +523,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
         private Label label18;
         private CheckBox cbUpErrorPop;
         private CheckBox cbCloseAfterWowLaunch;
+        private Button btnSysTrayIco;
         FileSystemWatcher newWatcher = new FileSystemWatcher();
         public Form1()
         {
@@ -576,12 +577,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.autoUploader = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.version = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.libLink = new System.Windows.Forms.LinkLabel();
-            this.version = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnTranslations = new System.Windows.Forms.Button();
             this.btnLegal = new System.Windows.Forms.Button();
@@ -682,6 +683,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.stmin = new System.Windows.Forms.CheckBox();
             this.stboot = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSysTrayIco = new System.Windows.Forms.Button();
+            this.cbCloseAfterWowLaunch = new System.Windows.Forms.CheckBox();
+            this.cbUpErrorPop = new System.Windows.Forms.CheckBox();
             this.cbCloseAfterUpdates = new System.Windows.Forms.CheckBox();
             this.userAlbl = new System.Windows.Forms.Label();
             this.userAgent = new System.Windows.Forms.TextBox();
@@ -746,8 +750,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.contextMenu2 = new System.Windows.Forms.ContextMenu();
-            this.cbUpErrorPop = new System.Windows.Forms.CheckBox();
-            this.cbCloseAfterWowLaunch = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.myTimer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.myTimer2)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -881,6 +883,16 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "About";
             // 
+            // version
+            // 
+            this.version.BackColor = System.Drawing.Color.Transparent;
+            this.version.ForeColor = System.Drawing.Color.Red;
+            this.version.Location = new System.Drawing.Point(72, 16);
+            this.version.Name = "version";
+            this.version.Size = new System.Drawing.Size(92, 16);
+            this.version.TabIndex = 17;
+            this.version.Text = "Beta .01";
+            // 
             // linkLabel2
             // 
             this.linkLabel2.Location = new System.Drawing.Point(24, 32);
@@ -931,16 +943,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.libLink.Text = "http://wowroster.net";
             this.libLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
-            // version
-            // 
-            this.version.BackColor = System.Drawing.Color.Transparent;
-            this.version.ForeColor = System.Drawing.Color.Red;
-            this.version.Location = new System.Drawing.Point(72, 16);
-            this.version.Name = "version";
-            this.version.Size = new System.Drawing.Size(92, 16);
-            this.version.TabIndex = 17;
-            this.version.Text = "Beta .01";
-            // 
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(8, 16);
@@ -971,7 +973,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             this.notifyIcon1.ContextMenu = this.contextMenu1;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "WOW UniUploader";
+            this.notifyIcon1.Text = "UniUploader";
             this.notifyIcon1.Visible = true;
             // 
             // contextMenu1
@@ -1934,6 +1936,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnSysTrayIco);
             this.groupBox1.Controls.Add(this.cbCloseAfterWowLaunch);
             this.groupBox1.Controls.Add(this.cbUpErrorPop);
             this.groupBox1.Controls.Add(this.cbCloseAfterUpdates);
@@ -1949,6 +1952,32 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Miscellaneous";
             // 
+            // btnSysTrayIco
+            // 
+            this.btnSysTrayIco.Location = new System.Drawing.Point(6, 67);
+            this.btnSysTrayIco.Name = "btnSysTrayIco";
+            this.btnSysTrayIco.Size = new System.Drawing.Size(81, 23);
+            this.btnSysTrayIco.TabIndex = 27;
+            this.btnSysTrayIco.Text = "SysTray Icon";
+            this.btnSysTrayIco.UseVisualStyleBackColor = true;
+            this.btnSysTrayIco.Click += new System.EventHandler(this.btnSysTrayIco_Click);
+            // 
+            // cbCloseAfterWowLaunch
+            // 
+            this.cbCloseAfterWowLaunch.Location = new System.Drawing.Point(127, 49);
+            this.cbCloseAfterWowLaunch.Name = "cbCloseAfterWowLaunch";
+            this.cbCloseAfterWowLaunch.Size = new System.Drawing.Size(151, 16);
+            this.cbCloseAfterWowLaunch.TabIndex = 4;
+            this.cbCloseAfterWowLaunch.Text = "Close After Wow Launch";
+            // 
+            // cbUpErrorPop
+            // 
+            this.cbUpErrorPop.Location = new System.Drawing.Point(127, 16);
+            this.cbUpErrorPop.Name = "cbUpErrorPop";
+            this.cbUpErrorPop.Size = new System.Drawing.Size(123, 16);
+            this.cbUpErrorPop.TabIndex = 26;
+            this.cbUpErrorPop.Text = "Upload Error Popup";
+            // 
             // cbCloseAfterUpdates
             // 
             this.cbCloseAfterUpdates.Location = new System.Drawing.Point(127, 32);
@@ -1959,7 +1988,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // userAlbl
             // 
-            this.userAlbl.Location = new System.Drawing.Point(8, 72);
+            this.userAlbl.Location = new System.Drawing.Point(93, 72);
             this.userAlbl.Name = "userAlbl";
             this.userAlbl.Size = new System.Drawing.Size(64, 16);
             this.userAlbl.TabIndex = 25;
@@ -1967,9 +1996,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // userAgent
             // 
-            this.userAgent.Location = new System.Drawing.Point(72, 69);
+            this.userAgent.Location = new System.Drawing.Point(163, 69);
             this.userAgent.Name = "userAgent";
-            this.userAgent.Size = new System.Drawing.Size(200, 20);
+            this.userAgent.Size = new System.Drawing.Size(109, 20);
             this.userAgent.TabIndex = 24;
             // 
             // checkBox6
@@ -2565,22 +2594,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.pictureBox3.TabIndex = 22;
             this.pictureBox3.TabStop = false;
             // 
-            // cbUpErrorPop
-            // 
-            this.cbUpErrorPop.Location = new System.Drawing.Point(127, 16);
-            this.cbUpErrorPop.Name = "cbUpErrorPop";
-            this.cbUpErrorPop.Size = new System.Drawing.Size(123, 16);
-            this.cbUpErrorPop.TabIndex = 26;
-            this.cbUpErrorPop.Text = "Upload Error Popup";
-            // 
-            // cbCloseAfterWowLaunch
-            // 
-            this.cbCloseAfterWowLaunch.Location = new System.Drawing.Point(127, 49);
-            this.cbCloseAfterWowLaunch.Name = "cbCloseAfterWowLaunch";
-            this.cbCloseAfterWowLaunch.Size = new System.Drawing.Size(151, 16);
-            this.cbCloseAfterWowLaunch.TabIndex = 4;
-            this.cbCloseAfterWowLaunch.Text = "Close After Wow Launch";
-            // 
             // Form1
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -2688,7 +2701,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             libLink.Links.Remove(libLink.Links[0]);
             libLink.Links.Add(0, libLink.Text.Length, "http://wowroster.net");
             this.Resize += new EventHandler(Form1_Resize);
-            notifyIcon1.DoubleClick += new EventHandler(notifyIcon1_DoubleClick);
+            
             watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.Attributes | NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.Security | NotifyFilters.Size;
             watcher.Changed += new FileSystemEventHandler(OnChanged);
             newWatcher.Created += new FileSystemEventHandler(newWatcherHandler);
@@ -2713,7 +2726,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                     WindowState = FormWindowState.Minimized;
                 }
             }
-            if (stwowlaunch.Checked) { LaunchWoW(); }
+            if (stwowlaunch.Checked) { LaunchWoWWait(); }
             Upload_Timer.Enabled = true;
             Upload_Timer.Stop();
             close_timer.Enabled = true;
@@ -2757,6 +2770,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             DebugLine("v" + uuver + " " + _READY);
             statusBarPanel1.Text = _READY;
             IsUploading = false;
+            SetSysTrayIcon();
             windowstate = "";
 
             if (cbCloseAfterWowLaunch.Checked && stwowlaunch.Checked)
@@ -2792,6 +2806,36 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
         {
             this.Close();
         }
+
+        private void LaunchWoWWait()
+        {
+            Thread t = new Thread(new ThreadStart(LaunchWoWWait2));
+            t.Start();
+        }
+        private delegate void LaunchWoWWaitDelegate();
+        private void LaunchWoWWait2()
+        {
+
+            while (this.windowstate != "" || this.UpdatesGoing || this.updating || this.IsUploading)
+            {
+                Thread.Sleep(1000);
+            }
+            if (this.InvokeRequired)
+            {
+                LaunchWoWWaitDelegate dele = new LaunchWoWWaitDelegate(LaunchWoWWait3);
+                this.BeginInvoke(dele);
+            }
+            else
+            {
+                LaunchWoWWait3();
+            }
+
+        }
+        private void LaunchWoWWait3()
+        {
+            LaunchWoW();
+        }
+
         private void setupWatchers()
         {
             string InstallPath = GetInstallPath();
@@ -3699,6 +3743,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
         }
         private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            this.notifyIcon1.Visible = false;
             WriteSettings();
             cleanUpTempFiles();
         }
@@ -4188,7 +4233,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             {
                 LaunchEXEs();
             }
-            LaunchWoW();
+            LaunchWoWWait();
         }
         public void LaunchEXEs()
         {
@@ -4685,7 +4730,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
         }
         private void menuItem2_Click_1(object sender, System.EventArgs e)
         {
-            LaunchWoW();
+            LaunchWoWWait();
         }
         byte[] FileToByteArray(string file)
         {
@@ -7722,5 +7767,115 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
             if (!updating)
                 SyncNOW();
         }
+
+        private void SelectSystemTrayIcon()
+        {
+            clearSysTrayIcon();
+            OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
+            OpenFileDialog1.Filter = "Icon File|*.ico";
+            OpenFileDialog1.Title = "Choose a system tray icon.";
+            OpenFileDialog1.ShowDialog();
+            String SourceFile = OpenFileDialog1.FileName;
+            if (OpenFileDialog1.FileName != "")
+            {
+                String destinationFile = WorkSpacePath + "\\systray.ico";
+                if (File.Exists(destinationFile))
+                {
+                    File.Delete(destinationFile);
+                }
+                if (!File.Exists(SourceFile))
+                {
+                    DebugLine("Source Icon File is missing");
+                    return;
+                }
+                try
+                {
+                    File.Copy(SourceFile, destinationFile);
+                    SetSysTrayIcon();
+                }
+                catch (Exception e)
+                {
+                    DebugLine(e.Message);
+                    return;
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
+        private void clearSysTrayIcon()
+        {
+            setDefaultIcon();
+
+            String IconFile = WorkSpacePath + "\\systray.ico";
+            if (File.Exists(IconFile))
+            {
+                try
+                {
+                    File.Delete(IconFile);
+                }
+                catch (Exception e)
+                {
+                    DebugLine(e.Message);
+                }
+                
+            }
+        }
+        private void SetSysTrayIcon()
+        {
+            String IconFile = WorkSpacePath + "\\systray.ico";
+            if (File.Exists(IconFile))
+            {
+                try
+                {
+                    this.notifyIcon1.Visible = false;
+                    this.notifyIcon1 = new NotifyIcon();
+                    this.notifyIcon1.ContextMenu = this.contextMenu1;
+                    this.notifyIcon1.Icon = new Icon(IconFile);
+                    this.notifyIcon1.Text = "UniUploader";
+                    this.notifyIcon1.Visible = true;
+                    notifyIcon1.DoubleClick += new EventHandler(notifyIcon1_DoubleClick);
+                }
+                catch (Exception e)
+                {
+                    DebugLine(e.Message);
+                }
+            }
+            else
+            {
+                setDefaultIcon();
+            }
+            checkBox1_CheckedChanged(null, null);
+        }
+        private void setDefaultIcon()
+        {
+            try
+            {
+                this.notifyIcon1.Visible = false;
+                this.notifyIcon1 = new NotifyIcon();
+                this.notifyIcon1.ContextMenu = this.contextMenu1;
+                System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+                this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+                this.notifyIcon1.Text = "UniUploader";
+                this.notifyIcon1.Visible = true;
+                notifyIcon1.DoubleClick += new EventHandler(notifyIcon1_DoubleClick);
+                checkBox1_CheckedChanged(null, null);
+            }
+            catch (Exception e)
+            {
+                DebugLine(e.Message);
+            }
+        }
+
+        private void btnSysTrayIco_Click(object sender, EventArgs e)
+        {
+            SelectSystemTrayIcon();
+        }
+
+
+
+
+
     }
 }
