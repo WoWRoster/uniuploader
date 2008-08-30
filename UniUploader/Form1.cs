@@ -597,10 +597,13 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.Settings = new System.Windows.Forms.TabPage();
             this.showAddonsBtn = new System.Windows.Forms.Button();
             this.configGroup = new System.Windows.Forms.GroupBox();
+            this.cbInclAddonData = new System.Windows.Forms.CheckBox();
+            this.cbInclScreenShots = new System.Windows.Forms.CheckBox();
             this.langselect = new System.Windows.Forms.ComboBox();
             this.AutoInstallDirDetect = new System.Windows.Forms.CheckBox();
             this.langLabel = new System.Windows.Forms.Label();
             this.findInstallBtn = new System.Windows.Forms.Button();
+            this.addonAutoUpdate = new System.Windows.Forms.CheckBox();
             this.togSVList = new System.Windows.Forms.Button();
             this.Mode = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -655,7 +658,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.autoAddonSyncNow = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.AutoAddonURL = new System.Windows.Forms.TextBox();
-            this.addonAutoUpdate = new System.Windows.Forms.CheckBox();
             this.Options = new System.Windows.Forms.TabPage();
             this.vargrp = new System.Windows.Forms.GroupBox();
             this.valu4 = new System.Windows.Forms.TextBox();
@@ -752,8 +754,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.contextMenu2 = new System.Windows.Forms.ContextMenu();
-            this.cbInclScreenShots = new System.Windows.Forms.CheckBox();
-            this.cbInclAddonData = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.myTimer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.myTimer2)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -807,23 +807,24 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // URL
             // 
             this.URL.AcceptsReturn = true;
-            this.URL.Location = new System.Drawing.Point(525, 478);
+            this.URL.Location = new System.Drawing.Point(6, 41);
             this.URL.Name = "URL";
-            this.URL.Size = new System.Drawing.Size(232, 20);
+            this.URL.Size = new System.Drawing.Size(238, 20);
             this.URL.TabIndex = 8;
             this.URL.Text = "http://yourdomain.com/yourinterface.php";
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(525, 462);
+            this.label2.Location = new System.Drawing.Point(6, 19);
+            this.label2.Margin = new System.Windows.Forms.Padding(3);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(224, 16);
+            this.label2.Size = new System.Drawing.Size(214, 16);
             this.label2.TabIndex = 9;
             this.label2.Text = "URL: (interface file on the web)";
             // 
             // UploadNow
             // 
-            this.UploadNow.Location = new System.Drawing.Point(400, 192);
+            this.UploadNow.Location = new System.Drawing.Point(398, 223);
             this.UploadNow.Name = "UploadNow";
             this.UploadNow.Size = new System.Drawing.Size(80, 24);
             this.UploadNow.TabIndex = 10;
@@ -832,7 +833,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(3, 56);
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Location = new System.Drawing.Point(6, 67);
+            this.label3.Margin = new System.Windows.Forms.Padding(3);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(216, 16);
             this.label3.TabIndex = 12;
@@ -842,9 +845,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             this.AccountList.Cursor = System.Windows.Forms.Cursors.Default;
             this.AccountList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.AccountList.Location = new System.Drawing.Point(6, 71);
+            this.AccountList.Location = new System.Drawing.Point(6, 89);
             this.AccountList.Name = "AccountList";
-            this.AccountList.Size = new System.Drawing.Size(104, 21);
+            this.AccountList.Size = new System.Drawing.Size(106, 21);
             this.AccountList.TabIndex = 23;
             this.AccountList.SelectedIndexChanged += new System.EventHandler(this.AccountList_SelectedIndexChanged_1);
             // 
@@ -1018,7 +1021,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(496, 256);
+            this.tabControl1.Size = new System.Drawing.Size(496, 280);
             this.tabControl1.TabIndex = 18;
             // 
             // Settings
@@ -1028,19 +1031,19 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.Settings.Controls.Add(this.togSVList);
             this.Settings.Controls.Add(this.Mode);
             this.Settings.Controls.Add(this.progressBar1);
-            this.Settings.Controls.Add(this.pictureBox1);
             this.Settings.Controls.Add(this.wowlaunch);
             this.Settings.Controls.Add(this.UploadNow);
+            this.Settings.Controls.Add(this.pictureBox1);
             this.Settings.Location = new System.Drawing.Point(4, 22);
             this.Settings.Name = "Settings";
-            this.Settings.Size = new System.Drawing.Size(488, 230);
+            this.Settings.Size = new System.Drawing.Size(488, 254);
             this.Settings.TabIndex = 0;
             this.Settings.Text = "Settings";
             // 
             // showAddonsBtn
             // 
             this.showAddonsBtn.Enabled = false;
-            this.showAddonsBtn.Location = new System.Drawing.Point(192, 192);
+            this.showAddonsBtn.Location = new System.Drawing.Point(190, 223);
             this.showAddonsBtn.Name = "showAddonsBtn";
             this.showAddonsBtn.Size = new System.Drawing.Size(88, 23);
             this.showAddonsBtn.TabIndex = 36;
@@ -1049,21 +1052,43 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // configGroup
             // 
-            this.configGroup.Controls.Add(this.cbInclAddonData);
             this.configGroup.Controls.Add(this.cbInclScreenShots);
+            this.configGroup.Controls.Add(this.cbInclAddonData);
             this.configGroup.Controls.Add(this.langselect);
-            this.configGroup.Controls.Add(this.AutoInstallDirDetect);
-            this.configGroup.Controls.Add(this.label3);
             this.configGroup.Controls.Add(this.AccountList);
+            this.configGroup.Controls.Add(this.AutoInstallDirDetect);
+            this.configGroup.Controls.Add(this.label2);
             this.configGroup.Controls.Add(this.langLabel);
-            this.configGroup.Controls.Add(this.findInstallBtn);
+            this.configGroup.Controls.Add(this.URL);
             this.configGroup.Controls.Add(this.addonAutoUpdate);
+            this.configGroup.Controls.Add(this.findInstallBtn);
+            this.configGroup.Controls.Add(this.label3);
             this.configGroup.Location = new System.Drawing.Point(8, 8);
             this.configGroup.Name = "configGroup";
-            this.configGroup.Size = new System.Drawing.Size(248, 152);
+            this.configGroup.Size = new System.Drawing.Size(250, 187);
             this.configGroup.TabIndex = 35;
             this.configGroup.TabStop = false;
             this.configGroup.Text = "Config";
+            // 
+            // cbInclAddonData
+            // 
+            this.cbInclAddonData.AutoSize = true;
+            this.cbInclAddonData.Location = new System.Drawing.Point(6, 116);
+            this.cbInclAddonData.Name = "cbInclAddonData";
+            this.cbInclAddonData.Size = new System.Drawing.Size(82, 17);
+            this.cbInclAddonData.TabIndex = 38;
+            this.cbInclAddonData.Text = "Upload SVs";
+            this.cbInclAddonData.UseVisualStyleBackColor = true;
+            // 
+            // cbInclScreenShots
+            // 
+            this.cbInclScreenShots.AutoSize = true;
+            this.cbInclScreenShots.Location = new System.Drawing.Point(6, 139);
+            this.cbInclScreenShots.Name = "cbInclScreenShots";
+            this.cbInclScreenShots.Size = new System.Drawing.Size(122, 17);
+            this.cbInclScreenShots.TabIndex = 37;
+            this.cbInclScreenShots.Text = "Upload Screenshots";
+            this.cbInclScreenShots.UseVisualStyleBackColor = true;
             // 
             // langselect
             // 
@@ -1076,7 +1101,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             "Nederlands",
             "Russian",
             "Svenska"});
-            this.langselect.Location = new System.Drawing.Point(6, 125);
+            this.langselect.Location = new System.Drawing.Point(140, 89);
             this.langselect.Name = "langselect";
             this.langselect.Size = new System.Drawing.Size(104, 21);
             this.langselect.TabIndex = 30;
@@ -1086,7 +1111,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             this.AutoInstallDirDetect.Checked = true;
             this.AutoInstallDirDetect.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.AutoInstallDirDetect.Location = new System.Drawing.Point(128, 106);
+            this.AutoInstallDirDetect.Location = new System.Drawing.Point(130, 116);
             this.AutoInstallDirDetect.Name = "AutoInstallDirDetect";
             this.AutoInstallDirDetect.Size = new System.Drawing.Size(114, 16);
             this.AutoInstallDirDetect.TabIndex = 35;
@@ -1096,7 +1121,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // langLabel
             // 
-            this.langLabel.Location = new System.Drawing.Point(6, 106);
+            this.langLabel.Location = new System.Drawing.Point(137, 67);
+            this.langLabel.Margin = new System.Windows.Forms.Padding(3);
             this.langLabel.Name = "langLabel";
             this.langLabel.Size = new System.Drawing.Size(100, 16);
             this.langLabel.TabIndex = 34;
@@ -1105,16 +1131,26 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // findInstallBtn
             // 
             this.findInstallBtn.Enabled = false;
-            this.findInstallBtn.Location = new System.Drawing.Point(128, 123);
+            this.findInstallBtn.Location = new System.Drawing.Point(156, 138);
             this.findInstallBtn.Name = "findInstallBtn";
             this.findInstallBtn.Size = new System.Drawing.Size(88, 23);
             this.findInstallBtn.TabIndex = 36;
             this.findInstallBtn.Text = "Find WoW.exe";
             this.findInstallBtn.Click += new System.EventHandler(this.findInstallBtn_Click);
             // 
+            // addonAutoUpdate
+            // 
+            this.addonAutoUpdate.Location = new System.Drawing.Point(6, 162);
+            this.addonAutoUpdate.Name = "addonAutoUpdate";
+            this.addonAutoUpdate.Size = new System.Drawing.Size(151, 19);
+            this.addonAutoUpdate.TabIndex = 0;
+            this.addonAutoUpdate.Text = "Keep my addons updated";
+            this.addonAutoUpdate.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.addonAutoUpdate.CheckedChanged += new System.EventHandler(this.addonAutoUpdate_CheckedChanged);
+            // 
             // togSVList
             // 
-            this.togSVList.Location = new System.Drawing.Point(120, 192);
+            this.togSVList.Location = new System.Drawing.Point(118, 223);
             this.togSVList.Name = "togSVList";
             this.togSVList.Size = new System.Drawing.Size(64, 24);
             this.togSVList.TabIndex = 33;
@@ -1123,7 +1159,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // Mode
             // 
-            this.Mode.Location = new System.Drawing.Point(8, 192);
+            this.Mode.Location = new System.Drawing.Point(6, 223);
             this.Mode.Name = "Mode";
             this.Mode.Size = new System.Drawing.Size(104, 24);
             this.Mode.TabIndex = 28;
@@ -1132,7 +1168,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(8, 168);
+            this.progressBar1.Location = new System.Drawing.Point(6, 201);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(472, 16);
             this.progressBar1.TabIndex = 27;
@@ -1141,14 +1177,14 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             this.pictureBox1.Location = new System.Drawing.Point(264, 16);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(216, 144);
+            this.pictureBox1.Size = new System.Drawing.Size(216, 179);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 25;
             this.pictureBox1.TabStop = false;
             // 
             // wowlaunch
             // 
-            this.wowlaunch.Location = new System.Drawing.Point(304, 192);
+            this.wowlaunch.Location = new System.Drawing.Point(302, 223);
             this.wowlaunch.Name = "wowlaunch";
             this.wowlaunch.Size = new System.Drawing.Size(88, 24);
             this.wowlaunch.TabIndex = 24;
@@ -1160,7 +1196,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.Advanced.Controls.Add(this.groupBox5);
             this.Advanced.Location = new System.Drawing.Point(4, 22);
             this.Advanced.Name = "Advanced";
-            this.Advanced.Size = new System.Drawing.Size(488, 230);
+            this.Advanced.Size = new System.Drawing.Size(488, 254);
             this.Advanced.TabIndex = 5;
             this.Advanced.Text = "Advanced";
             // 
@@ -1522,7 +1558,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.wowAddons.Controls.Add(this.groupBox11);
             this.wowAddons.Location = new System.Drawing.Point(4, 22);
             this.wowAddons.Name = "wowAddons";
-            this.wowAddons.Size = new System.Drawing.Size(488, 230);
+            this.wowAddons.Size = new System.Drawing.Size(488, 254);
             this.wowAddons.TabIndex = 6;
             this.wowAddons.Text = "Updater";
             // 
@@ -1658,17 +1694,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.AutoAddonURL.TabIndex = 2;
             this.AutoAddonURL.Text = "http://XXXXXXX.XXX/uniadmin/interface.php";
             // 
-            // addonAutoUpdate
-            // 
-            this.addonAutoUpdate.Location = new System.Drawing.Point(128, 8);
-            this.addonAutoUpdate.Margin = new System.Windows.Forms.Padding(0);
-            this.addonAutoUpdate.Name = "addonAutoUpdate";
-            this.addonAutoUpdate.Size = new System.Drawing.Size(114, 39);
-            this.addonAutoUpdate.TabIndex = 0;
-            this.addonAutoUpdate.Text = "Keep my addons updated";
-            this.addonAutoUpdate.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.addonAutoUpdate.CheckedChanged += new System.EventHandler(this.addonAutoUpdate_CheckedChanged);
-            // 
             // Options
             // 
             this.Options.Controls.Add(this.vargrp);
@@ -1677,7 +1702,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.Options.Controls.Add(this.groupBox1);
             this.Options.Location = new System.Drawing.Point(4, 22);
             this.Options.Name = "Options";
-            this.Options.Size = new System.Drawing.Size(488, 230);
+            this.Options.Size = new System.Drawing.Size(488, 246);
             this.Options.TabIndex = 1;
             this.Options.Text = "Options";
             // 
@@ -2033,7 +2058,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.response.Controls.Add(this.servResponse);
             this.response.Location = new System.Drawing.Point(4, 22);
             this.response.Name = "response";
-            this.response.Size = new System.Drawing.Size(488, 230);
+            this.response.Size = new System.Drawing.Size(488, 254);
             this.response.TabIndex = 2;
             this.response.Text = "Server Response";
             // 
@@ -2157,7 +2182,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.servResponse.Name = "servResponse";
             this.servResponse.ReadOnly = true;
             this.servResponse.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.servResponse.Size = new System.Drawing.Size(472, 96);
+            this.servResponse.Size = new System.Drawing.Size(472, 98);
             this.servResponse.TabIndex = 19;
             this.servResponse.Text = "Any Data returned by primary URL will be displayed here.";
             this.servResponse.WordWrap = false;
@@ -2172,7 +2197,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.Debugger.Controls.Add(this.DebugBox);
             this.Debugger.Location = new System.Drawing.Point(4, 22);
             this.Debugger.Name = "Debugger";
-            this.Debugger.Size = new System.Drawing.Size(488, 230);
+            this.Debugger.Size = new System.Drawing.Size(488, 254);
             this.Debugger.TabIndex = 7;
             this.Debugger.Text = "Debugger";
             // 
@@ -2243,7 +2268,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.Help.Controls.Add(this.richTextBox1);
             this.Help.Location = new System.Drawing.Point(4, 22);
             this.Help.Name = "Help";
-            this.Help.Size = new System.Drawing.Size(488, 230);
+            this.Help.Size = new System.Drawing.Size(488, 254);
             this.Help.TabIndex = 4;
             this.Help.Text = "Help";
             // 
@@ -2310,7 +2335,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.About.Controls.Add(this.groupBox2);
             this.About.Location = new System.Drawing.Point(4, 22);
             this.About.Name = "About";
-            this.About.Size = new System.Drawing.Size(488, 230);
+            this.About.Size = new System.Drawing.Size(488, 254);
             this.About.TabIndex = 3;
             this.About.Text = "About";
             // 
@@ -2353,12 +2378,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // statusBar1
             // 
-            this.statusBar1.Location = new System.Drawing.Point(0, 523);
+            this.statusBar1.Location = new System.Drawing.Point(0, 278);
             this.statusBar1.Name = "statusBar1";
             this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
             this.statusBarPanel1});
             this.statusBar1.ShowPanels = true;
-            this.statusBar1.Size = new System.Drawing.Size(900, 22);
+            this.statusBar1.Size = new System.Drawing.Size(494, 22);
             this.statusBar1.SizingGrip = false;
             this.statusBar1.TabIndex = 19;
             this.statusBar1.Text = "Idle";
@@ -2368,7 +2393,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.statusBarPanel1.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Spring;
             this.statusBarPanel1.Name = "statusBarPanel1";
             this.statusBarPanel1.Text = "Idle";
-            this.statusBarPanel1.Width = 900;
+            this.statusBarPanel1.Width = 494;
             // 
             // mini_timer
             // 
@@ -2391,7 +2416,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(496, 256);
+            this.tabControl2.Size = new System.Drawing.Size(496, 280);
             this.tabControl2.TabIndex = 20;
             this.tabControl2.Visible = false;
             // 
@@ -2401,7 +2426,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.tabPage1.Controls.Add(this.groupBox15);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(488, 230);
+            this.tabPage1.Size = new System.Drawing.Size(488, 254);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Settings";
             // 
@@ -2453,7 +2478,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.groupBox8.Controls.Add(this.button6);
             this.groupBox8.Controls.Add(this.label8);
             this.groupBox8.Controls.Add(this.treeView1);
-            this.groupBox8.Location = new System.Drawing.Point(8, 256);
+            this.groupBox8.Location = new System.Drawing.Point(4, 292);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(480, 168);
             this.groupBox8.TabIndex = 21;
@@ -2601,38 +2626,16 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.pictureBox3.TabIndex = 22;
             this.pictureBox3.TabStop = false;
             // 
-            // cbInclScreenShots
-            // 
-            this.cbInclScreenShots.AutoSize = true;
-            this.cbInclScreenShots.Location = new System.Drawing.Point(6, 36);
-            this.cbInclScreenShots.Name = "cbInclScreenShots";
-            this.cbInclScreenShots.Size = new System.Drawing.Size(122, 17);
-            this.cbInclScreenShots.TabIndex = 37;
-            this.cbInclScreenShots.Text = "Upload Screenshots";
-            this.cbInclScreenShots.UseVisualStyleBackColor = true;
-            // 
-            // cbInclAddonData
-            // 
-            this.cbInclAddonData.AutoSize = true;
-            this.cbInclAddonData.Location = new System.Drawing.Point(6, 19);
-            this.cbInclAddonData.Name = "cbInclAddonData";
-            this.cbInclAddonData.Size = new System.Drawing.Size(82, 17);
-            this.cbInclAddonData.TabIndex = 38;
-            this.cbInclAddonData.Text = "Upload SVs";
-            this.cbInclAddonData.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(900, 545);
+            this.ClientSize = new System.Drawing.Size(494, 300);
             this.Controls.Add(this.statusBar1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.URL);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -2694,7 +2697,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
         #endregion
@@ -5807,10 +5809,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 																					
 																					   this.togSVList
 																				   });
-                if (!PathFound)
-                {
-                    //this.tabPage1.Controls.AddRange(new System.Windows.Forms.Control[] {this.browse});
-                }
                 this.groupBox15.Controls.AddRange(new System.Windows.Forms.Control[] {
 																						 this.stwowlaunch,
 																						 this.stmin,
