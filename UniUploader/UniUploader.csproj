@@ -140,7 +140,7 @@
     <Compile Include="DeflaterPending.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GZIPConstants.cs">
@@ -154,6 +154,9 @@
     </Compile>
     <Compile Include="GzipOutputStream.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="http.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="IChecksum.cs">
       <SubType>Code</SubType>
@@ -191,6 +194,9 @@
     <Compile Include="StreamManipulator.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Windows.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ZipConstants.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -210,8 +216,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Content Include="crypto_notes.txt" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
