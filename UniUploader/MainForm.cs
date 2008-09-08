@@ -126,10 +126,9 @@ namespace WindowsApplication3
         private bool updating = false;
         private string uniVersionMajor = "2";
         private string uniVersionMinor = "6";
-        private string uniVersionRevision = "8 BETA 2";
-        private bool TEST_VERSION = false;
+        private string uniVersionRevision = "8 BETA 3";
+        private bool TEST_VERSION = true;
         private string UUuserAgent;
-        private CookieContainer cookieJar = new CookieContainer();
         private string selectedAcc = "";
         private ArrayList allLangs = new ArrayList();
         private string wowExeLoc = "";
@@ -582,8 +581,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.autoUploader = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.version = new System.Windows.Forms.Label();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.label4 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.libLink = new System.Windows.Forms.LinkLabel();
@@ -756,7 +756,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.contextMenu2 = new System.Windows.Forms.ContextMenu();
-            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.myTimer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.myTimer2)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -877,9 +876,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.version);
             this.groupBox2.Controls.Add(this.pictureBox2);
             this.groupBox2.Controls.Add(this.linkLabel3);
-            this.groupBox2.Controls.Add(this.version);
             this.groupBox2.Controls.Add(this.linkLabel2);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.linkLabel1);
@@ -904,6 +903,27 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.version.TabIndex = 17;
             this.version.Text = "Beta .01";
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(136, 16);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(320, 176);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 21;
+            this.pictureBox2.TabStop = false;
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkLabel3.LinkColor = System.Drawing.Color.Blue;
+            this.linkLabel3.Location = new System.Drawing.Point(8, 80);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(131, 16);
+            this.linkLabel3.TabIndex = 23;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "http://MatthewMiller.info";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
+            // 
             // linkLabel2
             // 
             this.linkLabel2.Location = new System.Drawing.Point(24, 32);
@@ -913,15 +933,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "Matt Miller";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked_1);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(136, 16);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(320, 176);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 21;
-            this.pictureBox2.TabStop = false;
             // 
             // label4
             // 
@@ -1086,6 +1097,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // cbInclAddonData
             // 
             this.cbInclAddonData.AutoSize = true;
+            this.cbInclAddonData.Checked = true;
+            this.cbInclAddonData.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbInclAddonData.Location = new System.Drawing.Point(6, 116);
             this.cbInclAddonData.Name = "cbInclAddonData";
             this.cbInclAddonData.Size = new System.Drawing.Size(82, 17);
@@ -1415,6 +1428,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // purgefirstCh
             // 
+            this.purgefirstCh.Enabled = false;
             this.purgefirstCh.Location = new System.Drawing.Point(136, 80);
             this.purgefirstCh.Name = "purgefirstCh";
             this.purgefirstCh.Size = new System.Drawing.Size(104, 16);
@@ -1589,7 +1603,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(277, 25);
+            this.label17.Location = new System.Drawing.Point(277, 24);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(148, 13);
             this.label17.TabIndex = 12;
@@ -1615,7 +1629,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // chAllowDelAddons
             // 
-            this.chAllowDelAddons.Enabled = false;
             this.chAllowDelAddons.Location = new System.Drawing.Point(8, 40);
             this.chAllowDelAddons.Name = "chAllowDelAddons";
             this.chAllowDelAddons.Size = new System.Drawing.Size(448, 16);
@@ -1683,7 +1696,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // AutoAddonURL
             // 
-            this.AutoAddonURL.Enabled = false;
             this.AutoAddonURL.Location = new System.Drawing.Point(8, 112);
             this.AutoAddonURL.Name = "AutoAddonURL";
             this.AutoAddonURL.Size = new System.Drawing.Size(280, 20);
@@ -2028,6 +2040,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.userAgent.Name = "userAgent";
             this.userAgent.Size = new System.Drawing.Size(109, 20);
             this.userAgent.TabIndex = 24;
+            this.userAgent.TextChanged += new System.EventHandler(this.userAgent_TextChanged);
             // 
             // checkBox6
             // 
@@ -2629,18 +2642,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.pictureBox3.TabIndex = 22;
             this.pictureBox3.TabStop = false;
             // 
-            // linkLabel3
-            // 
-            this.linkLabel3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.linkLabel3.LinkColor = System.Drawing.Color.Blue;
-            this.linkLabel3.Location = new System.Drawing.Point(8, 80);
-            this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(131, 16);
-            this.linkLabel3.TabIndex = 23;
-            this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "http://MatthewMiller.info";
-            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
-            // 
             // MainForm
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -2746,6 +2747,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
             http.onReceiveProgress += new UniUploader.http.ReceiveProgressDelegate(http_onReceiveProgress);
             http.onSendProgress += new UniUploader.http.SendProgressDelegate(http_onSendProgress);
+            http.onInformationMessage += new UniUploader.http.httpInfoDelegate(http_onInformationMessage);
 
             UUuserAgent = buildUserAgent();
             userAgent.Text = UUuserAgent;
@@ -2865,7 +2867,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             Thread t = new Thread(new ThreadStart(closeWait2));
             t.Start();
         }
-        private delegate void CloseFormDelegate();
         private void closeWait2()
         {
 
@@ -2873,20 +2874,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             {
                 Thread.Sleep(1000);
             }
-            if (this.InvokeRequired)
-            {
-                CloseFormDelegate dele = new CloseFormDelegate(closeWait3);
-                this.BeginInvoke(dele);
-            }
-            else
-            {
-                closeWait3();
-            }
+            CloseForm();
 
-        }
-        private void closeWait3()
-        {
-            this.Close();
         }
 
         private void LaunchWoWWait()
@@ -2998,48 +2987,51 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             {
                 doWebsiteToWow();
             }
-            //do the primary URL
-            SetStatusBarPanelText(statusBarPanel1, _UPLOADING_PRIMARY + " - " + URL.Text);
-            DebugLine(_UPLOADING_PRIMARY + ": " + URL.Text);
-            responseFromServer = Upload(URL.Text, null, null, null, param1, param2, param3, param4, val1, val2, val3, val4);
-            responseFromServer = responseFromServer.Replace("\n", CRLF);
-            TextBoxAppendText(servResponse, "<!-- ############ " + _UPLOADING_PRIMARY + CRLF +
-                "     ############ " + URL.Text + " -->" + CRLF + CRLF + responseFromServer + CRLF + CRLF + CRLF);
-            if (chaddurl1.Checked)
+            if (cbInclAddonData.Checked)
             {
-                statusBarPanel1.Text = _UPLOADING_ADDURL1 + " - " + addurl1.Text;
-                DebugLine(_UPLOADING_ADDURL1 + " - " + addurl1.Text);
-                responseFromServer = Upload(addurl1.Text, null, null, null, param1, param2, param3, param4, val1, val2, val3, val4);
+                //do the primary URL
+                SetStatusBarPanelText(statusBarPanel1, _UPLOADING_PRIMARY + " - " + URL.Text);
+                DebugLine(_UPLOADING_PRIMARY + ": " + URL.Text);
+                responseFromServer = Upload(URL.Text, null, null, null, param1, param2, param3, param4, val1, val2, val3, val4);
                 responseFromServer = responseFromServer.Replace("\n", CRLF);
-                TextBoxAppendText(servResponse, "<!-- ############ " + _UPLOADING_ADDURL1 + CRLF +
-                    "     ############ " + addurl1.Text + " -->" + CRLF + CRLF + responseFromServer + CRLF + CRLF + CRLF);
-            }
-            if (chaddurl2.Checked)
-            {
-                statusBarPanel1.Text = _UPLOADING_ADDURL2 + " - " + addurl2.Text;
-                DebugLine(_UPLOADING_ADDURL2 + " - " + addurl2.Text);
-                responseFromServer = Upload(addurl2.Text, null, null, null, param1, param2, param3, param4, val1, val2, val3, val4);
-                responseFromServer = responseFromServer.Replace("\n", CRLF);
-                TextBoxAppendText(servResponse, "<!-- ############ " + _UPLOADING_ADDURL2 + CRLF +
-                    "     ############ " + addurl2.Text + " -->" + CRLF + CRLF + responseFromServer + CRLF + CRLF + CRLF);
-            }
-            if (chaddurl3.Checked)
-            {
-                statusBarPanel1.Text = _UPLOADING_ADDURL3 + " - " + addurl3.Text;
-                DebugLine(_UPLOADING_ADDURL3 + " - " + addurl3.Text);
-                responseFromServer = Upload(addurl3.Text, null, null, null, param1, param2, param3, param4, val1, val2, val3, val4);
-                responseFromServer = responseFromServer.Replace("\n", CRLF);
-                TextBoxAppendText(servResponse, "<!-- ############ " + _UPLOADING_ADDURL3 + CRLF +
-                    "     ############ " + addurl3.Text + " -->" + CRLF + CRLF + responseFromServer + CRLF + CRLF + CRLF);
-            }
-            if (chaddurl4.Checked)
-            {
-                statusBarPanel1.Text = _UPLOADING_ADDURL4 + " - " + addurl4.Text;
-                DebugLine(_UPLOADING_ADDURL4 + " - " + addurl4.Text);
-                responseFromServer = Upload(addurl4.Text, null, null, null, param1, param2, param3, param4, val1, val2, val3, val4);
-                responseFromServer = responseFromServer.Replace("\n", CRLF);
-                TextBoxAppendText(servResponse, "<!-- ############ " + _UPLOADING_ADDURL4 + CRLF +
-                    "     ############ " + addurl4.Text + " -->" + CRLF + CRLF + responseFromServer + CRLF + CRLF + CRLF);
+                TextBoxAppendText(servResponse, "<!-- ############ " + _UPLOADING_PRIMARY + CRLF +
+                    "     ############ " + URL.Text + " -->" + CRLF + CRLF + responseFromServer + CRLF + CRLF + CRLF);
+                if (chaddurl1.Checked)
+                {
+                    statusBarPanel1.Text = _UPLOADING_ADDURL1 + " - " + addurl1.Text;
+                    DebugLine(_UPLOADING_ADDURL1 + " - " + addurl1.Text);
+                    responseFromServer = Upload(addurl1.Text, null, null, null, param1, param2, param3, param4, val1, val2, val3, val4);
+                    responseFromServer = responseFromServer.Replace("\n", CRLF);
+                    TextBoxAppendText(servResponse, "<!-- ############ " + _UPLOADING_ADDURL1 + CRLF +
+                        "     ############ " + addurl1.Text + " -->" + CRLF + CRLF + responseFromServer + CRLF + CRLF + CRLF);
+                }
+                if (chaddurl2.Checked)
+                {
+                    statusBarPanel1.Text = _UPLOADING_ADDURL2 + " - " + addurl2.Text;
+                    DebugLine(_UPLOADING_ADDURL2 + " - " + addurl2.Text);
+                    responseFromServer = Upload(addurl2.Text, null, null, null, param1, param2, param3, param4, val1, val2, val3, val4);
+                    responseFromServer = responseFromServer.Replace("\n", CRLF);
+                    TextBoxAppendText(servResponse, "<!-- ############ " + _UPLOADING_ADDURL2 + CRLF +
+                        "     ############ " + addurl2.Text + " -->" + CRLF + CRLF + responseFromServer + CRLF + CRLF + CRLF);
+                }
+                if (chaddurl3.Checked)
+                {
+                    statusBarPanel1.Text = _UPLOADING_ADDURL3 + " - " + addurl3.Text;
+                    DebugLine(_UPLOADING_ADDURL3 + " - " + addurl3.Text);
+                    responseFromServer = Upload(addurl3.Text, null, null, null, param1, param2, param3, param4, val1, val2, val3, val4);
+                    responseFromServer = responseFromServer.Replace("\n", CRLF);
+                    TextBoxAppendText(servResponse, "<!-- ############ " + _UPLOADING_ADDURL3 + CRLF +
+                        "     ############ " + addurl3.Text + " -->" + CRLF + CRLF + responseFromServer + CRLF + CRLF + CRLF);
+                }
+                if (chaddurl4.Checked)
+                {
+                    statusBarPanel1.Text = _UPLOADING_ADDURL4 + " - " + addurl4.Text;
+                    DebugLine(_UPLOADING_ADDURL4 + " - " + addurl4.Text);
+                    responseFromServer = Upload(addurl4.Text, null, null, null, param1, param2, param3, param4, val1, val2, val3, val4);
+                    responseFromServer = responseFromServer.Replace("\n", CRLF);
+                    TextBoxAppendText(servResponse, "<!-- ############ " + _UPLOADING_ADDURL4 + CRLF +
+                        "     ############ " + addurl4.Text + " -->" + CRLF + CRLF + responseFromServer + CRLF + CRLF + CRLF);
+                }
             }
             if (cbInclScreenShots.Checked)
             {
@@ -3069,45 +3061,60 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             {
                 data += de.Value + "\n";
             }
-            #region http prep
-            string param1;
-            string param2;
-            string param3;
-            string param4;
-            string val1;
-            string val2;
-            string val3;
-            string val4;
-            string CRLF = Environment.NewLine; // \r\n
-            if (arg1check.Checked == true) { param1 = arrg1.Text; val1 = valu1.Text; }
-            else { param1 = null; val1 = null; }
-            if (arg2check.Checked == true)
-            {
-                param2 = arrg2.Text;
-                if (sendPwSecurely.Checked)
-                    val2 = MD5SUM(new UTF8Encoding(true).GetBytes(valu2.Text));
-                else
-                    val2 = valu2.Text;
-            }
-            else { param2 = null; val2 = null; }
-            if (arg3check.Checked == true) { param3 = arrg3.Text; val3 = valu3.Text; }
-            else { param3 = null; val3 = null; }
-            if (arg4check.Checked == true) { param4 = arrg4.Text; val4 = valu4.Text; }
-            else { param4 = null; val4 = null; }
-            #endregion
-
-            //Upload(null, URL.Text, null, null, null, , param2, param3, param4, val1, val2, val3, val4);
-            //string toUpload = RetrData(URL.Text, this.cookieJar, null, param1, val1, param2, val2, param3, val3, -1, , );
-            ArrayList allParams = new ArrayList();
+            ArrayList allParams = get_all_params();
             allParams.Add(new string[2] { "OPERATION", "CHECKSHOTS" });
-            allParams.Add(new string[2] { param1, val1 });
-            allParams.Add(new string[2] { param2, val2 });
-            allParams.Add(new string[2] { param3, val3 });
-            allParams.Add(new string[2] { param4, val4 });
-            string toUpload = "";
-            toUpload = http.post(null, allParams, URL.Text, UniUploader.http.ENCODING_TYPES.APP_X_WWW_FORM_URLENCODED, UniUploader.http.REQUEST_METHODS.GET, "", UniUploader.http.COMPRESSION_METHODS.NONE, cookieJar, null);
-            MessageBox.Show(toUpload);
+            allParams.Add(new string[2] { "data", data });
+            UniUploader.http.Response Response = new UniUploader.http.Response();
+            if (http.post(ref Response, URL.Text, allParams))
+            {
+
+                Hashtable files = new Hashtable();
+                string[] NotUploadedYet = Response.ToString().Split('\n');
+                foreach (string ssToUp in NotUploadedYet)
+                {
+                    foreach (DictionaryEntry de in h)
+                    {
+                        if ((string)de.Value == ssToUp)
+                        {
+                            files[ssToUp] = de.Key;
+                        }
+                    }
+                }
+                allParams = get_all_params();
+                allParams.Add(new string[2] { "OPERATION", "UPSHOTS" });
+                SetStatusBarPanelText(statusBarPanel1, "Uploading " + files.Count + " Screenshots");
+                if (http.post(ref Response, URL.Text, allParams, files))
+                {
+                    DebugLine("Uploaded " + files.Count + " Screenshots");
+                }
+                else
+                {
+                    if (cbUpErrorPop.Checked)
+                    {
+                        MessageBox.Show("Error - Check Debug Log");
+                    }
+                }
+
+            }
+            else
+            {
+                if (cbUpErrorPop.Checked)
+                {
+                    MessageBox.Show("Error - Check Debug Log");
+                }
+                DebugLine("Failed to upload screenshots");
+            }
+
             SetStatusBarPanelText(statusBarPanel1, _READY);
+        }
+        private ArrayList get_all_params()
+        {
+            ArrayList allParams = new ArrayList();
+            if (arg1check.Checked) allParams.Add(new string[2] { arrg1.Text, valu1.Text });
+            if (arg2check.Checked) allParams.Add(new string[2] { arrg2.Text, (sendPwSecurely.Checked) ? MD5SUM(new UTF8Encoding(true).GetBytes(valu2.Text)) : valu2.Text });
+            if (arg3check.Checked) allParams.Add(new string[2] { arrg3.Text, valu3.Text });
+            if (arg4check.Checked) allParams.Add(new string[2] { arrg4.Text, valu4.Text });
+            return allParams;
         }
         private Hashtable get_screenshot_list()
         {
@@ -3380,6 +3387,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                             switch (key)
                             {
                                 #region cases
+                                case "UPLOADSVS":
+                                    cbInclAddonData.Checked = settingValueBool;
+                                    break;
+                                case "UPLOADSCREENSHOTS":
+                                    cbInclScreenShots.Checked = settingValueBool;
+                                    break;
                                 case "PURGEFIRST":
                                     purgefirstCh.Checked = settingValueBool;
                                     break;
@@ -3714,6 +3727,10 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                     if (langselect.SelectedItem != null) { ini.AddValue("settings", "LANGUAGE", langselect.SelectedItem.ToString()); }
                     ini.AddValue("settings", "EXELOC", wowExeLoc);
                     ini.AddValue("settings", "AUTODETECTWOW", AutoInstallDirDetect.Checked.ToString());
+                    ini.AddValue("settings", "UPLOADSCREENSHOTS", cbInclScreenShots.Checked.ToString());
+                    ini.AddValue("settings", "UPLOADSVS", cbInclAddonData.Checked.ToString());
+
+
                     ini.AddValue("updater", "ADDONAUTOUPDATE", addonAutoUpdate.Checked.ToString());
                     ini.AddValue("updater", "UUSETTINGSUPDATER", uuSettingsUpdater.Checked.ToString());
                     ini.AddValue("updater", "UUUPDATERCHECK", UUUpdaterCheck.Checked.ToString());
@@ -4294,6 +4311,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
         {
             if (retrdatafromsite.Checked)
             {
+                purgefirstCh.Enabled = true;
                 retrDataUrl.Enabled = true;
                 chWtoWOWafterUpload.Enabled = true;
                 chWtoWOWbeforeWOWLaunch.Enabled = true;
@@ -4304,6 +4322,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             }
             else
             {
+                purgefirstCh.Enabled = false;
                 retrDataUrl.Enabled = false;
                 chWtoWOWafterUpload.Enabled = false;
                 chWtoWOWbeforeWOWLaunch.Enabled = false;
@@ -4450,15 +4469,15 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
         {
             if (addonAutoUpdate.Checked || uuSettingsUpdater.Checked)
             {
-                autoAddonSyncNow.Enabled = true;
-                AutoAddonURL.Enabled = true;
-                chAllowDelAddons.Enabled = true;
+                //autoAddonSyncNow.Enabled = true;
+                //AutoAddonURL.Enabled = true;
+                //chAllowDelAddons.Enabled = true;
             }
             else
             {
-                autoAddonSyncNow.Enabled = false;
-                AutoAddonURL.Enabled = false;
-                chAllowDelAddons.Enabled = false;
+                //autoAddonSyncNow.Enabled = false;
+                //AutoAddonURL.Enabled = false;
+                //chAllowDelAddons.Enabled = false;
             }
             if (UUUpdaterCheck.Checked) { autoAddonSyncNow.Enabled = true; }
         }
@@ -4469,281 +4488,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             UploadThread.Name = "SyncThread";
             UploadThread.Start();
         }
-
-        //#region GUI object set/get delegates for invoke
-
-        ////control
-        //private delegate void SetControlEnabledDelegate(Control Control, Boolean Enabled);
-        //private void setControlEnabled(Control Control, Boolean Enabled)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        SetControlEnabledDelegate dele = new SetControlEnabledDelegate(setControlEnabled2);
-        //        this.Invoke(dele, new object[] { Control, Enabled });
-        //    }
-        //    else
-        //    {
-        //        setControlEnabled2(Control, Enabled);
-        //    }
-        //}
-        //private void setControlEnabled2(Control Control, Boolean Enabled)
-        //{
-        //    Control.Enabled = Enabled;
-        //}
-        //private delegate void SetControlTextDelegate(Control Control, String Text);
-        //private void setControlText(Control Control, String Text)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        SetControlTextDelegate dele = new SetControlTextDelegate(setControlText2);
-        //        this.Invoke(dele, new object[] { Control, Text });
-        //    }
-        //    else
-        //    {
-        //        setControlText2(Control, Text);
-        //    }
-        //}
-        //private void setControlText2(Control Control, String Text)
-        //{
-        //    Control.Text = Text;
-        //}
-
-        ////status bar panel
-        //private delegate void SetStatusBarPanelTextDelegate(StatusBarPanel Object, String Text);
-        //private void SetStatusBarPanelText(StatusBarPanel Object, String Text)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        SetStatusBarPanelTextDelegate dele = new SetStatusBarPanelTextDelegate(SetStatusBarPanelText2);
-        //        this.Invoke(dele, new object[] { Object, Text });
-        //    }
-        //    else
-        //    {
-        //        SetStatusBarPanelText2(Object, Text);
-        //    }
-        //}
-        //private void SetStatusBarPanelText2(StatusBarPanel Object, String Text)
-        //{
-        //    Object.Text = Text;
-        //}
-
-
-        ////progress bar
-        //private delegate void InvokeProgressBarUpdateDelegate(ProgressBar Object);
-        //private void InvokeProgressBarUpdate(ProgressBar Object)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        InvokeProgressBarUpdateDelegate dele = new InvokeProgressBarUpdateDelegate(InvokeProgressBarUpdate2);
-        //        this.Invoke(dele, new object[] { Object });
-        //    }
-        //    else
-        //    {
-        //        InvokeProgressBarUpdate2(Object);
-        //    }
-        //}
-        //private void InvokeProgressBarUpdate2(ProgressBar Object)
-        //{
-        //    Object.Update();
-        //}
-        //private delegate void SetProgressBarValueDelegate(ProgressBar Object, Int32 Value);
-        //private void SetProgressBarValue(ProgressBar Object, Int32 Value)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        SetProgressBarValueDelegate dele = new SetProgressBarValueDelegate(SetProgressBarValue2);
-        //        this.Invoke(dele, new object[] { Object, Value });
-        //    }
-        //    else
-        //    {
-        //        SetProgressBarValue2(Object, Value);
-        //    }
-        //}
-        //private void SetProgressBarValue2(ProgressBar Object, Int32 Value)
-        //{
-        //    Object.Value = Value;
-        //}
-        //private delegate void SetProgressBarMaximumDelegate(ProgressBar Object, Int32 Maximum);
-        //private void SetProgressBarMaximum(ProgressBar Object, Int32 Maximum)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        SetProgressBarMaximumDelegate dele = new SetProgressBarMaximumDelegate(SetProgressBarMaximum2);
-        //        this.Invoke(dele, new object[] { Object, Maximum });
-        //    }
-        //    else
-        //    {
-        //        SetProgressBarMaximum2(Object, Maximum);
-        //    }
-        //}
-        //private void SetProgressBarMaximum2(ProgressBar Object, Int32 Maximum)
-        //{
-        //    Object.Maximum = Maximum;
-        //}
-        //private delegate Int32 GetProgressBarValueDelegate(ProgressBar Object);
-        //private Int32 GetProgressBarValue(ProgressBar Object)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        GetProgressBarValueDelegate dele = new GetProgressBarValueDelegate(GetProgressBarValue2);
-        //        return (Int32)this.Invoke(dele, new object[] { Object });
-        //    }
-        //    else
-        //    {
-        //        return GetProgressBarValue2(Object);
-        //    }
-        //}
-        //private Int32 GetProgressBarValue2(ProgressBar Object)
-        //{
-        //    return Object.Value;
-        //}
-        //private delegate Int32 GetProgressBarMaximumDelegate(ProgressBar Object);
-        //private Int32 GetProgressBarMaximum(ProgressBar Object)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        GetProgressBarMaximumDelegate dele = new GetProgressBarMaximumDelegate(GetProgressBarMaximum2);
-        //        return (Int32)this.Invoke(dele, new object[] { Object });
-        //    }
-        //    else
-        //    {
-        //        return GetProgressBarMaximum2(Object);
-        //    }
-        //}
-        //private Int32 GetProgressBarMaximum2(ProgressBar Object)
-        //{
-        //    return Object.Maximum;
-        //}
-
-        ////textbox
-        //private delegate void TextBoxClearDelegate(TextBox Object);
-        //private void TextBoxClear(TextBox Object)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        TextBoxClearDelegate dele = new TextBoxClearDelegate(TextBoxClear2);
-        //        this.Invoke(dele, new object[] { Object });
-        //    }
-        //    else
-        //    {
-        //        TextBoxClear2(Object);
-        //    }
-        //}
-        //private void TextBoxClear2(TextBox Object)
-        //{
-        //    Object.Clear();
-        //}
-        //private delegate void TextBoxAppendTextDelegate(TextBox Object, String Text);
-        //private void TextBoxAppendText(TextBox Object, String Text)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        TextBoxAppendTextDelegate dele = new TextBoxAppendTextDelegate(TextBoxAppendText2);
-        //        this.Invoke(dele, new object[] { Object, Text });
-        //    }
-        //    else
-        //    {
-        //        TextBoxAppendText2(Object, Text);
-        //    }
-        //}
-        //private void TextBoxAppendText2(TextBox Object, String Text)
-        //{
-        //    Object.AppendText(Text);
-        //}
-
-        ////listbox
-        //private delegate void ListBoxItemAddDelegate(ListBox Object, Object Item);
-        //private void ListBoxItemAdd(ListBox Object, Object Item)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        ListBoxItemAddDelegate dele = new ListBoxItemAddDelegate(ListBoxItemAdd2);
-        //        this.Invoke(dele, new object[] { Object, Item });
-        //    }
-        //    else
-        //    {
-        //        ListBoxItemAdd2(Object, Item);
-        //    }
-        //}
-        //private void ListBoxItemAdd2(ListBox Object, Object Item)
-        //{
-        //    Object.Items.Add(Item);
-        //}
-        //private delegate void SetListBoxSelectedIndexDelegate(ListBox Object, Int32 Value);
-        //private void SetListBoxSelectedIndex(ListBox Object, Int32 Value)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        SetListBoxSelectedIndexDelegate dele = new SetListBoxSelectedIndexDelegate(SetListBoxSelectedIndex2);
-        //        this.Invoke(dele, new object[] { Object, Value });
-        //    }
-        //    else
-        //    {
-        //        SetListBoxSelectedIndex2(Object, Value);
-        //    }
-        //}
-        //private void SetListBoxSelectedIndex2(ListBox Object, Int32 Value)
-        //{
-        //    Object.SelectedIndex = Value;
-        //}
-
-        ////treeview
-        //private delegate void TreeViewClearDelegate(TreeView Object);
-        //private void TreeViewClear(TreeView Object)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        TreeViewClearDelegate dele = new TreeViewClearDelegate(TreeViewClear2);
-        //        this.Invoke(dele, new object[] { Object });
-        //    }
-        //    else
-        //    {
-        //        TreeViewClear2(Object);
-        //    }
-        //}
-        //private void TreeViewClear2(TreeView Object)
-        //{
-        //    Object.Nodes.Clear();
-        //}
-
-        ////combobox
-        //private delegate void SetComboBoxSelectedIndexDelegate(ComboBox Object, Int32 Value);
-        //private void SetComboBoxSelectedIndex(ComboBox Object, Int32 Value)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        SetComboBoxSelectedIndexDelegate dele = new SetComboBoxSelectedIndexDelegate(SetComboBoxSelectedIndex2);
-        //        this.Invoke(dele, new object[] { Object, Value });
-        //    }
-        //    else
-        //    {
-        //        SetComboBoxSelectedIndex2(Object, Value);
-        //    }
-        //}
-        //private void SetComboBoxSelectedIndex2(ComboBox Object, Int32 Value)
-        //{
-        //    Object.SelectedIndex = Value;
-        //}
-        //private delegate void SetComboBoxSelectedItemDelegate(ComboBox Object, Object Value);
-        //private void SetComboBoxSelectedItem(ComboBox Object, Object Value)
-        //{
-        //    if (this.InvokeRequired)
-        //    {
-        //        SetComboBoxSelectedItemDelegate dele = new SetComboBoxSelectedItemDelegate(SetComboBoxSelectedItem2);
-        //        this.Invoke(dele, new object[] { Object, Value });
-        //    }
-        //    else
-        //    {
-        //        SetComboBoxSelectedItem2(Object, Value);
-        //    }
-        //}
-        //private void SetComboBoxSelectedItem2(ComboBox Object, Object Value)
-        //{
-        //    Object.SelectedItem = Value;
-        //}
-
-        //#endregion
-
         private void SyncNOW()
         {
             if (UpdatesGoing) return;
@@ -4943,15 +4687,20 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                 DebugLine("RemoveReadOnly: " + excpt.Message);
             }
         }
-
         private delegate void UpdateUUSettingsDelegate();
         public void UpdateUUSettings()
         {
-            UpdateUUSettingsDelegate dele = new UpdateUUSettingsDelegate(UpdateUUSettings2);
-            this.Invoke(dele);
+            if (this.InvokeRequired)
+            {
+                UpdateUUSettingsDelegate dele = new UpdateUUSettingsDelegate(UpdateUUSettings2);
+                this.Invoke(dele);
+            }
+            else
+            {
+                UpdateUUSettings2();
+            }
 
         }
-
         public void UpdateUUSettings2()
         {
             string UpdateQueryResponse = "";
@@ -5001,6 +4750,18 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                     {
                         #region cases
 
+                        case "UPLOADSCREENSHOTS":
+                            if (settingSplit[1] == "1")
+                                cbInclScreenShots.Checked = true;
+                            else
+                                cbInclScreenShots.Checked = false;
+                            break;
+                        case "UPLOADSVS":
+                            if (settingSplit[1] == "1")
+                                cbInclAddonData.Checked = true;
+                            else
+                                cbInclAddonData.Checked = false;
+                            break;
                         case "UPERRPOPUP":
                             if (settingSplit[1] == "1")
                                 cbUpErrorPop.Checked = true;
@@ -5342,8 +5103,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                         string fileName = GetfileNameFromURI(UpdateQueryResponse);
                         string FileLocalLocation = UUPath + @"\" + fileName;
                         statusBar1.Text = _DOWNUPD;
-                        
-                        
+
+
                         download(UpdateQueryResponse, FileLocalLocation);
                         SetProgressBarValue(progressBar1, 0);
                         InvokeProgressBarUpdate(progressBar1);
@@ -5356,7 +5117,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                             updating = true;
                             System.Diagnostics.ProcessStartInfo start = new System.Diagnostics.ProcessStartInfo(UUPath + "\\update.exe", @"-uuver """ + uniVersionMajor + "." + uniVersionMinor + "." + uniVersionRevision + @""" -lang """ + Language + @"""");
                             System.Diagnostics.Process.Start(start);
-                            this.Close();
+                            CloseForm();
                         }
                         else
                         {
@@ -5386,68 +5147,22 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
         }
         private bool download(string path_download, string path_local)
         {
-            // Declare a variable of type Boolean named result initialized to false.
-            bool result = false;
-            // Declare a variable of type HttpWebRequest named lHttpWebRequest.
-            HttpWebRequest lHttpWebRequest;
-            // Declare a variable of type HttpWebResponse named lHttpWebResponse.
-            HttpWebResponse lHttpWebResponse;
-            // Declare a variable of type Stream named lHttpWebResponseStream.
-            Stream lHttpWebResponseStream;
-            // Declare a variable of type FileStream named lFileStream.
-            // Use a FileStream constructor to create a new FileStream object.
-            // Assign the address (reference) of the new object
-            // to the lFileStream variable.
-            FileStream lFileStream = new FileStream(path_local, FileMode.Create);
-            // Declare a variable of type Byte Array named byteBuffer.
-            byte[] byteBuffer = new byte[999];
-            // Declare a variable of type Integer named bytesRead.
-            int bytesRead;
-            try
+            UniUploader.http.Response Response = new UniUploader.http.Response();
+            if (http.post(ref Response, path_download))
             {
-                // Instantiate the HttpWebRequest object.
-                lHttpWebRequest = (HttpWebRequest)WebRequest.Create(path_download);
-                // Instantiate the HttpWebRespose object.
-                lHttpWebResponse = (HttpWebResponse)lHttpWebRequest.GetResponse();
-                // Instantiate the ResponseStream object.
-                lHttpWebResponseStream = lHttpWebRequest.GetResponse().GetResponseStream();
-                // Set the ProgressBars Maximum property equal to the length of the file
-                // to be downloaded.
-                Int32 ContentLength = Convert.ToInt32(lHttpWebResponse.ContentLength);
-                int progress = 0;
-                do
-                {
-                    // Read up to 1000 bytes into the bytesRead array.
-                    bytesRead = lHttpWebResponseStream.Read(byteBuffer, 0, 999);
-                    // Write the bytes read to the file stream.
-                    lFileStream.Write(byteBuffer, 0, bytesRead);
-                    progress += bytesRead;
-
-                    if (progress <= ContentLength)
-                    {
-                        http_onReceiveProgress(progress, ContentLength);
-                    }
-                    else
-                    {
-                        http_onReceiveProgress(ContentLength, ContentLength);
-                    }
-                } while (bytesRead > 0);
-                // Close the file and web response streams.
-                lHttpWebResponseStream.Close();
-                // Set result to True - download was successful.
-                result = true;
-            }
-            catch (Exception download_error)
-            {
-                // display the whole error
-                DebugLine(download_error.ToString());
-            }
-            finally
-            {
-                // Close the file and web response streams.
+                FileStream lFileStream = new FileStream(path_local, FileMode.Create);
+                lFileStream.Write(Response.Content.ToArray(), 0, (int)Response.ContentLength);
                 lFileStream.Close();
+                return true;
             }
-            return result;
+            else
+            {
+                if (cbUpErrorPop.Checked)
+                {
+                    MessageBox.Show("Error - Check Debug Log");
+                }
+            }
+            return false;
         }
         public void updateLogo(string fileLocation)
         {
@@ -7265,19 +6980,31 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
             AllParams.Add(new string[2] { param2, val2 });
             AllParams.Add(new string[2] { param3, val3 });
             AllParams.Add(new string[2] { param4, val4 });
-            UniUploader.http.COMPRESSION_METHODS CompressionMethod = UniUploader.http.COMPRESSION_METHODS.NONE;
+            UniUploader.http.FILE_COMPRESSION_METHODS CompressionMethod = UniUploader.http.FILE_COMPRESSION_METHODS.NONE;
             if (GZcompress.Checked)
-                CompressionMethod = UniUploader.http.COMPRESSION_METHODS.GZIP;
+                CompressionMethod = UniUploader.http.FILE_COMPRESSION_METHODS.GZIP;
             http.UserAgent = getUserAgent();
 
 
             DebugLine("Upload: ------------------------------------------------------------------------");
-            http.onInformationMessage += new UniUploader.http.httpInfoDelegate(http_onInformationMessage);
-            string result = http.post(files, AllParams, url, UniUploader.http.ENCODING_TYPES.MULTI_FORM_DATA, UniUploader.http.REQUEST_METHODS.POST, "", CompressionMethod, cookies, credentials);
-            http.onInformationMessage -= new UniUploader.http.httpInfoDelegate(http_onInformationMessage);
+            //http.onInformationMessage += new UniUploader.http.httpInfoDelegate(http_onInformationMessage);
+            //string result = http.post(files, AllParams, url, UniUploader.http.ENCODING_TYPES.MULTI_FORM_DATA, UniUploader.http.REQUEST_METHODS.POST, "", CompressionMethod, cookies, credentials);
+
+            UniUploader.http.Response Response = new UniUploader.http.Response();
+            if (!http.post(ref Response, url, AllParams, files, CompressionMethod))
+            {
+                if (cbUpErrorPop.Checked)
+                {
+                    MessageBox.Show("Error - Check Debug Log");
+                }
+                DebugLine("Failed to Upload");
+            }
+
+
+            //http.onInformationMessage -= new UniUploader.http.httpInfoDelegate(http_onInformationMessage);
             DebugLine("[See Server Response Tab for upload result]");
             DebugLine("Upload: ------------------------------------------------------------------------");
-            return result;
+            return Response.ToString();
         }
         private Hashtable getQueryStringParams(string url)
         {
@@ -7329,22 +7056,23 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
             }
             DebugLine("RetrData: Timeout: " + Timeout);
             DebugLine("RetrData: ------------------------------------------------------------------------");
-
-
-
-
             ArrayList allParams = new ArrayList();
-
             allParams.Add(new string[2] { param1, val1 });
             allParams.Add(new string[2] { param2, val2 });
             allParams.Add(new string[2] { param3, val3 });
             allParams.Add(new string[2] { param4, val4 });
-            http.onInformationMessage += new UniUploader.http.httpInfoDelegate(http_onInformationMessage);
-            string result = http.post(Files, allParams, url, UniUploader.http.ENCODING_TYPES.MULTI_FORM_DATA, UniUploader.http.REQUEST_METHODS.POST, "", UniUploader.http.COMPRESSION_METHODS.NONE, cookies, credentials);
-            http.onInformationMessage -= new UniUploader.http.httpInfoDelegate(http_onInformationMessage);
-            DebugLine(result);
+            UniUploader.http.Response Response = new UniUploader.http.Response();
+            if (!http.post(ref Response, url, allParams))
+            {
+                if (cbUpErrorPop.Checked)
+                {
+                    MessageBox.Show("Error - Check Debug Log");
+                }
+                DebugLine("Failed to Retrieve Data");
+            }
+            DebugLine(Response.ToString());
             DebugLine("RetrData: ------------------------------------------------------------------------");
-            return result;
+            return Response.ToString();
         }
 
         void http_onInformationMessage(string s)
@@ -7864,6 +7592,11 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
         {
             linkLabel1.LinkVisited = true;
             System.Diagnostics.Process.Start("http://MatthewMiller.info");
+        }
+
+        private void userAgent_TextChanged(object sender, EventArgs e)
+        {
+            http.UserAgent = getUserAgent();
         }
 
 

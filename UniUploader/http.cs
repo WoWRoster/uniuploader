@@ -12,14 +12,6 @@ namespace UniUploader
 {
     internal sealed class http
     {
-        public bool sending = false;
-        public bool receiving = false;
-        public int totalBytesSent = 0;
-        public int bytesReceived = 0;
-        private int totalBytesSent2 = 0;
-        private int bytesReceived2 = 0;
-        public int totalOutBytes = 0;
-        public int totalInBytes = 0;
         public delegate void httpInfoDelegate(String s);
         public event httpInfoDelegate onInformationMessage;
         private void Info(String s)
@@ -27,15 +19,6 @@ namespace UniUploader
             if (!object.Equals(null, onInformationMessage))
             {
                 onInformationMessage(s);
-            }
-        }
-        public delegate void OnInfoClearDelegate();
-        public event OnInfoClearDelegate onInfoClear;
-        private void InfoClear()
-        {
-            if (!object.Equals(null, onInfoClear))
-            {
-                onInfoClear();
             }
         }
         private static DateTime DateCompiled()
@@ -66,7 +49,7 @@ namespace UniUploader
         //    }
         //}
         public string UserAgent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.1) Gecko/2008070208 Firefox/3.0.1";
-        private CookieContainer cookieJar = new CookieContainer();
+        public CookieContainer CookieJar = new CookieContainer();
         private Hashtable getQueryStringParams(string url)
         {
             int queryStringStart = url.IndexOf("?");
@@ -101,7 +84,7 @@ namespace UniUploader
             sw.Flush();
             return sw;
         }
-        private MemoryStream getPostData(Hashtable files, ArrayList allParams, string url, string boundary, COMPRESSION_METHODS CompressionMethod)
+        private MemoryStream getPostData(Hashtable files, ArrayList allParams, string url, string boundary, FILE_COMPRESSION_METHODS CompressionMethod)
         {
 
             MemoryStream postData = new MemoryStream();
@@ -136,7 +119,7 @@ namespace UniUploader
                     string FileNameOnlyName = Path.GetFileName(fileName);
                     switch (CompressionMethod)
                     {
-                        case COMPRESSION_METHODS.GZIP:
+                        case FILE_COMPRESSION_METHODS.GZIP:
                             MemoryStream ContentsGzippedStream = new MemoryStream();	//create the memory stream to hold the compressed file
                             Stream s = new GZipOutputStream(ContentsGzippedStream);		//create the gzip filter
                             s.Write(fileContents, 0, fileContents.Length);				//write the file contents to the filter
@@ -183,7 +166,7 @@ namespace UniUploader
             //string s = System.Text.Encoding.UTF8.GetString(b);
             return postData;
         }
-        string MD5SUM(byte[] FileOrText) //Output: String<-> Input: Byte[] //
+        private string MD5SUM(byte[] FileOrText) //Output: String<-> Input: Byte[] //
         {
             try
             {
@@ -205,22 +188,61 @@ namespace UniUploader
             GET,
             POST
         }
-        public enum COMPRESSION_METHODS
+        public enum FILE_COMPRESSION_METHODS
         {
             NONE,
             GZIP
         }
-        public string post(Hashtable files, ArrayList allParams, string url, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod, string Referer, COMPRESSION_METHODS CompressionMethods, CookieContainer cookies, CredentialCache credentials)
+
+        public CredentialCache CredentialCache;
+
+        public int Timeout = 43200000;
+
+        public bool post(ref Response Response, string Url)
         {
-            byte[] b = null;
-            return post(files, allParams, url, EncType, ReqMethod, Referer, CompressionMethods, cookieJar, credentials, ref b);
+            return post(ref Response, Url, null, null, this.UserAgent, ENCODING_TYPES.MULTI_FORM_DATA, REQUEST_METHODS.POST, this.Timeout, this.CookieJar, this.CredentialCache, FILE_COMPRESSION_METHODS.NONE, "");
         }
-        public string post(Hashtable files, ArrayList allParams, string url, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod, string Referer, COMPRESSION_METHODS CompressionMethods, CookieContainer cookies, CredentialCache credentials, ref byte[] b)
+        public bool post(ref Response Response, string Url, ArrayList Parameters)
+        {
+            return post(ref Response, Url, Parameters, null, this.UserAgent, ENCODING_TYPES.MULTI_FORM_DATA, REQUEST_METHODS.POST, this.Timeout, this.CookieJar, this.CredentialCache, FILE_COMPRESSION_METHODS.NONE, "");
+        }
+        public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files)
+        {
+            return post(ref Response, Url, Parameters, Files, this.UserAgent, ENCODING_TYPES.MULTI_FORM_DATA, REQUEST_METHODS.POST, this.Timeout, this.CookieJar, this.CredentialCache, FILE_COMPRESSION_METHODS.NONE, "");
+        }
+        public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, FILE_COMPRESSION_METHODS FileCompressionMethods)
+        {
+            return post(ref Response, Url, Parameters, Files, this.UserAgent, ENCODING_TYPES.MULTI_FORM_DATA, REQUEST_METHODS.POST, this.Timeout, this.CookieJar, this.CredentialCache, FileCompressionMethods, "");
+        }
+        public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, FILE_COMPRESSION_METHODS FileCompressionMethods, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod)
+        {
+            return post(ref Response, Url, Parameters, Files, this.UserAgent, EncType, ReqMethod, this.Timeout, this.CookieJar, this.CredentialCache, FileCompressionMethods, "");
+        }
+        public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, FILE_COMPRESSION_METHODS FileCompressionMethods, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod, int Timeout)
+        {
+            return post(ref Response, Url, Parameters, Files, this.UserAgent, EncType, ReqMethod, Timeout, this.CookieJar, this.CredentialCache, FileCompressionMethods, "");
+        }
+        public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, FILE_COMPRESSION_METHODS FileCompressionMethods, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod, int Timeout, string UserAgent)
+        {
+            return post(ref Response, Url, Parameters, Files, UserAgent, EncType, ReqMethod, Timeout, this.CookieJar, this.CredentialCache, FileCompressionMethods, "");
+        }
+        public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, FILE_COMPRESSION_METHODS FileCompressionMethods, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod, int Timeout, string UserAgent, string Referer)
+        {
+            return post(ref Response, Url, Parameters, Files, UserAgent, EncType, ReqMethod, Timeout, this.CookieJar, this.CredentialCache, FileCompressionMethods, Referer);
+        }
+        public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, FILE_COMPRESSION_METHODS FileCompressionMethods, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod, int Timeout, string UserAgent, string Referer, CookieContainer Cookies)
+        {
+            return post(ref Response, Url, Parameters, Files, UserAgent, EncType, ReqMethod, Timeout, Cookies, this.CredentialCache, FileCompressionMethods, Referer);
+        }
+        public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, FILE_COMPRESSION_METHODS FileCompressionMethods, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod, int Timeout, string UserAgent, string Referer, CookieContainer Cookies, CredentialCache CredentialCache)
+        {
+            return post(ref Response, Url, Parameters, Files, UserAgent, EncType, ReqMethod, Timeout, Cookies, CredentialCache, FileCompressionMethods, Referer);
+        }
+        private bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, string UserAgent, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod, int Timeout, CookieContainer Cookies, CredentialCache CredentialCache, FILE_COMPRESSION_METHODS FileCompressionMethods, string Referer)
         {
 
-            InfoClear();
-            if (!object.Equals(null, url)) Info("URL: " + url);
-            if (!object.Equals(null, files)) Info("Files: " + files.Count.ToString());
+            if (!object.Equals(null, Url)) Info("URL: " + Url);
+            if (!object.Equals(null, Files)) Info("Files: " + Files.Count.ToString());
             if (!object.Equals(null, EncType)) Info("Encode Type: " + EncType.ToString());
             if (!object.Equals(null, ReqMethod)) Info("Request Method: " + ReqMethod.ToString());
             if (!object.Equals(null, Referer) && !object.Equals(String.Empty, Referer)) Info("Referer: " + Referer);
@@ -237,20 +259,20 @@ namespace UniUploader
             switch (EncType)
             {
                 case ENCODING_TYPES.APP_X_WWW_FORM_URLENCODED:
-                    urlEncoded = url + "?" + getPostDataUrlEncoded(allParams, url, boundary);
+                    urlEncoded = Url + "?" + getPostDataUrlEncoded(Parameters, Url, boundary);
                     break;
                 case ENCODING_TYPES.MULTI_FORM_DATA:
-                    postData = getPostData(files, allParams, url, boundary, CompressionMethods);
+                    postData = getPostData(Files, Parameters, Url, boundary, FileCompressionMethods);
                     break;
             }
 
 
             if (EncType == ENCODING_TYPES.APP_X_WWW_FORM_URLENCODED)
             {
-                url = urlEncoded;
+                Url = urlEncoded;
             }
 
-            HttpWebRequest req = (new MyWebRequest().GetWebRequest2(new System.Uri(url)) as HttpWebRequest);
+            HttpWebRequest req = (new MyWebRequest().GetWebRequest2(new System.Uri(Url)) as HttpWebRequest);
             switch (EncType)
             {
                 case ENCODING_TYPES.APP_X_WWW_FORM_URLENCODED:
@@ -274,148 +296,128 @@ namespace UniUploader
                 req.Referer = Referer;
             }
             req.UnsafeAuthenticatedConnectionSharing = true;
-            req.CookieContainer = cookieJar;
+            req.CookieContainer = Cookies;
 
-            if (!object.Equals(null, cookies))
+            if (!object.Equals(null, Cookies))
             {
-                req.CookieContainer = cookies;
+                req.CookieContainer = Cookies;
             }
-            if (!object.Equals(null, credentials))
+            if (!object.Equals(null, CredentialCache))
             {
-                req.Credentials = credentials;
+                req.Credentials = CredentialCache;
             }
             req.UserAgent = UserAgent;
             req.AllowWriteStreamBuffering = false;
             req.Accept = "application/x-shockwave-flash,text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
             req.ContentLength = postData.Length;
-            req.Timeout = 43200000; //12 Hours (big flac files...)
+            req.Timeout = Timeout;
             if (ReqMethod == REQUEST_METHODS.POST)
             {
                 Stream oRequestStream = req.GetRequestStream();
                 postData.Seek(0, SeekOrigin.Begin);
 
                 int bytesSent = 0;
-                totalBytesSent = 0;
-                totalOutBytes = (int)postData.Length;
-                sending = true;
-                startStatusUpdater();
+                int totalBytesSent = 0;
+                int totalOutBytes = (int)postData.Length;
                 byte[] buffer = new Byte[checked((uint)Math.Min(4096, (int)postData.Length))];
                 while ((bytesSent = postData.Read(buffer, 0, buffer.Length)) != 0)
                 {
                     oRequestStream.Write(buffer, 0, bytesSent);
                     totalBytesSent += bytesSent;
+                    fireSendProgressEvent(totalBytesSent, (int)postData.Length);
                 }
                 oRequestStream.Close();
             }
-            Info("Request Sent");
-            receiving = true;
-            sending = false;
-            WebResponse oWResponse = null;
-            try
-            {
-                oWResponse = req.GetResponse();
-            }
-            catch (Exception e)
-            {
-                Info(e.Message);
-                return "";
-            }
-
-            Stream s = oWResponse.GetResponseStream();
-            totalInBytes = (int)oWResponse.ContentLength;
-            bytesReceived = 0;
-            //StreamReader sr = new StreamReader(s);
-            //String sReturnString = "";
-            //while (!sr.EndOfStream)
-            //{
-            //    char[] c = { '\0' };
-            //    sr.Read(c, 0, 1);
-            //    sReturnString += c[0];
-            //    bytesReceived++;
-            //}
-            //sr.Close();
-            //s.Close();
-            //System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            //BinaryReader br = new BinaryReader(s);
-            //while (true)
-            //{
-            //    try
-            //    {
-            //        sb.Append(br.ReadChar());
-            //        bytesReceived++;
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        //Info(e.ToString());
-            //        break;
-            //    }
-            //}
-            //br.Close();
-
-
+            Info("Request Sent.  ( " + postData.Length.ToString("N0") + " Bytes )");
 
             HttpWebResponse lHttpWebResponse;
-            // Declare a variable of type Stream named lHttpWebResponseStream.
             Stream lHttpWebResponseStream;
-            // Declare a variable of type FileStream named lFileStream.
-            // Use a FileStream constructor to create a new FileStream object.
-            // Assign the address (reference) of the new object
-            // to the lFileStream variable.
-            //FileStream lFileStream = new FileStream(path_local, FileMode.Create);
-            // Declare a variable of type Byte Array named byteBuffer.
-            byte[] byteBuffer = new byte[999];
-            // Declare a variable of type Integer named bytesRead.
+            byte[] byteBuffer = new byte[1024];
             int bytesRead;
             try
             {
-                // Instantiate the HttpWebRequest object.
-                lHttpWebRequest = (HttpWebRequest)WebRequest.Create(path_download);
-                // Instantiate the HttpWebRespose object.
                 lHttpWebResponse = (HttpWebResponse)req.GetResponse();
-                // Instantiate the ResponseStream object.
+
+                Response.CharacterSet = lHttpWebResponse.CharacterSet;
+                Response.ContentEncoding = lHttpWebResponse.ContentEncoding;
+                Response.ContentType = lHttpWebResponse.ContentType;
+                Response.Cookies = lHttpWebResponse.Cookies;
+                Response.Headers = lHttpWebResponse.Headers;
+                Response.IsFromCache = lHttpWebResponse.IsFromCache;
+                Response.IsMutuallyAuthenticated = lHttpWebResponse.IsMutuallyAuthenticated;
+                Response.LastModified = lHttpWebResponse.LastModified;
+                Response.Method = lHttpWebResponse.Method;
+                Response.ProtocolVersion = lHttpWebResponse.ProtocolVersion;
+                Response.ResponseUri = lHttpWebResponse.ResponseUri;
+                Response.Server = lHttpWebResponse.Server;
+                Response.StatusCode = lHttpWebResponse.StatusCode;
+                Response.StatusDescription = lHttpWebResponse.StatusDescription;
+
                 lHttpWebResponseStream = req.GetResponse().GetResponseStream();
-                // Set the ProgressBars Maximum property equal to the length of the file
-                // to be downloaded.
                 Int32 ContentLength = Convert.ToInt32(lHttpWebResponse.ContentLength);
                 int progress = 0;
+                Response.Content = new MemoryStream();
                 do
                 {
-                    // Read up to 1000 bytes into the bytesRead array.
-                    bytesRead = lHttpWebResponseStream.Read(byteBuffer, 0, 999);
-                    // Write the bytes read to the file stream.
-                    lFileStream.Write(byteBuffer, 0, bytesRead);
+                    bytesRead = lHttpWebResponseStream.Read(byteBuffer, 0, 1024);
+                    Response.Content.Write(byteBuffer, 0, bytesRead);
                     progress += bytesRead;
 
                     if (progress <= ContentLength)
                     {
-                        http_onReceiveProgress(progress, ContentLength);
+                        fireReceiveProgressEvent(progress, ContentLength);
                     }
                     else
                     {
-                        http_onReceiveProgress(ContentLength, ContentLength);
+                        fireReceiveProgressEvent(ContentLength, ContentLength);
                     }
                 } while (bytesRead > 0);
-                // Close the file and web response streams.
                 lHttpWebResponseStream.Close();
-                // Set result to True - download was successful.
-                result = true;
-
-
                 postData.Close();
-                receiving = false;
+                lHttpWebResponse.Close();
+                Info("Response Received.  ( " + ContentLength.ToString("N0") + " Bytes )");
+                return true;
             }
             catch (Exception e)
             {
                 Info(e.Message);
+                return false;
             }
 
-            //Info("Response Received: " + sReturnString.Length.ToString() + " Char.");
-            //return sReturnString;
-            Info("Response Received: " + sb.Length.ToString() + " Char.");
-            return sb.ToString();
-
         }
-
+        public class Response
+        {
+            public MemoryStream Content;
+            public string CharacterSet;
+            public string ContentType;
+            public string ContentEncoding;
+            public CookieCollection Cookies;
+            public long ContentLength
+            {
+                get
+                {
+                    if (!object.Equals(null, Content))
+                        return Content.Length;
+                    else return -1;
+                }
+            }
+            public WebHeaderCollection Headers;
+            public bool IsFromCache;
+            public bool IsMutuallyAuthenticated;
+            public DateTime LastModified;
+            public string Method;
+            public Version ProtocolVersion;
+            public Uri ResponseUri;
+            public string Server;
+            public HttpStatusCode StatusCode;
+            public string StatusDescription;
+            public override string ToString()
+            {
+                if (!object.Equals(null, Content))
+                    return System.Text.Encoding.UTF8.GetString(Content.ToArray());
+                else return "";
+            }
+        }
         private string getPostDataUrlEncoded(ArrayList allParams, string url, string boundary)
         {
             string postData = "";
@@ -477,35 +479,7 @@ namespace UniUploader
             postData += "clientTimeUTC=" + dateTimeNowUTC;
             return postData;
         }
-        private void startStatusUpdater()
-        {
-            Thread t = new Thread(new ThreadStart(StatusUpdater));
-            t.Start();
-        }
 
-        public void StatusUpdater()
-        {
-            while (sending || receiving)
-            {
-                Thread.Sleep(500);
-                if (sending)
-                {
-                    if (totalBytesSent != totalBytesSent2)
-                    {
-                        totalBytesSent2 = totalBytesSent;
-                        fireSendProgressEvent(totalBytesSent, totalOutBytes);
-                    }
-                }
-                if (receiving)
-                {
-                    if (bytesReceived != bytesReceived2)
-                    {
-                        bytesReceived2 = bytesReceived;
-                        fireReceiveProgressEvent(bytesReceived, totalInBytes);
-                    }
-                }
-            }
-        }
         public delegate void ReceiveProgressDelegate(int CurrentPosition, int TotalSize);
         public event ReceiveProgressDelegate onReceiveProgress;
         private void fireReceiveProgressEvent(int CurrentPosition, int TotalSize)
@@ -525,9 +499,6 @@ namespace UniUploader
                 onSendProgress(CurrentPosition, TotalSize);
             }
         }
-
-
-
     }
     internal class AcceptAllCertificatePolicy : ICertificatePolicy
     {
