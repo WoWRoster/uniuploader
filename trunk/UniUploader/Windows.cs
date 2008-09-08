@@ -44,22 +44,14 @@ namespace UniUploader
         }
         public static byte[] FileToByteArray(string file)
         {
-            try
-            {
-                FileInfo fInfo = new FileInfo(file);
-                long numBytes = fInfo.Length;
-                FileStream fStream = new FileStream(file, FileMode.Open, FileAccess.Read);
-                BinaryReader br = new BinaryReader(fStream);
-                byte[] data = br.ReadBytes((int)numBytes);
-                br.Close();
-                fStream.Close();
-                return data;
-            }
-            catch (Exception e)
-            {
-                //DebugLine("FileToByteArray: " + e.Message);
-                return null; //the file possibly does not exist
-            }
+            FileInfo fInfo = new FileInfo(file);
+            long numBytes = fInfo.Length;
+            FileStream fStream = new FileStream(file, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fStream);
+            byte[] data = br.ReadBytes((int)numBytes);
+            br.Close();
+            fStream.Close();
+            return data;
         }
         public static Boolean ScrollToBottom(IntPtr Handle)
         {
@@ -150,8 +142,8 @@ namespace UniUploader
             }
         }
 
-        
-        
+
+
     }
     public class GUI_helper : Form
     {
@@ -165,6 +157,26 @@ namespace UniUploader
                 return tv1.Nodes;
             }
         }
+
+        //form
+        public delegate void CloseFormDelegate();
+        public virtual void CloseForm()
+        {
+            if (this.InvokeRequired)
+            {
+                CloseFormDelegate dele = new CloseFormDelegate(CloseForm2);
+                this.Invoke(dele);
+            }
+            else
+            {
+                CloseForm2();
+            }
+        }
+        private void CloseForm2()
+        {
+            this.Close();
+        }
+
         //control
         public delegate void SetControlEnabledDelegate(Control Control, Boolean Enabled);
         public virtual void setControlEnabled(Control Control, Boolean Enabled)
