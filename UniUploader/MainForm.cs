@@ -3067,6 +3067,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             UniUploader.http.Response Response = new UniUploader.http.Response();
             if (http.post(ref Response, URL.Text, allParams))
             {
+                TextBoxClear(servResponse);
+                TextBoxAppendText(servResponse, "Screenshot Process Step 2 Response:" + Environment.NewLine);
+                TextBoxAppendText(servResponse, Response.ToString());
 
                 Hashtable files = new Hashtable();
                 string[] NotUploadedYet = Response.ToString().Split('\n');
@@ -3085,6 +3088,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                 SetStatusBarPanelText(statusBarPanel1, "Uploading " + files.Count + " Screenshots");
                 if (http.post(ref Response, URL.Text, allParams, files))
                 {
+                    TextBoxAppendText(servResponse, "Screenshot Process Step 3 Response:" + Environment.NewLine);
+                    TextBoxAppendText(servResponse, Response.ToString());
                     DebugLine("Uploaded " + files.Count + " Screenshots");
                 }
                 else
