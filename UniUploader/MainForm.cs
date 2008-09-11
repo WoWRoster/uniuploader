@@ -126,7 +126,7 @@ namespace WindowsApplication3
         private bool updating = false;
         private string uniVersionMajor = "2";
         private string uniVersionMinor = "6";
-        private string uniVersionRevision = "8 BETA 3";
+        private string uniVersionRevision = "8 BETA 4";
         private bool TEST_VERSION = true;
         private string UUuserAgent;
         private string selectedAcc = "";
@@ -3052,9 +3052,35 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             //UploadThread.Abort();
         }
 
+
+        private Hashtable getSVFileList()
+        {
+            Hashtable files = new Hashtable();
+            string fullFilePath = "";
+            string sep = Path.DirectorySeparatorChar.ToString();
+            foreach (string checkedSV in SVList.CheckedItems) //itterate through all checked files in the sv file list
+            {
+                if (checkedSV != "SavedVariables")
+                {
+
+                    fullFilePath = Path.GetDirectoryName(this.mainSvLocation) + sep + "SavedVariables" + sep + checkedSV + ".lua";
+                }
+                else
+                {
+
+                    fullFilePath = Path.GetDirectoryName(this.mainSvLocation) + sep + "SavedVariables.lua";
+                }
+
+                files[checkedSV] = fullFilePath;
+            }
+            return files;
+        }
+
+
         private void doScreenshots()
         {
-            SetStatusBarPanelText(statusBarPanel1, "Checking Screenshots");
+            Hashtable files = getSVFileList();
+            SetStatusBarPanelText(statusBarPanel1, Environment.NewLine + "Checking Screenshots" + Environment.NewLine);
             Hashtable h = get_screenshot_list();
             string data = "";
             foreach (DictionaryEntry de in h)
@@ -3065,13 +3091,13 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             allParams.Add(new string[2] { "OPERATION", "CHECKSHOTS" });
             allParams.Add(new string[2] { "data", data });
             UniUploader.http.Response Response = new UniUploader.http.Response();
-            if (http.post(ref Response, URL.Text, allParams))
+            if (http.post(ref Response, URL.Text, allParams, files))
             {
-                TextBoxClear(servResponse);
-                TextBoxAppendText(servResponse, "Screenshot Process Step 2 Response:" + Environment.NewLine);
+                //TextBoxClear(servResponse);
+                TextBoxAppendText(servResponse, Environment.NewLine + "Screenshot Process Step 2 Response:" + Environment.NewLine);
                 TextBoxAppendText(servResponse, Response.ToString());
 
-                Hashtable files = new Hashtable();
+
                 string[] NotUploadedYet = Response.ToString().Split('\n');
                 foreach (string ssToUp in NotUploadedYet)
                 {
@@ -3088,7 +3114,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                 SetStatusBarPanelText(statusBarPanel1, "Uploading " + files.Count + " Screenshots");
                 if (http.post(ref Response, URL.Text, allParams, files))
                 {
-                    TextBoxAppendText(servResponse, "Screenshot Process Step 3 Response:" + Environment.NewLine);
+                    TextBoxAppendText(servResponse, Environment.NewLine + "Screenshot Process Step 3 Response:" + Environment.NewLine);
                     TextBoxAppendText(servResponse, Response.ToString());
                     DebugLine("Uploaded " + files.Count + " Screenshots");
                 }
@@ -4755,6 +4781,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                     {
                         #region cases
 
+                        case "HOMEURL":
+                            doHomeURL(settingSplit[1]);
+                            break;
+                        case "FORUMURL":
+                            doForumURL(settingSplit[1]);
+                            break;
                         case "UPLOADSCREENSHOTS":
                             if (settingSplit[1] == "1")
                                 cbInclScreenShots.Checked = true;
@@ -5051,6 +5083,68 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                 {
                     DebugLine("UpdateUUSettings: " + e.Message);
                 }
+            }
+        }
+
+        private void doHomeURL(string URL)
+        {
+            string text = "Guild Homepage";
+            MenuItem homeMI = new MenuItem(text);
+            homeMI.Tag = URL;
+            homeMI.Click += new EventHandler(homeMI_Click);
+
+            int i = -1;
+            foreach (MenuItem mi in contextMenu1.MenuItems)
+            {
+                if (mi.Text == text)
+                {
+                    i = mi.Index;
+                }
+            }
+            if (i != -1)
+            {
+                contextMenu1.MenuItems.RemoveAt(i);
+                contextMenu1.MenuItems.Add(homeMI);
+            }
+            else
+            {
+                contextMenu1.MenuItems.Add(homeMI);
+            }
+        }
+
+        void homeMI_Click(object sender, EventArgs e)
+        {
+            string url = (string)((MenuItem)sender).Tag;
+            System.Diagnostics.Process.Start(url);
+        }
+        void forumMI_Click(object sender, EventArgs e)
+        {
+            string url = (string)((MenuItem)sender).Tag;
+            System.Diagnostics.Process.Start(url);
+        }
+        private void doForumURL(string URL)
+        {
+            string text = "Guild Forum";
+            MenuItem homeMI = new MenuItem(text);
+            homeMI.Tag = URL;
+            homeMI.Click += new EventHandler(forumMI_Click);
+
+            int i = -1;
+            foreach (MenuItem mi in contextMenu1.MenuItems)
+            {
+                if (mi.Text == text)
+                {
+                    i = mi.Index;
+                }
+            }
+            if (i != -1)
+            {
+                contextMenu1.MenuItems.RemoveAt(i);
+                contextMenu1.MenuItems.Add(homeMI);
+            }
+            else
+            {
+                contextMenu1.MenuItems.Add(homeMI);
             }
         }
         private void setSVlist(string delimitedSettings)
@@ -7083,21 +7177,6 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
         void http_onInformationMessage(string s)
         {
             DebugLine(s);
-        }
-        private StreamWriter addVar(StreamWriter sw, string boundary, string varName, string varValue)
-        {
-            string newLine = "\r\n";
-            sw.Write("--" + boundary + newLine);
-            //sw.Write("Content-Disposition: form-data; name=\""+varName+"\";" , newLine);
-            sw.Write("Content-Disposition: form-data; name=\"" + varName + "\"");
-            sw.Write(newLine);
-            sw.Write(newLine);
-            //sw.Write("Content-Type: text/html" + newLine + newLine);
-            sw.Flush();
-            sw.Write(varValue);
-            sw.Write(newLine);
-            sw.Flush();
-            return sw;
         }
         private void showAddonsBtn_Click(object sender, System.EventArgs e)
         {
