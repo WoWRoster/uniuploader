@@ -3076,10 +3076,29 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             return files;
         }
 
-
+        private string fixLineEnds(string inString)
+        {
+            inString = inString.Replace("\r", "");
+            inString = inString.Replace("\n", Environment.NewLine);
+            return inString;
+        }
+        private string writeDummyScreenshotsLuaFile()
+        {
+            byte[] contents = System.Text.ASCIIEncoding.ASCII.GetBytes(@"screenshots = {}");
+            string sep = Path.DirectorySeparatorChar.ToString();
+            string path = WorkSpacePath + sep + "screenshots.lua";
+            if (File.Exists(path)) File.Delete(path);
+            FileStream fs = new FileStream(path, FileMode.OpenOrCreate);
+            fs.Write(contents, 0, contents.Length);
+            fs.Close();
+            return path;
+        }
         private void doScreenshots()
         {
-            Hashtable files = getSVFileList();
+            Hashtable files = new Hashtable();//getSVFileList();
+            string dummyFilePath = writeDummyScreenshotsLuaFile();
+            files["screenshots"] = dummyFilePath;
+
             SetStatusBarPanelText(statusBarPanel1, Environment.NewLine + "Checking Screenshots" + Environment.NewLine);
             Hashtable h = get_screenshot_list();
             string data = "";
@@ -3093,9 +3112,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             UniUploader.http.Response Response = new UniUploader.http.Response();
             if (http.post(ref Response, URL.Text, allParams, files))
             {
-                //TextBoxClear(servResponse);
-                TextBoxAppendText(servResponse, Environment.NewLine + "Screenshot Process Step 2 Response:" + Environment.NewLine);
-                TextBoxAppendText(servResponse, Response.ToString());
+                TextBoxAppendText(servResponse, Environment.NewLine + "Screenshot Process Step 1 Response:" + Environment.NewLine);
+                TextBoxAppendText(servResponse, fixLineEnds(Response.ToString()));
 
 
                 string[] NotUploadedYet = Response.ToString().Split('\n');
@@ -3109,20 +3127,23 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                         }
                     }
                 }
-                allParams = get_all_params();
-                allParams.Add(new string[2] { "OPERATION", "UPSHOTS" });
-                SetStatusBarPanelText(statusBarPanel1, "Uploading " + files.Count + " Screenshots");
-                if (http.post(ref Response, URL.Text, allParams, files))
+                if (files.Count - 1 > 0)
                 {
-                    TextBoxAppendText(servResponse, Environment.NewLine + "Screenshot Process Step 3 Response:" + Environment.NewLine);
-                    TextBoxAppendText(servResponse, Response.ToString());
-                    DebugLine("Uploaded " + files.Count + " Screenshots");
-                }
-                else
-                {
-                    if (cbUpErrorPop.Checked)
+                    allParams = get_all_params();
+                    allParams.Add(new string[2] { "OPERATION", "UPSHOTS" });
+                    SetStatusBarPanelText(statusBarPanel1, "Uploading " + (files.Count - 1).ToString() + " Screenshots");
+                    if (http.post(ref Response, URL.Text, allParams, files))
                     {
-                        MessageBox.Show("Error - Check Debug Log");
+                        TextBoxAppendText(servResponse, Environment.NewLine + "Screenshot Process Step 2 Response:" + Environment.NewLine);
+                        TextBoxAppendText(servResponse, fixLineEnds(Response.ToString()));
+                        DebugLine("Uploaded " + (files.Count - 1).ToString() + " Screenshots");
+                    }
+                    else
+                    {
+                        if (cbUpErrorPop.Checked)
+                        {
+                            MessageBox.Show("Error - Check Debug Log");
+                        }
                     }
                 }
 
