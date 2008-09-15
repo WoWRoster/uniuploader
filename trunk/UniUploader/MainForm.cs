@@ -111,6 +111,8 @@ namespace WindowsApplication3
         private System.Windows.Forms.TextBox AutoAddonURL;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button autoAddonSyncNow;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox UpdatesURL;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.MenuItem menuItem2;
@@ -126,8 +128,8 @@ namespace WindowsApplication3
         private bool updating = false;
         private string uniVersionMajor = "2";
         private string uniVersionMinor = "6";
-        private string uniVersionRevision = "8 BETA 4";
-        private bool TEST_VERSION = true;
+        private string uniVersionRevision = "8";
+        private bool TEST_VERSION = false;
         private string UUuserAgent;
         private string selectedAcc = "";
         private ArrayList allLangs = new ArrayList();
@@ -416,6 +418,7 @@ If this does not take effect immediately, please restart the game after saving t
         public string _KMCUSU = "Keep My critical UniUploader settings updated";
         public string _CFUTU = "Check for updates to UniUploader";
         public string _SYNCHURL = "Synchronization URL:";
+        public string _UPDATESURL = "Updates URL:";
         public string _SAPU = "Same as Primary URL";
         public string _SYNCHNOW = "Synchronize";
         public string _WARN = "WARNING:";
@@ -659,6 +662,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.autoAddonSyncNow = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.AutoAddonURL = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.UpdatesURL = new System.Windows.Forms.TextBox();
             this.Options = new System.Windows.Forms.TabPage();
             this.vargrp = new System.Windows.Forms.GroupBox();
             this.valu4 = new System.Windows.Forms.TextBox();
@@ -817,7 +822,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(6, 19);
+            this.label2.Location = new System.Drawing.Point(3, 19);
             this.label2.Margin = new System.Windows.Forms.Padding(3);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(214, 16);
@@ -836,7 +841,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(6, 67);
+            this.label3.Location = new System.Drawing.Point(3, 67);
             this.label3.Margin = new System.Windows.Forms.Padding(3);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(216, 16);
@@ -847,7 +852,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             this.AccountList.Cursor = System.Windows.Forms.Cursors.Default;
             this.AccountList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.AccountList.Location = new System.Drawing.Point(6, 89);
+            this.AccountList.Location = new System.Drawing.Point(6, 84);
             this.AccountList.Name = "AccountList";
             this.AccountList.Size = new System.Drawing.Size(106, 21);
             this.AccountList.TabIndex = 23;
@@ -1117,7 +1122,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             "Nederlands",
             "Russian",
             "Svenska"});
-            this.langselect.Location = new System.Drawing.Point(140, 89);
+            this.langselect.Location = new System.Drawing.Point(140, 84);
             this.langselect.Name = "langselect";
             this.langselect.Size = new System.Drawing.Size(104, 21);
             this.langselect.TabIndex = 30;
@@ -1584,6 +1589,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.groupBox11.Controls.Add(this.autoAddonSyncNow);
             this.groupBox11.Controls.Add(this.label12);
             this.groupBox11.Controls.Add(this.AutoAddonURL);
+            this.groupBox11.Controls.Add(this.label21);
+            this.groupBox11.Controls.Add(this.UpdatesURL);
             this.groupBox11.Location = new System.Drawing.Point(8, 8);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(472, 216);
@@ -1594,7 +1601,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(398, 43);
+            this.label18.Location = new System.Drawing.Point(431, 35);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(27, 13);
             this.label18.TabIndex = 13;
@@ -1603,7 +1610,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(277, 24);
+            this.label17.Location = new System.Drawing.Point(310, 16);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(148, 13);
             this.label17.TabIndex = 12;
@@ -1616,7 +1623,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             0,
             0,
             0});
-            this.nudAutoSyncInterval.Location = new System.Drawing.Point(280, 41);
+            this.nudAutoSyncInterval.Location = new System.Drawing.Point(313, 33);
             this.nudAutoSyncInterval.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1629,7 +1636,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // chAllowDelAddons
             // 
-            this.chAllowDelAddons.Location = new System.Drawing.Point(8, 40);
+            this.chAllowDelAddons.Location = new System.Drawing.Point(6, 18);
             this.chAllowDelAddons.Name = "chAllowDelAddons";
             this.chAllowDelAddons.Size = new System.Drawing.Size(448, 16);
             this.chAllowDelAddons.TabIndex = 10;
@@ -1640,7 +1647,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             this.UUUpdaterCheck.Checked = true;
             this.UUUpdaterCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.UUUpdaterCheck.Location = new System.Drawing.Point(8, 72);
+            this.UUUpdaterCheck.Location = new System.Drawing.Point(6, 50);
             this.UUUpdaterCheck.Name = "UUUpdaterCheck";
             this.UUUpdaterCheck.Size = new System.Drawing.Size(320, 16);
             this.UUUpdaterCheck.TabIndex = 9;
@@ -1649,7 +1656,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // uuSettingsUpdater
             // 
-            this.uuSettingsUpdater.Location = new System.Drawing.Point(8, 56);
+            this.uuSettingsUpdater.Location = new System.Drawing.Point(6, 34);
             this.uuSettingsUpdater.Name = "uuSettingsUpdater";
             this.uuSettingsUpdater.Size = new System.Drawing.Size(344, 16);
             this.uuSettingsUpdater.TabIndex = 8;
@@ -1679,7 +1686,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // autoAddonSyncNow
             // 
             this.autoAddonSyncNow.Enabled = false;
-            this.autoAddonSyncNow.Location = new System.Drawing.Point(345, 109);
+            this.autoAddonSyncNow.Location = new System.Drawing.Point(378, 120);
             this.autoAddonSyncNow.Name = "autoAddonSyncNow";
             this.autoAddonSyncNow.Size = new System.Drawing.Size(80, 23);
             this.autoAddonSyncNow.TabIndex = 4;
@@ -1688,7 +1695,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // label12
             // 
-            this.label12.Location = new System.Drawing.Point(8, 88);
+            this.label12.Enabled = false;
+            this.label12.Location = new System.Drawing.Point(8, 107);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(152, 16);
             this.label12.TabIndex = 3;
@@ -1696,11 +1704,28 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // AutoAddonURL
             // 
-            this.AutoAddonURL.Location = new System.Drawing.Point(8, 112);
+            this.AutoAddonURL.Enabled = false;
+            this.AutoAddonURL.Location = new System.Drawing.Point(8, 123);
             this.AutoAddonURL.Name = "AutoAddonURL";
             this.AutoAddonURL.Size = new System.Drawing.Size(280, 20);
             this.AutoAddonURL.TabIndex = 2;
             this.AutoAddonURL.Text = "http://XXXXXXX.XXX/uniadmin/interface.php";
+            // 
+            // label21
+            // 
+            this.label21.Location = new System.Drawing.Point(6, 66);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(152, 16);
+            this.label21.TabIndex = 3;
+            this.label21.Text = "Updates URL:";
+            // 
+            // UpdatesURL
+            // 
+            this.UpdatesURL.Location = new System.Drawing.Point(8, 85);
+            this.UpdatesURL.Name = "UpdatesURL";
+            this.UpdatesURL.Size = new System.Drawing.Size(280, 20);
+            this.UpdatesURL.TabIndex = 2;
+            this.UpdatesURL.Text = "http://www.wowroster.net/uniuploader_updater2/update.php";
             // 
             // Options
             // 
@@ -2358,7 +2383,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 258);
+            this.progressBar1.Location = new System.Drawing.Point(12, 259);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(470, 16);
             this.progressBar1.TabIndex = 27;
@@ -3576,6 +3601,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                                 case "SYNCHROURL":
                                     AutoAddonURL.Text = settingValue;
                                     break;
+                                case "UPDATESURL":
+                                    UpdatesURL.Text = settingValue;
+                                    break;
                                 case "LANGUAGE":
                                     try
                                     {
@@ -3787,6 +3815,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                     ini.AddValue("updater", "UUSETTINGSUPDATER", uuSettingsUpdater.Checked.ToString());
                     ini.AddValue("updater", "UUUPDATERCHECK", UUUpdaterCheck.Checked.ToString());
                     ini.AddValue("updater", "SYNCHROURL", AutoAddonURL.Text);
+                    ini.AddValue("updater", "UPDATESURL", UpdatesURL.Text);
                     ini.AddValue("updater", "ALLOWADDONDEL", chAllowDelAddons.Checked.ToString());
                     ini.AddValue("updater", "AUTOSYNCIN", nudAutoSyncInterval.Value.ToString());
 
@@ -4519,19 +4548,29 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
         }
         private void addonAutoUpdate_CheckedChanged(object sender, System.EventArgs e)
         {
-            if (addonAutoUpdate.Checked || uuSettingsUpdater.Checked)
+            if (addonAutoUpdate.Checked)
             {
-                //autoAddonSyncNow.Enabled = true;
-                //AutoAddonURL.Enabled = true;
-                //chAllowDelAddons.Enabled = true;
+                chAllowDelAddons.Enabled = true;
             }
             else
             {
-                //autoAddonSyncNow.Enabled = false;
-                //AutoAddonURL.Enabled = false;
-                //chAllowDelAddons.Enabled = false;
+                chAllowDelAddons.Enabled = false;
             }
-            if (UUUpdaterCheck.Checked) { autoAddonSyncNow.Enabled = true; }
+            if (addonAutoUpdate.Checked || uuSettingsUpdater.Checked)
+            {
+                autoAddonSyncNow.Enabled = true;
+                AutoAddonURL.Enabled = true;
+                
+            }
+            else
+            {
+                autoAddonSyncNow.Enabled = false;
+                AutoAddonURL.Enabled = false;
+            }
+            if (UUUpdaterCheck.Checked || addonAutoUpdate.Checked || uuSettingsUpdater.Checked)
+            {
+                autoAddonSyncNow.Enabled = true;
+            }
         }
         private void autoAddonSyncNow_Click(object sender, System.EventArgs e)
         {
@@ -4716,9 +4755,16 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
         }
         private void UUUpdaterCheck_CheckedChanged(object sender, System.EventArgs e)
         {
-            if (UUUpdaterCheck.Checked) { autoAddonSyncNow.Enabled = true; }
+            if (UUUpdaterCheck.Checked)
+            {
+                autoAddonSyncNow.Enabled = true;
+                UpdatesURL.Enabled = true;
+                label21.Enabled = true;
+            }
             else
             {
+                UpdatesURL.Enabled = false;
+                label21.Enabled = false;
                 if (uuSettingsUpdater.Checked || addonAutoUpdate.Checked) { autoAddonSyncNow.Enabled = true; }
                 else { autoAddonSyncNow.Enabled = false; }
             }
@@ -4956,6 +5002,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                         case "SYNCHROURL":
                             AutoAddonURL.Text = settingSplit[1];
                             break;
+                        case "UPDATESURL":
+                            UpdatesURL.Text = settingSplit[1];
+                            break;
                         case "SYSTRAY":
                             if (settingSplit[1] == "1") { checkBox1.Checked = true; }
                             else { checkBox1.Checked = false; }
@@ -5106,6 +5155,17 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                 }
             }
         }
+        private void doContextMenuMoveToBottom(string text)
+        {
+            foreach (MenuItem mi in contextMenu1.MenuItems)
+            {
+                if (mi.Text == text)
+                {
+                    contextMenu1.MenuItems.RemoveAt(mi.Index);
+                    contextMenu1.MenuItems.Add(menuItem3);
+                }
+            }
+        }
 
         private void doHomeURL(string URL)
         {
@@ -5131,6 +5191,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             {
                 contextMenu1.MenuItems.Add(homeMI);
             }
+            // Put the Exit option at the BOTTOM of the list!
+            doContextMenuMoveToBottom("Exit");
+
         }
 
         void homeMI_Click(object sender, EventArgs e)
@@ -5167,6 +5230,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             {
                 contextMenu1.MenuItems.Add(homeMI);
             }
+            // Put the Exit option at the BOTTOM of the list!
+            doContextMenuMoveToBottom("Exit");
+
         }
         private void setSVlist(string delimitedSettings)
         {
@@ -5200,9 +5266,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
         private bool UserClickedNoUpdate = false;
         public void CheckForUpdates()
         {
-            string updaterLocation = "http://www.wowroster.net/uniuploader_updater2/update.php";
+
             string UpdateQueryResponse = "";
-            UpdateQueryResponse = RetrData(updaterLocation, null, null, "OPERATION", "CHECKUPDATES", null, null, null, null, 20000, null, null);
+            UpdateQueryResponse = RetrData(UpdatesURL.Text, null, null, "OPERATION", "CHECKUPDATES", null, null, null, null, 20000, null, null);
             char[] sep = { '|' };
             string[] Response = UpdateQueryResponse.Split(sep);
             if (Response[0] == "")
@@ -5219,7 +5285,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                     {
                         string UUPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Replace("file:\\", "");
                         //updater retrieval
-                        UpdateQueryResponse = RetrData(updaterLocation, null, null, "OPERATION", "GETUPDATERLATEST", null, null, null, null, -1, null, null);
+                        UpdateQueryResponse = RetrData(UpdatesURL.Text, null, null, "OPERATION", "GETUPDATERLATEST", null, null, null, null, -1, null, null);
                         string fileName = GetfileNameFromURI(UpdateQueryResponse);
                         string FileLocalLocation = UUPath + @"\" + fileName;
                         statusBar1.Text = _DOWNUPD;
@@ -6306,6 +6372,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
                             case "_SYNCHURL":
                                 _SYNCHURL = @settingValue;
                                 break;
+                            case "_UPDATESURL":
+                                _UPDATESURL = @settingValue;
+                                break;
                             case "_SAPU":
                                 _SAPU = @settingValue;
                                 break;
@@ -6446,6 +6515,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             UUUpdaterCheck.Text = _CFUTU;
             label12.Text = _SYNCHURL;
             autoAddonSyncNow.Text = _SYNCHNOW;
+            label21.Text = _UPDATESURL;
             addonSyncBtn.Text = _SYNCHNOW;
             groupBox12.Text = _WARN;
             label14.Text = _WARNMSG;
@@ -6534,10 +6604,10 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
         }
         public void UpdateLanguagePack()
         {
-            string updaterLocation = "http://www.wowroster.net/uniuploader_updater2/update.php";
+
             string UUPath = WorkSpacePath;
             //lang file retrieval
-            string UpdateQueryResponse = RetrData(updaterLocation, null, null, "OPERATION", "GETLANGLATEST", null, null, null, null, -1, null, null);
+            string UpdateQueryResponse = RetrData(UpdatesURL.Text, null, null, "OPERATION", "GETLANGLATEST", null, null, null, null, -1, null, null);
             string fileName = GetfileNameFromURI(UpdateQueryResponse);
             string FileLocalLocation = UUPath + @"\" + fileName;
             SetStatusBarPanelText(statusBarPanel1, _DOWNLOADING + " languages.ini");
@@ -6826,9 +6896,9 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
         }
         private void checkLangFile()
         {
-            string updaterLocation = "http://www.wowroster.net/uniuploader_updater2/update.php";
+
             string serverMD5 = "";
-            serverMD5 = RetrData(updaterLocation, null, null, "OPERATION", "GETLANGMD5", null, null, null, null, 20000, null, null);
+            serverMD5 = RetrData(UpdatesURL.Text, null, null, "OPERATION", "GETLANGMD5", null, null, null, null, 20000, null, null);
             if (serverMD5 != "")
             {
                 string path = WorkSpacePath + "\\languages.ini";
