@@ -1666,9 +1666,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // groupBox12
             // 
             this.groupBox12.Controls.Add(this.label14);
-            this.groupBox12.Location = new System.Drawing.Point(8, 144);
+            this.groupBox12.Location = new System.Drawing.Point(8, 149);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(456, 64);
+            this.groupBox12.Size = new System.Drawing.Size(456, 59);
             this.groupBox12.TabIndex = 7;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "WARNING:";
@@ -4574,6 +4574,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
         }
         private void autoAddonSyncNow_Click(object sender, System.EventArgs e)
         {
+            UserClickedNoUpdate = false;
             job = new ThreadStart(SyncNOW);
             UploadThread = new Thread(job);
             UploadThread.Name = "SyncThread";
@@ -6906,7 +6907,7 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
                 if (File.Exists(path))
                 {
                     md5sum = MD5SUM(FileToByteArray(path));
-                    DebugLine("MD5SUM of local languages.ini: " + md5sum);
+                    //DebugLine("MD5SUM of local languages.ini: " + md5sum);
                 }
                 if (md5sum != serverMD5)
                 {
