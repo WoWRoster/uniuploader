@@ -84,9 +84,33 @@ namespace UniUploader
             sw.Flush();
             return sw;
         }
-        private MemoryStream getPostData(Hashtable files, ArrayList allParams, string url, string boundary, FILE_COMPRESSION_METHODS CompressionMethod)
+        private ArrayList normalizePostData(ArrayList Data)
         {
-
+            ArrayList AllParams = new ArrayList();
+            Type t_hashTable = typeof(System.Collections.Hashtable);
+            Type t_stringArray = typeof(string[]);
+            foreach (object o in Data)
+            {
+                Type t = o.GetType();
+                if (t == t_hashTable)
+                {
+                    Hashtable h = (Hashtable)o;
+                    foreach (DictionaryEntry de in h)
+                    {
+                        AllParams.Add(new string[2] { (string)de.Key, (string)de.Value });
+                    }
+                }
+                if (t == t_stringArray)
+                {
+                    string[] s = (string[])o;
+                    AllParams.Add(new string[2] { s[0], s[1] });
+                }
+            }
+            return AllParams;
+        }
+        private MemoryStream getPostData(Hashtable files, ArrayList _allParams, string url, string boundary, FILE_COMPRESSION_METHODS CompressionMethod)
+        {
+            ArrayList allParams = normalizePostData(_allParams);
             MemoryStream postData = new MemoryStream();
             string newLine = "\r\n";
             StreamWriter sw = new StreamWriter(postData);
