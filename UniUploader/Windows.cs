@@ -229,6 +229,75 @@ namespace UniUploader
         {
             return Control.Text;
         }
+        public delegate void SetControlTagDelegate(Control Control, Object Text);
+        public virtual void SetControlTag(Control Control, Object TagObject)
+        {
+            if (this.InvokeRequired)
+            {
+                SetControlTagDelegate dele = new SetControlTagDelegate(SetControlTag2);
+                this.Invoke(dele, new object[] { Control, TagObject });
+            }
+            else
+            {
+                SetControlTag2(Control, TagObject);
+            }
+        }
+        private void SetControlTag2(Control Control, Object TagObject)
+        {
+            Control.Tag = TagObject;
+        }
+        private delegate void setControlBoxEnabledDelegate(bool enabled);
+        public virtual void setControlBoxEnabled(bool enabled)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new setControlBoxEnabledDelegate(setControlBoxEnabled2), new object[] { enabled });
+            }
+            else
+            {
+                setControlBoxEnabled2(enabled);
+            }
+        }
+        private void setControlBoxEnabled2(bool enabled)
+        {
+            this.ControlBox = enabled;
+        }
+
+        //picturebox
+        public delegate void SetPictureBoxImageLocationDelegate(PictureBox Object, String Location);
+        public virtual void SetPictureBoxImageLocation(PictureBox Object, String Location)
+        {
+            if (this.InvokeRequired)
+            {
+                SetPictureBoxImageLocationDelegate dele = new SetPictureBoxImageLocationDelegate(SetPictureBoxImageLocation2);
+                this.Invoke(dele, new object[] { Object, Location });
+            }
+            else
+            {
+                SetPictureBoxImageLocation2(Object, Location);
+            }
+        }
+        private void SetPictureBoxImageLocation2(PictureBox Object, String Location)
+        {
+            Object.ImageLocation = Location;
+        }
+        public delegate void SetPictureBoxImageDelegate(PictureBox Object, Image Image);
+        public virtual void SetPictureBoxImage(PictureBox Object, Image Image)
+        {
+            if (this.InvokeRequired)
+            {
+                SetPictureBoxImageDelegate dele = new SetPictureBoxImageDelegate(SetPictureBoxImage2);
+                this.Invoke(dele, new object[] { Object, Image });
+            }
+            else
+            {
+                SetPictureBoxImage2(Object, Image);
+            }
+        }
+        private void SetPictureBoxImage2(PictureBox Object, Image Image)
+        {
+            Object.Image = Image;
+        }
 
         //status bar panel
         public delegate void SetStatusBarPanelTextDelegate(StatusBarPanel Object, String Text);
