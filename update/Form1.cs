@@ -1,3 +1,5 @@
+// ----------------------------------------------
+
 using System;
 using System.IO;
 using System.Drawing;
@@ -8,7 +10,11 @@ using System.Diagnostics;
 using System.Net;
 using System.Threading;
 using CommandLine.Utility;
+using System.Data;
+using System.Text;
+using cs_IniHandlerDevelop;
 
+// ----------------------------------------------
 
 namespace WindowsApplication10
 {
@@ -20,18 +26,25 @@ namespace WindowsApplication10
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Timer timer1;
+		private System.Windows.Forms.Timer timer1;  // Retry timer if UniUploader is still running
+		private System.Windows.Forms.Timer timer2;  // Automatically press the Launch New Version button timer
 		private System.ComponentModel.IContainer components;
 		public string uuver = "";
 		public string updver_major =	"1";
 		public string updver_minor =	"4";
-		public string updver_revision = "5";
+		public string updver_revision = "6";
 		public int numChecks;
+		public int numLaunchChecks;
+		public int AutoLaunchTimer = 30;
 		private System.Windows.Forms.ListBox DebugBox;
 		private System.Windows.Forms.Button saveas;
 		private System.Windows.Forms.Button launchUU;
 		//public string updver = "1.4.0";// REMEMBER THIS!!!
 		public string UULanguage = "";
+		IniStructure ini = new cs_IniHandlerDevelop.IniStructure();
+		public string UpdatesURL = "";
+
+// ----------------------------------------------
 
 		public Form1(string UniVer, string UULang)
 		{
@@ -46,6 +59,8 @@ namespace WindowsApplication10
 			// TODO: Add any constructor code after InitializeComponent call
 			//
 		}
+
+// ----------------------------------------------
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -62,6 +77,8 @@ namespace WindowsApplication10
 			base.Dispose( disposing );
 		}
 
+// ----------------------------------------------
+
 		#region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -75,6 +92,7 @@ namespace WindowsApplication10
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.label3 = new System.Windows.Forms.Label();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.timer2 = new System.Windows.Forms.Timer(this.components);
 			this.DebugBox = new System.Windows.Forms.ListBox();
 			this.saveas = new System.Windows.Forms.Button();
 			this.launchUU = new System.Windows.Forms.Button();
@@ -107,6 +125,12 @@ namespace WindowsApplication10
 			this.timer1.Enabled = true;
 			this.timer1.Interval = 1000;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
+			// timer2
+			// 
+			this.timer2.Enabled = true;
+			this.timer2.Interval = 1000;
+			this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
 			// 
 			// DebugBox
 			// 
@@ -156,9 +180,10 @@ namespace WindowsApplication10
 			this.Text = "Updater";
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.ResumeLayout(false);
-
 		}
 		#endregion
+
+// ----------------------------------------------
 
 		/// <summary>
 		/// The main entry point for the application.
@@ -179,22 +204,33 @@ namespace WindowsApplication10
 			}
 		}
 
+// ----------------------------------------------
+
 		private void Form1_Load(object sender, System.EventArgs e)
 		{
 			string updVerString = updver_major+"."+updver_minor+"."+updver_revision;
 			DebugLine("Updater v"+updVerString+" started");
 			DebugLine("Waiting for UniUploader to close before initiating download.");
 		}
+
+// ----------------------------------------------
+
 		public void updateNOW()
 		{
+			ReadSettings();
 			string UpdateQueryResponse = "";
-			UpdateQueryResponse = RetrData("http://www.wowroster.net/uniuploader_updater2/update.php",null,null,"OPERATION","GETLATEST","LANGUAGE",UULanguage,null,null,20000);
+			UpdateQueryResponse = RetrData(UpdatesURL,null,null,"OPERATION","GETLATEST","LANGUAGE",UULanguage,null,null,20000);
 			string fileName = GetfileNameFromURI(UpdateQueryResponse);
 			string FileLocalLocation = System.IO.Path.GetDirectoryName( System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase ).Replace("file:\\","")+@"\"+fileName;
 			DebugLine("Downloading ["+UpdateQueryResponse+"]");
 			download(UpdateQueryResponse,FileLocalLocation);
 			DebugLine("New UniUploader.exe downloaded, Please press the \"Launch New Version\" Button.");
+			DebugLine("System will automatically launch new version after "+AutoLaunchTimer+" seconds.");
 			launchUU.Enabled = true;
+
+			numLaunchChecks = 0;
+			timer2.Enabled = true;
+			timer2.Start();
 
 			this.Show();
 			this.TopLevel = true;
@@ -206,6 +242,9 @@ namespace WindowsApplication10
 			//System.Diagnostics.Process.Start(start);
 			//this.Close();
 		}
+
+// ----------------------------------------------
+
 		string GetfileNameFromURI (string uri)
 		{
 			//string[] splitUri = new string[];
@@ -214,14 +253,16 @@ namespace WindowsApplication10
 			splitUri = uri.Split(sep);
 			return splitUri[splitUri.Length - 1];
 		}
-		
+	
+// ----------------------------------------------
+
 		public string RetrData(string url, CookieContainer cookies, CredentialCache credentials, string param1, string val1, string param2, string val2, string param3, string val3, int Timeout) 
 		{
 			// Initialize the request object
 			HttpWebRequest req = (WebRequest.Create(url) as HttpWebRequest);
 			if (cookies != null) req.CookieContainer = cookies;
 			if (credentials != null) req.Credentials = credentials;
-      
+
 			string boundary = Guid.NewGuid().ToString().Replace("-", "");
 			req.ContentType = "multipart/form-data; boundary=" + boundary;
 			req.Method = "POST";
@@ -233,7 +274,6 @@ namespace WindowsApplication10
 			MemoryStream postData = new MemoryStream();
 			string newLine = "\r\n";
 			StreamWriter sw = new StreamWriter(postData);
-      
 
 			if (param1 != null)
 			{
@@ -316,9 +356,11 @@ namespace WindowsApplication10
 			DebugLines(responseString.Split(new Char[] {'\n'}));
 			DebugLine("RetrData: ------------------------------------------------------------------------");
 			DebugLine("");
-			
+
 			return (responseString);
 		}
+
+// ----------------------------------------------
 
 		private bool download(string path_download, string path_local)
 		{
@@ -402,6 +444,8 @@ namespace WindowsApplication10
 			return result;
 		}
 
+// ----------------------------------------------
+
 		public void timer1_Tick(object sender, System.EventArgs e)
 		{
 			int windowHandle = Win32.FindWindow(null ,"UniUploader");
@@ -449,11 +493,32 @@ namespace WindowsApplication10
 					timer1.Start();
 				}
 			}
-		
 		}
+
+// ----------------------------------------------
+
+		public void timer2_Tick(object sender, System.EventArgs e)
+		{
+			if (numLaunchChecks < AutoLaunchTimer)
+			{
+				numLaunchChecks++;
+			}
+			else
+			{
+				timer2.Stop();
+				timer2.Enabled = false;
+				DebugLine("Automatically launching new UniUploader version.");
+				string UUPath = System.IO.Path.GetDirectoryName( System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase ).Replace("file:\\","");
+				System.Diagnostics.ProcessStartInfo start = new System.Diagnostics.ProcessStartInfo(UUPath+"\\UniUploader.exe");
+				System.Diagnostics.Process.Start(start);
+				this.Close();
+			}
+		}
+
+// ----------------------------------------------
+
 		public bool isUUWritable()
 		{
-			
 			try
 			{
 				FileStream fs = new FileStream("UniUploader.exe", FileMode.OpenOrCreate,FileAccess.Write);
@@ -470,6 +535,8 @@ namespace WindowsApplication10
 			return false;
 		}
 
+// ----------------------------------------------
+
 		public void DebugLine(string Text)
 		{
 			string[] TextSplit =  Text.Split(new Char[] {'\n'});
@@ -481,6 +548,9 @@ namespace WindowsApplication10
 			int numLines = DebugBox.Items.Count;
 			DebugBox.SelectedIndex = numLines - 1;
 		}
+
+// ----------------------------------------------
+
 		public void DebugLines(string[] Text)
 		{
 			foreach (string line in Text)
@@ -491,10 +561,14 @@ namespace WindowsApplication10
 			DebugBox.SelectedIndex = numLines - 1;
 		}
 
+// ----------------------------------------------
+
 		public string GetDateAndTime()
 		{
 			return DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
 		}
+
+// ----------------------------------------------
 
 		private void saveas_Click(object sender, System.EventArgs e)
 		{
@@ -521,6 +595,8 @@ namespace WindowsApplication10
 			}
 		}
 
+// ----------------------------------------------
+
 		private void startDownload()
 		{
 			timer1.Stop();
@@ -530,13 +606,161 @@ namespace WindowsApplication10
 			thread.Start();
 		}
 
+// ----------------------------------------------
+
 		private void launchUU_Click(object sender, System.EventArgs e)
 		{
+			timer2.Stop();
+			timer2.Enabled=false;
 			string UUPath = System.IO.Path.GetDirectoryName( System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase ).Replace("file:\\","");
 			System.Diagnostics.ProcessStartInfo start = new System.Diagnostics.ProcessStartInfo(UUPath+"\\UniUploader.exe");
 			System.Diagnostics.Process.Start(start);
 			this.Close();
 		}
 
+// ----------------------------------------------
+
+		private string findSettingFile()
+		{
+			string thisAppDataPath = Application.ExecutablePath; // Application.UserAppDataPath;
+			string versionContextPath = Path.GetFullPath(thisAppDataPath + "\\..");
+
+			DirectoryInfo di = new DirectoryInfo(versionContextPath);
+
+			ArrayList a = new ArrayList();
+			foreach (DirectoryInfo di2 in di.GetDirectories())
+			{
+				if (di2.Name != "." && di2.Name != "..")
+				{
+					DirectoryInfo di3 = new DirectoryInfo(di2.FullName);
+					foreach (FileInfo fi in di3.GetFiles())
+					{
+						if (fi.Name.ToLower() == "settings.ini")
+						{
+							Hashtable h = new Hashtable();
+							h[fi.FullName] = fi.LastWriteTime;
+							a.Add(h);
+						}
+					}
+				}
+			}
+			string exePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Replace("file:\\", "");
+			di = new DirectoryInfo(exePath);
+			foreach (FileInfo fi in di.GetFiles())
+			{
+				if (fi.Name.ToLower() == "settings.ini")
+				{
+					Hashtable h = new Hashtable();
+					h[fi.FullName] = fi.LastWriteTime;
+					a.Add(h);
+				}
+			}
+
+			string key_i;
+			DateTime val_i = new DateTime();
+			string key_r;
+			DateTime val_r = new DateTime();
+			for (int i = 0; i < a.Count; i++)
+			{
+				for (int r = 0; r < a.Count; r++)
+				{
+					foreach (DictionaryEntry de in ((Hashtable)a[r]))
+					{
+						key_r = (string)de.Key;
+						val_r = (DateTime)de.Value;
+					}
+					foreach (DictionaryEntry de in ((Hashtable)a[i]))
+					{
+						key_i = (string)de.Key;
+						val_i = (DateTime)de.Value;
+					}
+					if (val_i.CompareTo(val_r) > 0)
+					{
+						Hashtable temp = (Hashtable)a[i];
+						a[i] = a[r];
+						a[r] = temp;
+					}
+				}
+			}
+			string outVal = "";
+			if (a.Count > 0)
+			{
+				foreach (DictionaryEntry de in ((Hashtable)a[0]))
+				{
+					outVal = (string)de.Key;
+				}
+			}
+			return outVal;
+		}
+
+// ----------------------------------------------
+
+		private void ReadSettings()
+		{
+			string file = findSettingFile();
+			try
+			{
+				if (File.Exists(file) == true)
+				{
+					ini = IniStructure.ReadIni(file);
+					string[] allCategories = ini.GetCategories();
+					string[] keys;
+					foreach (string category in allCategories)
+					{
+						keys = ini.GetKeys(category);
+						foreach (string key in keys)
+						{
+							string settingValue = ini.GetValue(category, key);
+							bool settingValueBool;
+							if (settingValue != "")
+							{
+								try
+								{
+									settingValueBool = Convert.ToBoolean(settingValue);
+								}
+								catch
+								{
+									settingValueBool = false;
+								}
+							}
+							else
+							{
+								settingValueBool = false;
+							}
+
+							switch (key)
+							{
+								#region cases
+								case "UPDATESURL":
+									UpdatesURL = settingValue;
+									break;
+								#endregion
+								default:
+									break;
+							}
+						}
+					}
+				}
+				else
+				{
+					//settings file doesn't exist yet, manually set the UpdatesURL thing with the defaults
+					// UpdatesURL = "http://wowroster.net/uniuploader_updater2/update.php";
+				}
+			}
+			catch (Exception e)
+			{
+				DebugLine("ReadSettings: " + e.Message);
+				if (e.Message == "Object reference not set to an instance of an object.")
+				{
+					MessageBox.Show("Your settings file is somehow corrupted.\nPlease delete settings.ini or repair it.");
+				}
+				return;
+			}
+		}
+
+// ----------------------------------------------
+
 	}
 }
+
+// ----------------------------------------------
