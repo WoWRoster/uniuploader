@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.IO;
 using System.Windows.Forms;
+using System.Drawing;
 namespace UniUploader
 {
     public class Windows

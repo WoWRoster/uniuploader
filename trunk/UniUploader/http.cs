@@ -89,6 +89,9 @@ namespace UniUploader
             ArrayList AllParams = new ArrayList();
             Type t_hashTable = typeof(System.Collections.Hashtable);
             Type t_stringArray = typeof(string[]);
+
+if (Data == null) { return AllParams; }  // Temp patch fix to sort out null error crash bug
+
             foreach (object o in Data)
             {
                 Type t = o.GetType();
@@ -110,8 +113,9 @@ namespace UniUploader
         }
         private MemoryStream getPostData(Hashtable files, ArrayList _allParams, string url, string boundary, FILE_COMPRESSION_METHODS CompressionMethod)
         {
+            MemoryStream postData = new MemoryStream();  // Moved from below normalizePostData due to null error crash bug
+if (_allParams == null) { return postData; }  // Temp patch fix to sort out null error crash bug
             ArrayList allParams = normalizePostData(_allParams);
-            MemoryStream postData = new MemoryStream();
             string newLine = "\r\n";
             StreamWriter sw = new StreamWriter(postData);
             if (!object.Equals(null, allParams))
