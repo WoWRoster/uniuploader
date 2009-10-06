@@ -5832,8 +5832,14 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			}
 			else
 			{
-				if ((uniVersionMajor + "." + uniVersionMinor + "." + uniVersionRevision) != Response[0] && !UserClickedNoUpdate)
+				// Lets do some proper version comparison checks shall we
+				Version v1 = new Version(uniVersionMajor + "." + uniVersionMinor + "." + uniVersionRevision), v2 = new Version(Response[0]);
+				DebugLine("UniUploader Version: " + v1 + ", Update.php UniUploader Version: " + v2 + ".");
+				if (v1 > v2) DebugLine("UniUploader is latest version");
+				else if (v1 < v2 && !UserClickedNoUpdate)
+				// if ((uniVersionMajor + "." + uniVersionMinor + "." + uniVersionRevision) != Response[0] && !UserClickedNoUpdate)
 				{
+					DebugLine("New UniUploader version detected");
 					if (UUAutoUpdaterCheck.Checked)
 					{
 						string UUPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Replace("file:\\", "");
