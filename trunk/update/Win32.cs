@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace WindowsApplication10
+namespace update
 {
 	/// <summary>
 	/// Summary description for Win32.
