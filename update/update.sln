@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C# Express 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsApplication10", "WindowsApplication10.csproj", "{0B28F57E-6310-4BE5-A58D-C398C7D915A3}"
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "update", "update.csproj", "{0B28F57E-6310-4BE5-A58D-C398C7D915A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

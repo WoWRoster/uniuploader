@@ -150,7 +150,8 @@ namespace WindowsApplication3
 		private bool updating = false;
 		private string uniVersionMajor = "2";
 		private string uniVersionMinor = "6";
-		private string uniVersionRevision = "9";
+		private string uniVersionBuild = "9";
+		private string uniVersionRevision = "1";
 		private bool TEST_VERSION = false;
 		private string UUuserAgent;
 		private string selectedAcc = "";
@@ -577,6 +578,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		private LinkLabel linkLabel3;
 		private CheckBox stwowlaunch;
 		private Button updateCheckBtn;
+		public int UUTimeOut = 20000;  // Default setting for UniUploader timeout (Used - currently - by doLogos, CheckForUpdates, checkLangFile functions)
 		FileSystemWatcher newWatcher = new FileSystemWatcher();
 
 // ----------------------------------------------
@@ -863,47 +865,47 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
 			this.SuspendLayout();
-			// 
+			//
 			// myTimer
-			// 
+			//
 			this.myTimer.SynchronizingObject = this;
 			this.myTimer.Elapsed += new System.Timers.ElapsedEventHandler(this.UploadDelayTimerElapsed);
-			// 
+			//
 			// myTimer2
-			// 
+			//
 			this.myTimer2.Enabled = true;
 			this.myTimer2.SynchronizingObject = this;
 			this.myTimer2.Elapsed += new System.Timers.ElapsedEventHandler(this.myTimer2Tick);
-			// 
+			//
 			// URL
-			// 
+			//
 			this.URL.AcceptsReturn = true;
 			this.URL.Location = new System.Drawing.Point(6, 41);
 			this.URL.Name = "URL";
 			this.URL.Size = new System.Drawing.Size(238, 20);
 			this.URL.TabIndex = 8;
 			this.URL.Text = "http://yourdomain.com/yourinterface.php";
-			// 
+			//
 			// URLLbl
-			// 
+			//
 			this.URLLbl.Location = new System.Drawing.Point(3, 19);
 			this.URLLbl.Margin = new System.Windows.Forms.Padding(3);
 			this.URLLbl.Name = "URLLbl";
 			this.URLLbl.Size = new System.Drawing.Size(214, 16);
 			this.URLLbl.TabIndex = 9;
 			this.URLLbl.Text = "URL: (interface file on the web)";
-			// 
+			//
 			// UploadNowBtn
-			// 
+			//
 			this.UploadNowBtn.Location = new System.Drawing.Point(398, 201);
 			this.UploadNowBtn.Name = "UploadNowBtn";
 			this.UploadNowBtn.Size = new System.Drawing.Size(80, 24);
 			this.UploadNowBtn.TabIndex = 10;
 			this.UploadNowBtn.Text = "Upload";
 			this.UploadNowBtn.Click += new System.EventHandler(this.UploadNowBtn_Click);
-			// 
+			//
 			// AccountSelectLbl
-			// 
+			//
 			this.AccountSelectLbl.BackColor = System.Drawing.Color.Transparent;
 			this.AccountSelectLbl.Location = new System.Drawing.Point(3, 67);
 			this.AccountSelectLbl.Margin = new System.Windows.Forms.Padding(3);
@@ -911,9 +913,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.AccountSelectLbl.Size = new System.Drawing.Size(216, 16);
 			this.AccountSelectLbl.TabIndex = 12;
 			this.AccountSelectLbl.Text = "Select WOW Account:";
-			// 
+			//
 			// AccountList
-			// 
+			//
 			this.AccountList.Cursor = System.Windows.Forms.Cursors.Default;
 			this.AccountList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.AccountList.Location = new System.Drawing.Point(6, 84);
@@ -922,9 +924,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.AccountList.Sorted = true;
 			this.AccountList.TabIndex = 23;
 			this.AccountList.SelectedIndexChanged += new System.EventHandler(this.AccountList_SelectedIndexChanged_1);
-			// 
+			//
 			// checkBox1
-			// 
+			//
 			this.checkBox1.Checked = true;
 			this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.checkBox1.Location = new System.Drawing.Point(8, 16);
@@ -933,9 +935,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.checkBox1.TabIndex = 22;
 			this.checkBox1.Text = "Show in System Tray";
 			this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-			// 
+			//
 			// autoUploader
-			// 
+			//
 			this.autoUploader.Checked = true;
 			this.autoUploader.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.autoUploader.Location = new System.Drawing.Point(8, 48);
@@ -943,9 +945,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.autoUploader.Size = new System.Drawing.Size(168, 16);
 			this.autoUploader.TabIndex = 14;
 			this.autoUploader.Text = "Auto-Upload";
-			// 
+			//
 			// groupBox2
-			// 
+			//
 			this.groupBox2.Controls.Add(this.version);
 			this.groupBox2.Controls.Add(this.pictureBox2);
 			this.groupBox2.Controls.Add(this.libLink);
@@ -965,9 +967,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox2.TabIndex = 21;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "About";
-			// 
+			//
 			// version
-			// 
+			//
 			this.version.BackColor = System.Drawing.Color.Transparent;
 			this.version.ForeColor = System.Drawing.Color.Red;
 			this.version.Location = new System.Drawing.Point(72, 16);
@@ -975,9 +977,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.version.Size = new System.Drawing.Size(92, 16);
 			this.version.TabIndex = 17;
 			this.version.Text = "2.6.9";
-			// 
+			//
 			// pictureBox2
-			// 
+			//
 			this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
 			this.pictureBox2.Location = new System.Drawing.Point(136, 16);
 			this.pictureBox2.Name = "pictureBox2";
@@ -985,9 +987,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox2.TabIndex = 21;
 			this.pictureBox2.TabStop = false;
-			// 
+			//
 			// libLink
-			// 
+			//
 			this.libLink.LinkColor = System.Drawing.Color.Blue;
 			this.libLink.Location = new System.Drawing.Point(8, 117);
 			this.libLink.Name = "libLink";
@@ -996,9 +998,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.libLink.TabStop = true;
 			this.libLink.Text = "http://WoWRoster.net";
 			this.libLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.libLink_LinkClicked);
-			// 
+			//
 			// linkLabel3
-			// 
+			//
 			this.linkLabel3.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.linkLabel3.LinkColor = System.Drawing.Color.Blue;
 			this.linkLabel3.Location = new System.Drawing.Point(8, 64);
@@ -1008,9 +1010,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.linkLabel3.TabStop = true;
 			this.linkLabel3.Text = "http://MatthewMiller.info";
 			this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
-			// 
+			//
 			// linkLabel2
-			// 
+			//
 			this.linkLabel2.Location = new System.Drawing.Point(77, 32);
 			this.linkLabel2.Name = "linkLabel2";
 			this.linkLabel2.Size = new System.Drawing.Size(56, 16);
@@ -1018,18 +1020,18 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.linkLabel2.TabStop = true;
 			this.linkLabel2.Text = "Matt Miller";
 			this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
-			// 
+			//
 			// CreatedLbl
-			// 
+			//
 			this.CreatedLbl.ForeColor = System.Drawing.Color.Blue;
 			this.CreatedLbl.Location = new System.Drawing.Point(8, 32);
 			this.CreatedLbl.Name = "CreatedLbl";
 			this.CreatedLbl.Size = new System.Drawing.Size(72, 16);
 			this.CreatedLbl.TabIndex = 18;
 			this.CreatedLbl.Text = "Created By:";
-			// 
+			//
 			// linkLabel1
-			// 
+			//
 			this.linkLabel1.LinkColor = System.Drawing.Color.Blue;
 			this.linkLabel1.Location = new System.Drawing.Point(8, 48);
 			this.linkLabel1.Name = "linkLabel1";
@@ -1038,26 +1040,26 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.linkLabel1.TabStop = true;
 			this.linkLabel1.Text = "Matt@MatthewMiller.info";
 			this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-			// 
+			//
 			// UULbl
-			// 
+			//
 			this.UULbl.Location = new System.Drawing.Point(8, 16);
 			this.UULbl.Name = "UULbl";
 			this.UULbl.Size = new System.Drawing.Size(72, 16);
 			this.UULbl.TabIndex = 16;
 			this.UULbl.Text = "UniUploader";
-			// 
+			//
 			// UpdByLbl
-			// 
+			//
 			this.UpdByLbl.ForeColor = System.Drawing.Color.Blue;
 			this.UpdByLbl.Location = new System.Drawing.Point(8, 84);
 			this.UpdByLbl.Name = "UpdByLbl";
 			this.UpdByLbl.Size = new System.Drawing.Size(72, 16);
 			this.UpdByLbl.TabIndex = 18;
 			this.UpdByLbl.Text = "Updated By:";
-			// 
+			//
 			// linkLabel4
-			// 
+			//
 			this.linkLabel4.Location = new System.Drawing.Point(77, 84);
 			this.linkLabel4.Name = "linkLabel4";
 			this.linkLabel4.Size = new System.Drawing.Size(56, 16);
@@ -1065,9 +1067,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.linkLabel4.TabStop = true;
 			this.linkLabel4.Text = "Calystos";
 			this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked);
-			// 
+			//
 			// linkLabel5
-			// 
+			//
 			this.linkLabel5.LinkColor = System.Drawing.Color.Blue;
 			this.linkLabel5.Location = new System.Drawing.Point(8, 100);
 			this.linkLabel5.Name = "linkLabel5";
@@ -1076,59 +1078,59 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.linkLabel5.TabStop = true;
 			this.linkLabel5.Text = "Calystos@virgin.net";
 			this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel5_LinkClicked);
-			// 
+			//
 			// btnTranslations
-			// 
+			//
 			this.btnTranslations.Location = new System.Drawing.Point(8, 168);
 			this.btnTranslations.Name = "btnTranslations";
 			this.btnTranslations.Size = new System.Drawing.Size(88, 23);
 			this.btnTranslations.TabIndex = 21;
 			this.btnTranslations.Text = "Translations:";
 			this.btnTranslations.Click += new System.EventHandler(this.btnTranslations_Click);
-			// 
+			//
 			// btnLegal
-			// 
+			//
 			this.btnLegal.Location = new System.Drawing.Point(8, 136);
 			this.btnLegal.Name = "btnLegal";
 			this.btnLegal.Size = new System.Drawing.Size(75, 23);
 			this.btnLegal.TabIndex = 21;
 			this.btnLegal.Text = "License";
 			this.btnLegal.Click += new System.EventHandler(this.btnLegal_Click);
-			// 
+			//
 			// notifyIcon1
-			// 
+			//
 			this.notifyIcon1.ContextMenu = this.contextMenu1;
 			this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
 			this.notifyIcon1.Text = "UniUploader";
 			this.notifyIcon1.Visible = true;
-			// 
+			//
 			// contextMenu1
-			// 
+			//
 			this.contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 			this.menuItem1,
 			this.menuItem2,
 			this.menuItem3});
-			// 
+			//
 			// menuItem1
-			// 
+			//
 			this.menuItem1.Index = 0;
 			this.menuItem1.Text = "Upload Now";
 			this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
-			// 
+			//
 			// menuItem2
-			// 
+			//
 			this.menuItem2.Index = 1;
 			this.menuItem2.Text = "Launch WoW";
 			this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click_1);
-			// 
+			//
 			// menuItem3
-			// 
+			//
 			this.menuItem3.Index = 2;
 			this.menuItem3.Text = "Exit";
 			this.menuItem3.Click += new System.EventHandler(this.menuItem3_Click);
-			// 
+			//
 			// tabControl1
-			// 
+			//
 			this.tabControl1.Controls.Add(this.Settings);
 			this.tabControl1.Controls.Add(this.Advanced);
 			this.tabControl1.Controls.Add(this.wowAddons);
@@ -1142,9 +1144,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.tabControl1.SelectedIndex = 0;
 			this.tabControl1.Size = new System.Drawing.Size(496, 256);
 			this.tabControl1.TabIndex = 18;
-			// 
+			//
 			// Settings
-			// 
+			//
 			this.Settings.Controls.Add(this.showAddonsBtn);
 			this.Settings.Controls.Add(this.configGroup);
 			this.Settings.Controls.Add(this.togSVList);
@@ -1157,9 +1159,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.Settings.Size = new System.Drawing.Size(488, 230);
 			this.Settings.TabIndex = 0;
 			this.Settings.Text = "Settings";
-			// 
+			//
 			// showAddonsBtn
-			// 
+			//
 			this.showAddonsBtn.Enabled = false;
 			this.showAddonsBtn.Location = new System.Drawing.Point(188, 201);
 			this.showAddonsBtn.Name = "showAddonsBtn";
@@ -1167,9 +1169,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.showAddonsBtn.TabIndex = 36;
 			this.showAddonsBtn.Text = "Show Addons";
 			this.showAddonsBtn.Click += new System.EventHandler(this.showAddonsBtn_Click);
-			// 
+			//
 			// configGroup
-			// 
+			//
 			this.configGroup.Controls.Add(this.UploadALLAccounts);
 			this.configGroup.Controls.Add(this.cbInclScreenShots);
 			this.configGroup.Controls.Add(this.cbInclAddonData);
@@ -1188,9 +1190,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.configGroup.TabIndex = 35;
 			this.configGroup.TabStop = false;
 			this.configGroup.Text = "Config";
-			// 
+			//
 			// UploadALLAccounts
-			// 
+			//
 			this.UploadALLAccounts.AutoSize = true;
 			this.UploadALLAccounts.Checked = true;
 			this.UploadALLAccounts.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -1201,9 +1203,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.UploadALLAccounts.Text = "Upload ALL Accounts";
 			this.UploadALLAccounts.UseVisualStyleBackColor = true;
 			this.UploadALLAccounts.CheckedChanged += new System.EventHandler(this.UploadALLAccounts_CheckedChanged);
-			// 
+			//
 			// cbInclScreenShots
-			// 
+			//
 			this.cbInclScreenShots.AutoSize = true;
 			this.cbInclScreenShots.Location = new System.Drawing.Point(6, 139);
 			this.cbInclScreenShots.Name = "cbInclScreenShots";
@@ -1211,9 +1213,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.cbInclScreenShots.TabIndex = 37;
 			this.cbInclScreenShots.Text = "Upload Screenshots";
 			this.cbInclScreenShots.UseVisualStyleBackColor = true;
-			// 
+			//
 			// cbInclAddonData
-			// 
+			//
 			this.cbInclAddonData.AutoSize = true;
 			this.cbInclAddonData.Checked = true;
 			this.cbInclAddonData.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -1223,9 +1225,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.cbInclAddonData.TabIndex = 38;
 			this.cbInclAddonData.Text = "Upload SVs";
 			this.cbInclAddonData.UseVisualStyleBackColor = true;
-			// 
+			//
 			// langselect
-			// 
+			//
 			this.langselect.Cursor = System.Windows.Forms.Cursors.Default;
 			this.langselect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.langselect.Items.AddRange(new object[] {
@@ -1242,9 +1244,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.langselect.Sorted = true;
 			this.langselect.TabIndex = 30;
 			this.langselect.SelectedIndexChanged += new System.EventHandler(this.langselect_SelectedIndexChanged);
-			// 
+			//
 			// AutoInstallDirDetect
-			// 
+			//
 			this.AutoInstallDirDetect.AutoSize = true;
 			this.AutoInstallDirDetect.Checked = true;
 			this.AutoInstallDirDetect.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -1255,18 +1257,18 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.AutoInstallDirDetect.Text = "Auto-Detect WoW";
 			this.AutoInstallDirDetect.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.AutoInstallDirDetect.CheckedChanged += new System.EventHandler(this.AutoInstallDirDetect_CheckedChanged);
-			// 
+			//
 			// langLabel
-			// 
+			//
 			this.langLabel.Location = new System.Drawing.Point(137, 67);
 			this.langLabel.Margin = new System.Windows.Forms.Padding(3);
 			this.langLabel.Name = "langLabel";
 			this.langLabel.Size = new System.Drawing.Size(100, 16);
 			this.langLabel.TabIndex = 34;
 			this.langLabel.Text = "Language:";
-			// 
+			//
 			// addonAutoUpdate
-			// 
+			//
 			this.addonAutoUpdate.AutoSize = true;
 			this.addonAutoUpdate.Location = new System.Drawing.Point(6, 162);
 			this.addonAutoUpdate.Name = "addonAutoUpdate";
@@ -1275,9 +1277,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.addonAutoUpdate.Text = "Keep Addons Updated";
 			this.addonAutoUpdate.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
 			this.addonAutoUpdate.CheckedChanged += new System.EventHandler(this.addonAutoUpdate_CheckedChanged);
-			// 
+			//
 			// findInstallBtn
-			// 
+			//
 			this.findInstallBtn.Enabled = false;
 			this.findInstallBtn.Location = new System.Drawing.Point(156, 110);
 			this.findInstallBtn.Name = "findInstallBtn";
@@ -1285,36 +1287,36 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.findInstallBtn.TabIndex = 36;
 			this.findInstallBtn.Text = "Find WoW.exe";
 			this.findInstallBtn.Click += new System.EventHandler(this.findInstallBtn_Click);
-			// 
+			//
 			// togSVList
-			// 
+			//
 			this.togSVList.Location = new System.Drawing.Point(118, 201);
 			this.togSVList.Name = "togSVList";
 			this.togSVList.Size = new System.Drawing.Size(64, 24);
 			this.togSVList.TabIndex = 33;
 			this.togSVList.Text = "Show SVs";
 			this.togSVList.Click += new System.EventHandler(this.togSVList_Click);
-			// 
+			//
 			// Mode
-			// 
+			//
 			this.Mode.Location = new System.Drawing.Point(8, 201);
 			this.Mode.Name = "Mode";
 			this.Mode.Size = new System.Drawing.Size(104, 24);
 			this.Mode.TabIndex = 28;
 			this.Mode.Text = "Simple Mode";
 			this.Mode.Click += new System.EventHandler(this.Mode_Click);
-			// 
+			//
 			// wowlaunch
-			// 
+			//
 			this.wowlaunch.Location = new System.Drawing.Point(304, 201);
 			this.wowlaunch.Name = "wowlaunch";
 			this.wowlaunch.Size = new System.Drawing.Size(88, 24);
 			this.wowlaunch.TabIndex = 24;
 			this.wowlaunch.Text = "Launch WoW";
 			this.wowlaunch.Click += new System.EventHandler(this.wowlaunch_Click);
-			// 
+			//
 			// pictureBox1
-			// 
+			//
 			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
 			this.pictureBox1.Location = new System.Drawing.Point(264, 16);
 			this.pictureBox1.Name = "pictureBox1";
@@ -1322,18 +1324,18 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox1.TabIndex = 25;
 			this.pictureBox1.TabStop = false;
-			// 
+			//
 			// Advanced
-			// 
+			//
 			this.Advanced.Controls.Add(this.groupBox5);
 			this.Advanced.Location = new System.Drawing.Point(4, 22);
 			this.Advanced.Name = "Advanced";
 			this.Advanced.Size = new System.Drawing.Size(488, 230);
 			this.Advanced.TabIndex = 5;
 			this.Advanced.Text = "Advanced";
-			// 
+			//
 			// groupBox5
-			// 
+			//
 			this.groupBox5.Controls.Add(this.otherexes);
 			this.groupBox5.Controls.Add(this.groupBox6);
 			this.groupBox5.Controls.Add(this.groupBox10);
@@ -1344,9 +1346,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox5.TabIndex = 0;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Advanced Settings";
-			// 
+			//
 			// otherexes
-			// 
+			//
 			this.otherexes.Controls.Add(this.exeOnUuStart);
 			this.otherexes.Controls.Add(this.exe3Location);
 			this.otherexes.Controls.Add(this.exe3Browse);
@@ -1364,27 +1366,27 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.otherexes.TabIndex = 11;
 			this.otherexes.TabStop = false;
 			this.otherexes.Text = "Launch Other Program(s)";
-			// 
+			//
 			// exeOnUuStart
-			// 
+			//
 			this.exeOnUuStart.Location = new System.Drawing.Point(8, 16);
 			this.exeOnUuStart.Name = "exeOnUuStart";
 			this.exeOnUuStart.Size = new System.Drawing.Size(120, 16);
 			this.exeOnUuStart.TabIndex = 19;
 			this.exeOnUuStart.Text = "on uu launch";
 			this.exeOnUuStart.CheckedChanged += new System.EventHandler(this.exeOnSrtart_CheckedChanged);
-			// 
+			//
 			// exe3Location
-			// 
+			//
 			this.exe3Location.Enabled = false;
 			this.exe3Location.Location = new System.Drawing.Point(8, 160);
 			this.exe3Location.Name = "exe3Location";
 			this.exe3Location.ReadOnly = true;
 			this.exe3Location.Size = new System.Drawing.Size(184, 20);
 			this.exe3Location.TabIndex = 18;
-			// 
+			//
 			// exe3Browse
-			// 
+			//
 			this.exe3Browse.Enabled = false;
 			this.exe3Browse.Location = new System.Drawing.Point(128, 136);
 			this.exe3Browse.Name = "exe3Browse";
@@ -1393,9 +1395,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.exe3Browse.Text = "Browse...";
 			this.exe3Browse.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			this.exe3Browse.Click += new System.EventHandler(this.exe3Browse_Click);
-			// 
+			//
 			// exe3
-			// 
+			//
 			this.exe3.Enabled = false;
 			this.exe3.Location = new System.Drawing.Point(72, 144);
 			this.exe3.Name = "exe3";
@@ -1403,18 +1405,18 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.exe3.TabIndex = 16;
 			this.exe3.Text = "exe 3";
 			this.exe3.CheckedChanged += new System.EventHandler(this.exe3_CheckedChanged);
-			// 
+			//
 			// exe2Location
-			// 
+			//
 			this.exe2Location.Enabled = false;
 			this.exe2Location.Location = new System.Drawing.Point(8, 112);
 			this.exe2Location.Name = "exe2Location";
 			this.exe2Location.ReadOnly = true;
 			this.exe2Location.Size = new System.Drawing.Size(184, 20);
 			this.exe2Location.TabIndex = 15;
-			// 
+			//
 			// exe2Browse
-			// 
+			//
 			this.exe2Browse.Enabled = false;
 			this.exe2Browse.Location = new System.Drawing.Point(128, 88);
 			this.exe2Browse.Name = "exe2Browse";
@@ -1423,9 +1425,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.exe2Browse.Text = "Browse...";
 			this.exe2Browse.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			this.exe2Browse.Click += new System.EventHandler(this.exe2Browse_Click);
-			// 
+			//
 			// exe2
-			// 
+			//
 			this.exe2.Enabled = false;
 			this.exe2.Location = new System.Drawing.Point(72, 96);
 			this.exe2.Name = "exe2";
@@ -1433,18 +1435,18 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.exe2.TabIndex = 13;
 			this.exe2.Text = "exe 2";
 			this.exe2.CheckedChanged += new System.EventHandler(this.exe2_CheckedChanged);
-			// 
+			//
 			// exe1Location
-			// 
+			//
 			this.exe1Location.Enabled = false;
 			this.exe1Location.Location = new System.Drawing.Point(8, 64);
 			this.exe1Location.Name = "exe1Location";
 			this.exe1Location.ReadOnly = true;
 			this.exe1Location.Size = new System.Drawing.Size(184, 20);
 			this.exe1Location.TabIndex = 12;
-			// 
+			//
 			// exe1Browse
-			// 
+			//
 			this.exe1Browse.Enabled = false;
 			this.exe1Browse.Location = new System.Drawing.Point(128, 40);
 			this.exe1Browse.Name = "exe1Browse";
@@ -1453,9 +1455,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.exe1Browse.Text = "Browse...";
 			this.exe1Browse.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			this.exe1Browse.Click += new System.EventHandler(this.exe1Browse_Click);
-			// 
+			//
 			// exe1
-			// 
+			//
 			this.exe1.Enabled = false;
 			this.exe1.Location = new System.Drawing.Point(72, 48);
 			this.exe1.Name = "exe1";
@@ -1463,18 +1465,18 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.exe1.TabIndex = 10;
 			this.exe1.Text = "exe 1";
 			this.exe1.CheckedChanged += new System.EventHandler(this.exe1_CheckedChanged);
-			// 
+			//
 			// exeOnWowLaunch
-			// 
+			//
 			this.exeOnWowLaunch.Location = new System.Drawing.Point(8, 32);
 			this.exeOnWowLaunch.Name = "exeOnWowLaunch";
 			this.exeOnWowLaunch.Size = new System.Drawing.Size(120, 16);
 			this.exeOnWowLaunch.TabIndex = 20;
 			this.exeOnWowLaunch.Text = "on wow launch";
 			this.exeOnWowLaunch.CheckedChanged += new System.EventHandler(this.exeOnWowLaunch_CheckedChanged);
-			// 
+			//
 			// groupBox6
-			// 
+			//
 			this.groupBox6.Controls.Add(this.cbAppData);
 			this.groupBox6.Controls.Add(this.GZcompress);
 			this.groupBox6.Controls.Add(this.SecondsLbl);
@@ -1486,9 +1488,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox6.TabIndex = 9;
 			this.groupBox6.TabStop = false;
 			this.groupBox6.Text = "Other Options";
-			// 
+			//
 			// cbAppData
-			// 
+			//
 			this.cbAppData.AutoSize = true;
 			this.cbAppData.Location = new System.Drawing.Point(8, 73);
 			this.cbAppData.Name = "cbAppData";
@@ -1496,9 +1498,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.cbAppData.TabIndex = 3;
 			this.cbAppData.Text = "Use %APPDATA%";
 			this.cbAppData.UseVisualStyleBackColor = true;
-			// 
+			//
 			// GZcompress
-			// 
+			//
 			this.GZcompress.Checked = true;
 			this.GZcompress.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.GZcompress.Location = new System.Drawing.Point(8, 56);
@@ -1506,35 +1508,35 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.GZcompress.Size = new System.Drawing.Size(120, 16);
 			this.GZcompress.TabIndex = 2;
 			this.GZcompress.Text = "GZip Compression";
-			// 
+			//
 			// SecondsLbl
-			// 
+			//
 			this.SecondsLbl.Location = new System.Drawing.Point(32, 35);
 			this.SecondsLbl.Name = "SecondsLbl";
 			this.SecondsLbl.Size = new System.Drawing.Size(96, 16);
 			this.SecondsLbl.TabIndex = 1;
 			this.SecondsLbl.Text = "Seconds:";
-			// 
+			//
 			// DelaySecs
-			// 
+			//
 			this.DelaySecs.Enabled = false;
 			this.DelaySecs.Location = new System.Drawing.Point(8, 32);
 			this.DelaySecs.Name = "DelaySecs";
 			this.DelaySecs.Size = new System.Drawing.Size(24, 20);
 			this.DelaySecs.TabIndex = 2;
 			this.DelaySecs.Text = "5";
-			// 
+			//
 			// delaych
-			// 
+			//
 			this.delaych.Location = new System.Drawing.Point(8, 16);
 			this.delaych.Name = "delaych";
 			this.delaych.Size = new System.Drawing.Size(120, 16);
 			this.delaych.TabIndex = 0;
 			this.delaych.Text = "Delayed Upload";
 			this.delaych.CheckedChanged += new System.EventHandler(this.delaych_CheckedChanged);
-			// 
+			//
 			// groupBox10
-			// 
+			//
 			this.groupBox10.Controls.Add(this.purgefirstCh);
 			this.groupBox10.Controls.Add(this.webToWowLbl);
 			this.groupBox10.Controls.Add(this.webWoWSvFile);
@@ -1550,45 +1552,45 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox10.TabIndex = 8;
 			this.groupBox10.TabStop = false;
 			this.groupBox10.Text = "Website ==> WoW";
-			// 
+			//
 			// purgefirstCh
-			// 
+			//
 			this.purgefirstCh.Enabled = false;
 			this.purgefirstCh.Location = new System.Drawing.Point(136, 80);
 			this.purgefirstCh.Name = "purgefirstCh";
 			this.purgefirstCh.Size = new System.Drawing.Size(104, 16);
 			this.purgefirstCh.TabIndex = 17;
 			this.purgefirstCh.Text = "Purge First";
-			// 
+			//
 			// webToWowLbl
-			// 
+			//
 			this.webToWowLbl.Enabled = false;
 			this.webToWowLbl.Location = new System.Drawing.Point(136, 40);
 			this.webToWowLbl.Name = "webToWowLbl";
 			this.webToWowLbl.Size = new System.Drawing.Size(100, 16);
 			this.webToWowLbl.TabIndex = 16;
 			this.webToWowLbl.Text = "SV file to write to:";
-			// 
+			//
 			// webWoWSvFile
-			// 
+			//
 			this.webWoWSvFile.Enabled = false;
 			this.webWoWSvFile.Location = new System.Drawing.Point(136, 56);
 			this.webWoWSvFile.Name = "webWoWSvFile";
 			this.webWoWSvFile.Size = new System.Drawing.Size(100, 20);
 			this.webWoWSvFile.TabIndex = 15;
 			this.webWoWSvFile.Text = "SavedVariables.lua";
-			// 
+			//
 			// chWtoWOWbeforeUpload
-			// 
+			//
 			this.chWtoWOWbeforeUpload.Enabled = false;
 			this.chWtoWOWbeforeUpload.Location = new System.Drawing.Point(8, 68);
 			this.chWtoWOWbeforeUpload.Name = "chWtoWOWbeforeUpload";
 			this.chWtoWOWbeforeUpload.Size = new System.Drawing.Size(216, 16);
 			this.chWtoWOWbeforeUpload.TabIndex = 14;
 			this.chWtoWOWbeforeUpload.Text = "before uploading";
-			// 
+			//
 			// btnWtoWOWDownload
-			// 
+			//
 			this.btnWtoWOWDownload.Enabled = false;
 			this.btnWtoWOWDownload.Location = new System.Drawing.Point(160, 16);
 			this.btnWtoWOWDownload.Name = "btnWtoWOWDownload";
@@ -1596,36 +1598,36 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.btnWtoWOWDownload.TabIndex = 13;
 			this.btnWtoWOWDownload.Text = "Download";
 			this.btnWtoWOWDownload.Click += new System.EventHandler(this.btnWtoWOWDownload_Click);
-			// 
+			//
 			// chWtoWOWbeforeWOWLaunch
-			// 
+			//
 			this.chWtoWOWbeforeWOWLaunch.Enabled = false;
 			this.chWtoWOWbeforeWOWLaunch.Location = new System.Drawing.Point(8, 52);
 			this.chWtoWOWbeforeWOWLaunch.Name = "chWtoWOWbeforeWOWLaunch";
 			this.chWtoWOWbeforeWOWLaunch.Size = new System.Drawing.Size(128, 16);
 			this.chWtoWOWbeforeWOWLaunch.TabIndex = 11;
 			this.chWtoWOWbeforeWOWLaunch.Text = "before WoW launch";
-			// 
+			//
 			// retrDataUrl
-			// 
+			//
 			this.retrDataUrl.Enabled = false;
 			this.retrDataUrl.Location = new System.Drawing.Point(8, 32);
 			this.retrDataUrl.Name = "retrDataUrl";
 			this.retrDataUrl.Size = new System.Drawing.Size(120, 20);
 			this.retrDataUrl.TabIndex = 10;
 			this.retrDataUrl.Text = "http://yourdomain.com/yourinterface.php";
-			// 
+			//
 			// retrdatafromsite
-			// 
+			//
 			this.retrdatafromsite.Location = new System.Drawing.Point(8, 16);
 			this.retrdatafromsite.Name = "retrdatafromsite";
 			this.retrdatafromsite.Size = new System.Drawing.Size(104, 16);
 			this.retrdatafromsite.TabIndex = 3;
 			this.retrdatafromsite.Text = "Retrieve Data";
 			this.retrdatafromsite.CheckedChanged += new System.EventHandler(this.retrdatafromsite_CheckedChanged);
-			// 
+			//
 			// chWtoWOWafterUpload
-			// 
+			//
 			this.chWtoWOWafterUpload.Checked = true;
 			this.chWtoWOWafterUpload.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.chWtoWOWafterUpload.Enabled = false;
@@ -1634,9 +1636,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.chWtoWOWafterUpload.Size = new System.Drawing.Size(224, 16);
 			this.chWtoWOWafterUpload.TabIndex = 12;
 			this.chWtoWOWafterUpload.Text = "after uploading";
-			// 
+			//
 			// groupBox7
-			// 
+			//
 			this.groupBox7.Controls.Add(this.launchWoWargs);
 			this.groupBox7.Controls.Add(this.chUseLauncher);
 			this.groupBox7.Controls.Add(this.OpenGl);
@@ -1648,57 +1650,57 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox7.TabIndex = 26;
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "WoW";
-			// 
+			//
 			// launchWoWargs
-			// 
+			//
 			this.launchWoWargs.Location = new System.Drawing.Point(40, 64);
 			this.launchWoWargs.Name = "launchWoWargs";
 			this.launchWoWargs.Size = new System.Drawing.Size(64, 20);
 			this.launchWoWargs.TabIndex = 26;
-			// 
+			//
 			// chUseLauncher
-			// 
+			//
 			this.chUseLauncher.Location = new System.Drawing.Point(8, 48);
 			this.chUseLauncher.Name = "chUseLauncher";
 			this.chUseLauncher.Size = new System.Drawing.Size(96, 16);
 			this.chUseLauncher.TabIndex = 25;
 			this.chUseLauncher.Text = "Use Launcher";
-			// 
+			//
 			// OpenGl
-			// 
+			//
 			this.OpenGl.Location = new System.Drawing.Point(8, 16);
 			this.OpenGl.Name = "OpenGl";
 			this.OpenGl.Size = new System.Drawing.Size(72, 16);
 			this.OpenGl.TabIndex = 3;
 			this.OpenGl.Text = "-OpenGL";
-			// 
+			//
 			// windowmode
-			// 
+			//
 			this.windowmode.Location = new System.Drawing.Point(8, 32);
 			this.windowmode.Name = "windowmode";
 			this.windowmode.Size = new System.Drawing.Size(96, 16);
 			this.windowmode.TabIndex = 24;
 			this.windowmode.Text = "Window Mode";
-			// 
+			//
 			// ArgsLbl
-			// 
+			//
 			this.ArgsLbl.Location = new System.Drawing.Point(8, 69);
 			this.ArgsLbl.Name = "ArgsLbl";
 			this.ArgsLbl.Size = new System.Drawing.Size(32, 16);
 			this.ArgsLbl.TabIndex = 27;
 			this.ArgsLbl.Text = "args:";
-			// 
+			//
 			// wowAddons
-			// 
+			//
 			this.wowAddons.Controls.Add(this.groupBox11);
 			this.wowAddons.Location = new System.Drawing.Point(4, 22);
 			this.wowAddons.Name = "wowAddons";
 			this.wowAddons.Size = new System.Drawing.Size(488, 230);
 			this.wowAddons.TabIndex = 6;
 			this.wowAddons.Text = "Updater";
-			// 
+			//
 			// groupBox11
-			// 
+			//
 			this.groupBox11.Controls.Add(this.updateCheckBtn);
 			this.groupBox11.Controls.Add(this.MinLbl);
 			this.groupBox11.Controls.Add(this.ASILbl);
@@ -1719,36 +1721,36 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox11.TabIndex = 1;
 			this.groupBox11.TabStop = false;
 			this.groupBox11.Text = "Auto-Updater";
-			// 
+			//
 			// updateCheckBtn
-			// 
+			//
 			this.updateCheckBtn.Location = new System.Drawing.Point(371, 100);
 			this.updateCheckBtn.Name = "updateCheckBtn";
 			this.updateCheckBtn.Size = new System.Drawing.Size(93, 23);
 			this.updateCheckBtn.TabIndex = 14;
 			this.updateCheckBtn.Text = "Update Check";
 			this.updateCheckBtn.Click += new System.EventHandler(this.updateCheckBtn_Click);
-			// 
+			//
 			// MinLbl
-			// 
+			//
 			this.MinLbl.AutoSize = true;
 			this.MinLbl.Location = new System.Drawing.Point(431, 35);
 			this.MinLbl.Name = "MinLbl";
 			this.MinLbl.Size = new System.Drawing.Size(27, 13);
 			this.MinLbl.TabIndex = 13;
 			this.MinLbl.Text = "Min.";
-			// 
+			//
 			// ASILbl
-			// 
+			//
 			this.ASILbl.AutoSize = true;
 			this.ASILbl.Location = new System.Drawing.Point(310, 16);
 			this.ASILbl.Name = "ASILbl";
 			this.ASILbl.Size = new System.Drawing.Size(148, 13);
 			this.ASILbl.TabIndex = 12;
 			this.ASILbl.Text = "Auto-Sync Interval (0=disable)";
-			// 
+			//
 			// nudAutoSyncInterval
-			// 
+			//
 			this.nudAutoSyncInterval.Increment = new decimal(new int[] {
 			10,
 			0,
@@ -1764,26 +1766,26 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.nudAutoSyncInterval.Size = new System.Drawing.Size(111, 20);
 			this.nudAutoSyncInterval.TabIndex = 11;
 			this.nudAutoSyncInterval.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
-			// 
+			//
 			// chAllowDelAddons
-			// 
+			//
 			this.chAllowDelAddons.Location = new System.Drawing.Point(6, 18);
 			this.chAllowDelAddons.Name = "chAllowDelAddons";
 			this.chAllowDelAddons.Size = new System.Drawing.Size(448, 16);
 			this.chAllowDelAddons.TabIndex = 10;
 			this.chAllowDelAddons.Text = "Allow interface to DELETE addons";
 			this.chAllowDelAddons.CheckedChanged += new System.EventHandler(this.chAllowDelAddons_CheckedChanged);
-			// 
+			//
 			// UUAutoUpdaterCheck
-			// 
+			//
 			this.UUAutoUpdaterCheck.Location = new System.Drawing.Point(6, 66);
 			this.UUAutoUpdaterCheck.Name = "UUAutoUpdaterCheck";
 			this.UUAutoUpdaterCheck.Size = new System.Drawing.Size(320, 16);
 			this.UUAutoUpdaterCheck.TabIndex = 9;
 			this.UUAutoUpdaterCheck.Text = "Automatically update to latest UniUploader";
-			// 
+			//
 			// UUUpdaterCheck
-			// 
+			//
 			this.UUUpdaterCheck.Checked = true;
 			this.UUUpdaterCheck.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.UUUpdaterCheck.Location = new System.Drawing.Point(6, 50);
@@ -1792,18 +1794,18 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.UUUpdaterCheck.TabIndex = 9;
 			this.UUUpdaterCheck.Text = "Check for updates to UniUploader";
 			this.UUUpdaterCheck.CheckedChanged += new System.EventHandler(this.UUUpdaterCheck_CheckedChanged);
-			// 
+			//
 			// uuSettingsUpdater
-			// 
+			//
 			this.uuSettingsUpdater.Location = new System.Drawing.Point(6, 34);
 			this.uuSettingsUpdater.Name = "uuSettingsUpdater";
 			this.uuSettingsUpdater.Size = new System.Drawing.Size(344, 16);
 			this.uuSettingsUpdater.TabIndex = 8;
 			this.uuSettingsUpdater.Text = "Keep My critical UniUploader settings updated";
 			this.uuSettingsUpdater.CheckedChanged += new System.EventHandler(this.uuSettingsUpdater_CheckedChanged);
-			// 
+			//
 			// groupBox12
-			// 
+			//
 			this.groupBox12.Controls.Add(this.WarnMsgLbl);
 			this.groupBox12.Location = new System.Drawing.Point(8, 158);
 			this.groupBox12.Name = "groupBox12";
@@ -1811,9 +1813,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox12.TabIndex = 7;
 			this.groupBox12.TabStop = false;
 			this.groupBox12.Text = "WARNING:";
-			// 
+			//
 			// WarnMsgLbl
-			// 
+			//
 			this.WarnMsgLbl.ForeColor = System.Drawing.Color.Red;
 			this.WarnMsgLbl.Location = new System.Drawing.Point(8, 16);
 			this.WarnMsgLbl.Name = "WarnMsgLbl";
@@ -1821,9 +1823,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.WarnMsgLbl.TabIndex = 6;
 			this.WarnMsgLbl.Text = "This will ONLY synchronize the Addons on your computer with the same ones on the " +
 				"website.  DO NOT try to synchronize addons while WoW is running.";
-			// 
+			//
 			// autoAddonSyncNow
-			// 
+			//
 			this.autoAddonSyncNow.Enabled = false;
 			this.autoAddonSyncNow.Location = new System.Drawing.Point(378, 135);
 			this.autoAddonSyncNow.Name = "autoAddonSyncNow";
@@ -1831,43 +1833,43 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.autoAddonSyncNow.TabIndex = 4;
 			this.autoAddonSyncNow.Text = "Synchronize";
 			this.autoAddonSyncNow.Click += new System.EventHandler(this.autoAddonSyncNow_Click);
-			// 
+			//
 			// SynchURLLbl
-			// 
+			//
 			this.SynchURLLbl.Enabled = false;
 			this.SynchURLLbl.Location = new System.Drawing.Point(8, 122);
 			this.SynchURLLbl.Name = "SynchURLLbl";
 			this.SynchURLLbl.Size = new System.Drawing.Size(152, 16);
 			this.SynchURLLbl.TabIndex = 3;
 			this.SynchURLLbl.Text = "Synchronization URL:";
-			// 
+			//
 			// AutoAddonURL
-			// 
+			//
 			this.AutoAddonURL.Enabled = false;
 			this.AutoAddonURL.Location = new System.Drawing.Point(8, 138);
 			this.AutoAddonURL.Name = "AutoAddonURL";
 			this.AutoAddonURL.Size = new System.Drawing.Size(280, 20);
 			this.AutoAddonURL.TabIndex = 2;
 			this.AutoAddonURL.Text = "http://yourdomain.com/uniadmin/interface.php";
-			// 
+			//
 			// UpdURLLbl
-			// 
+			//
 			this.UpdURLLbl.Location = new System.Drawing.Point(6, 83);
 			this.UpdURLLbl.Name = "UpdURLLbl";
 			this.UpdURLLbl.Size = new System.Drawing.Size(152, 16);
 			this.UpdURLLbl.TabIndex = 3;
 			this.UpdURLLbl.Text = "Updates URL:";
-			// 
+			//
 			// UpdatesURL
-			// 
+			//
 			this.UpdatesURL.Location = new System.Drawing.Point(8, 100);
 			this.UpdatesURL.Name = "UpdatesURL";
 			this.UpdatesURL.Size = new System.Drawing.Size(280, 20);
 			this.UpdatesURL.TabIndex = 2;
 			this.UpdatesURL.Text = "http://www.wowroster.net/uniuploader_updater2/update.php";
-			// 
+			//
 			// Options
-			// 
+			//
 			this.Options.Controls.Add(this.vargrp);
 			this.Options.Controls.Add(this.groupBox4);
 			this.Options.Controls.Add(this.groupBox9);
@@ -1877,9 +1879,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.Options.Size = new System.Drawing.Size(488, 230);
 			this.Options.TabIndex = 1;
 			this.Options.Text = "Options";
-			// 
+			//
 			// vargrp
-			// 
+			//
 			this.vargrp.Controls.Add(this.valu4);
 			this.vargrp.Controls.Add(this.valu2);
 			this.vargrp.Controls.Add(this.valu3);
@@ -1900,18 +1902,18 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.vargrp.TabIndex = 24;
 			this.vargrp.TabStop = false;
 			this.vargrp.Text = "Additional Variables";
-			// 
+			//
 			// valu4
-			// 
+			//
 			this.valu4.Enabled = false;
 			this.valu4.Location = new System.Drawing.Point(64, 113);
 			this.valu4.Name = "valu4";
 			this.valu4.Size = new System.Drawing.Size(110, 20);
 			this.valu4.TabIndex = 11;
 			this.valu4.Text = "value4";
-			// 
+			//
 			// valu2
-			// 
+			//
 			this.valu2.Enabled = false;
 			this.valu2.Location = new System.Drawing.Point(64, 35);
 			this.valu2.Name = "valu2";
@@ -1919,96 +1921,96 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.valu2.Size = new System.Drawing.Size(110, 20);
 			this.valu2.TabIndex = 10;
 			this.valu2.Text = "value2";
-			// 
+			//
 			// valu3
-			// 
+			//
 			this.valu3.Enabled = false;
 			this.valu3.Location = new System.Drawing.Point(64, 91);
 			this.valu3.Name = "valu3";
 			this.valu3.Size = new System.Drawing.Size(110, 20);
 			this.valu3.TabIndex = 9;
 			this.valu3.Text = "value3";
-			// 
+			//
 			// valu1
-			// 
+			//
 			this.valu1.Enabled = false;
 			this.valu1.Location = new System.Drawing.Point(64, 14);
 			this.valu1.Name = "valu1";
 			this.valu1.Size = new System.Drawing.Size(110, 20);
 			this.valu1.TabIndex = 8;
 			this.valu1.Text = "UserName";
-			// 
+			//
 			// arrg2
-			// 
+			//
 			this.arrg2.Enabled = false;
 			this.arrg2.Location = new System.Drawing.Point(24, 35);
 			this.arrg2.Name = "arrg2";
 			this.arrg2.Size = new System.Drawing.Size(40, 20);
 			this.arrg2.TabIndex = 7;
 			this.arrg2.Text = "password";
-			// 
+			//
 			// arrg3
-			// 
+			//
 			this.arrg3.Enabled = false;
 			this.arrg3.Location = new System.Drawing.Point(24, 91);
 			this.arrg3.Name = "arrg3";
 			this.arrg3.Size = new System.Drawing.Size(40, 20);
 			this.arrg3.TabIndex = 6;
 			this.arrg3.Text = "arg3";
-			// 
+			//
 			// arrg4
-			// 
+			//
 			this.arrg4.Enabled = false;
 			this.arrg4.Location = new System.Drawing.Point(24, 113);
 			this.arrg4.Name = "arrg4";
 			this.arrg4.Size = new System.Drawing.Size(40, 20);
 			this.arrg4.TabIndex = 5;
 			this.arrg4.Text = "arg4";
-			// 
+			//
 			// arrg1
-			// 
+			//
 			this.arrg1.Enabled = false;
 			this.arrg1.Location = new System.Drawing.Point(24, 14);
 			this.arrg1.Name = "arrg1";
 			this.arrg1.Size = new System.Drawing.Size(40, 20);
 			this.arrg1.TabIndex = 4;
 			this.arrg1.Text = "username";
-			// 
+			//
 			// arg2check
-			// 
+			//
 			this.arg2check.Location = new System.Drawing.Point(7, 42);
 			this.arg2check.Name = "arg2check";
 			this.arg2check.Size = new System.Drawing.Size(16, 16);
 			this.arg2check.TabIndex = 3;
 			this.arg2check.CheckedChanged += new System.EventHandler(this.arg2check_CheckedChanged);
-			// 
+			//
 			// arg3check
-			// 
+			//
 			this.arg3check.Location = new System.Drawing.Point(7, 93);
 			this.arg3check.Name = "arg3check";
 			this.arg3check.Size = new System.Drawing.Size(16, 16);
 			this.arg3check.TabIndex = 2;
 			this.arg3check.CheckedChanged += new System.EventHandler(this.arg3check_CheckedChanged);
-			// 
+			//
 			// arg4check
-			// 
+			//
 			this.arg4check.Location = new System.Drawing.Point(7, 115);
 			this.arg4check.Name = "arg4check";
 			this.arg4check.Size = new System.Drawing.Size(16, 16);
 			this.arg4check.TabIndex = 1;
 			this.arg4check.CheckedChanged += new System.EventHandler(this.arg4check_CheckedChanged);
-			// 
+			//
 			// arg1check
-			// 
+			//
 			this.arg1check.Location = new System.Drawing.Point(7, 19);
 			this.arg1check.Name = "arg1check";
 			this.arg1check.Size = new System.Drawing.Size(148, 16);
 			this.arg1check.TabIndex = 0;
 			this.arg1check.Text = "Use User/Pass";
 			this.arg1check.CheckedChanged += new System.EventHandler(this.arg1check_CheckedChanged);
-			// 
+			//
 			// sendPwSecurely
-			// 
+			//
 			this.sendPwSecurely.Checked = true;
 			this.sendPwSecurely.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.sendPwSecurely.Enabled = false;
@@ -2017,9 +2019,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.sendPwSecurely.Size = new System.Drawing.Size(150, 17);
 			this.sendPwSecurely.TabIndex = 3;
 			this.sendPwSecurely.Text = "Send Password Securely";
-			// 
+			//
 			// storePwSecurely
-			// 
+			//
 			this.storePwSecurely.Checked = true;
 			this.storePwSecurely.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.storePwSecurely.Enabled = false;
@@ -2028,9 +2030,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.storePwSecurely.Size = new System.Drawing.Size(150, 17);
 			this.storePwSecurely.TabIndex = 3;
 			this.storePwSecurely.Text = "Store Password Securely";
-			// 
+			//
 			// groupBox4
-			// 
+			//
 			this.groupBox4.Controls.Add(this.addurl4);
 			this.groupBox4.Controls.Add(this.addurl2);
 			this.groupBox4.Controls.Add(this.addurl3);
@@ -2045,77 +2047,77 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox4.TabIndex = 25;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "URL\'s";
-			// 
+			//
 			// addurl4
-			// 
+			//
 			this.addurl4.Enabled = false;
 			this.addurl4.Location = new System.Drawing.Point(24, 88);
 			this.addurl4.Name = "addurl4";
 			this.addurl4.Size = new System.Drawing.Size(248, 20);
 			this.addurl4.TabIndex = 11;
 			this.addurl4.Text = "http://wherever4.com";
-			// 
+			//
 			// addurl2
-			// 
+			//
 			this.addurl2.Enabled = false;
 			this.addurl2.Location = new System.Drawing.Point(24, 40);
 			this.addurl2.Name = "addurl2";
 			this.addurl2.Size = new System.Drawing.Size(248, 20);
 			this.addurl2.TabIndex = 10;
 			this.addurl2.Text = "http://wherever2.com";
-			// 
+			//
 			// addurl3
-			// 
+			//
 			this.addurl3.Enabled = false;
 			this.addurl3.Location = new System.Drawing.Point(24, 64);
 			this.addurl3.Name = "addurl3";
 			this.addurl3.Size = new System.Drawing.Size(248, 20);
 			this.addurl3.TabIndex = 9;
 			this.addurl3.Text = "http://wherever3.com";
-			// 
+			//
 			// addurl1
-			// 
+			//
 			this.addurl1.Enabled = false;
 			this.addurl1.Location = new System.Drawing.Point(24, 16);
 			this.addurl1.Name = "addurl1";
 			this.addurl1.Size = new System.Drawing.Size(248, 20);
 			this.addurl1.TabIndex = 8;
 			this.addurl1.Text = "http://wherever.com";
-			// 
+			//
 			// chaddurl2
-			// 
+			//
 			this.chaddurl2.Location = new System.Drawing.Point(8, 40);
 			this.chaddurl2.Name = "chaddurl2";
 			this.chaddurl2.Size = new System.Drawing.Size(16, 16);
 			this.chaddurl2.TabIndex = 3;
 			this.chaddurl2.CheckedChanged += new System.EventHandler(this.chaddurl2_CheckedChanged);
-			// 
+			//
 			// chaddurl3
-			// 
+			//
 			this.chaddurl3.Location = new System.Drawing.Point(8, 64);
 			this.chaddurl3.Name = "chaddurl3";
 			this.chaddurl3.Size = new System.Drawing.Size(16, 16);
 			this.chaddurl3.TabIndex = 2;
 			this.chaddurl3.CheckedChanged += new System.EventHandler(this.chaddurl3_CheckedChanged);
-			// 
+			//
 			// chaddurl4
-			// 
+			//
 			this.chaddurl4.Location = new System.Drawing.Point(8, 88);
 			this.chaddurl4.Name = "chaddurl4";
 			this.chaddurl4.Size = new System.Drawing.Size(16, 16);
 			this.chaddurl4.TabIndex = 1;
 			this.chaddurl4.CheckedChanged += new System.EventHandler(this.chaddurl_CheckedChanged);
-			// 
+			//
 			// chaddurl1
-			// 
+			//
 			this.chaddurl1.Location = new System.Drawing.Point(8, 16);
 			this.chaddurl1.Name = "chaddurl1";
 			this.chaddurl1.Size = new System.Drawing.Size(16, 16);
 			this.chaddurl1.TabIndex = 0;
 			this.chaddurl1.CheckedChanged += new System.EventHandler(this.chaddurl1_CheckedChanged);
-			// 
+			//
 			// groupBox9
-			// 
+			//
 			this.groupBox9.Controls.Add(this.stwowlaunch);
 			this.groupBox9.Controls.Add(this.stmin);
 			this.groupBox9.Controls.Add(this.stboot);
@@ -2126,43 +2128,43 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox9.TabIndex = 4;
 			this.groupBox9.TabStop = false;
 			this.groupBox9.Text = "Startup Options";
-			// 
+			//
 			// stwowlaunch
-			// 
+			//
 			this.stwowlaunch.Location = new System.Drawing.Point(8, 28);
 			this.stwowlaunch.Name = "stwowlaunch";
 			this.stwowlaunch.Size = new System.Drawing.Size(120, 16);
 			this.stwowlaunch.TabIndex = 2;
 			this.stwowlaunch.Text = "Auto-Launch WoW";
 			this.stwowlaunch.CheckedChanged += new System.EventHandler(this.stwowlaunch_CheckedChanged);
-			// 
+			//
 			// stmin
-			// 
+			//
 			this.stmin.Location = new System.Drawing.Point(8, 43);
 			this.stmin.Name = "stmin";
 			this.stmin.Size = new System.Drawing.Size(104, 16);
 			this.stmin.TabIndex = 1;
 			this.stmin.Text = "Start Minimized";
-			// 
+			//
 			// stboot
-			// 
+			//
 			this.stboot.Location = new System.Drawing.Point(8, 13);
 			this.stboot.Name = "stboot";
 			this.stboot.Size = new System.Drawing.Size(136, 16);
 			this.stboot.TabIndex = 0;
 			this.stboot.Text = "Start with Windows";
 			this.stboot.CheckedChanged += new System.EventHandler(this.stboot_CheckedChanged);
-			// 
+			//
 			// CloseToSysTray
-			// 
+			//
 			this.CloseToSysTray.Location = new System.Drawing.Point(8, 55);
 			this.CloseToSysTray.Name = "CloseToSysTray";
 			this.CloseToSysTray.Size = new System.Drawing.Size(120, 22);
 			this.CloseToSysTray.TabIndex = 3;
 			this.CloseToSysTray.Text = "Close To SysTray";
-			// 
+			//
 			// groupBox1
-			// 
+			//
 			this.groupBox1.Controls.Add(this.btnSysTrayIco);
 			this.groupBox1.Controls.Add(this.cbCloseAfterWowLaunch);
 			this.groupBox1.Controls.Add(this.cbUpErrorPop);
@@ -2178,9 +2180,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox1.TabIndex = 24;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Miscellaneous";
-			// 
+			//
 			// btnSysTrayIco
-			// 
+			//
 			this.btnSysTrayIco.Location = new System.Drawing.Point(6, 67);
 			this.btnSysTrayIco.Name = "btnSysTrayIco";
 			this.btnSysTrayIco.Size = new System.Drawing.Size(81, 23);
@@ -2188,58 +2190,58 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.btnSysTrayIco.Text = "SysTray Icon";
 			this.btnSysTrayIco.UseVisualStyleBackColor = true;
 			this.btnSysTrayIco.Click += new System.EventHandler(this.btnSysTrayIco_Click);
-			// 
+			//
 			// cbCloseAfterWowLaunch
-			// 
+			//
 			this.cbCloseAfterWowLaunch.Location = new System.Drawing.Point(127, 49);
 			this.cbCloseAfterWowLaunch.Name = "cbCloseAfterWowLaunch";
 			this.cbCloseAfterWowLaunch.Size = new System.Drawing.Size(151, 16);
 			this.cbCloseAfterWowLaunch.TabIndex = 4;
 			this.cbCloseAfterWowLaunch.Text = "Close After Wow Launch";
-			// 
+			//
 			// cbUpErrorPop
-			// 
+			//
 			this.cbUpErrorPop.Location = new System.Drawing.Point(127, 16);
 			this.cbUpErrorPop.Name = "cbUpErrorPop";
 			this.cbUpErrorPop.Size = new System.Drawing.Size(123, 16);
 			this.cbUpErrorPop.TabIndex = 26;
 			this.cbUpErrorPop.Text = "Upload Error Popup";
-			// 
+			//
 			// cbCloseAfterUpdates
-			// 
+			//
 			this.cbCloseAfterUpdates.Location = new System.Drawing.Point(127, 32);
 			this.cbCloseAfterUpdates.Name = "cbCloseAfterUpdates";
 			this.cbCloseAfterUpdates.Size = new System.Drawing.Size(149, 16);
 			this.cbCloseAfterUpdates.TabIndex = 3;
 			this.cbCloseAfterUpdates.Text = "Close After Updates";
-			// 
+			//
 			// userAlbl
-			// 
+			//
 			this.userAlbl.Location = new System.Drawing.Point(93, 72);
 			this.userAlbl.Name = "userAlbl";
 			this.userAlbl.Size = new System.Drawing.Size(64, 16);
 			this.userAlbl.TabIndex = 25;
 			this.userAlbl.Text = "User Agent:";
-			// 
+			//
 			// userAgent
-			// 
+			//
 			this.userAgent.Location = new System.Drawing.Point(163, 69);
 			this.userAgent.Name = "userAgent";
 			this.userAgent.Size = new System.Drawing.Size(109, 20);
 			this.userAgent.TabIndex = 24;
 			this.userAgent.TextChanged += new System.EventHandler(this.userAgent_TextChanged);
-			// 
+			//
 			// checkBox6
-			// 
+			//
 			this.checkBox6.Location = new System.Drawing.Point(8, 32);
 			this.checkBox6.Name = "checkBox6";
 			this.checkBox6.Size = new System.Drawing.Size(162, 16);
 			this.checkBox6.TabIndex = 23;
 			this.checkBox6.Text = "Always on Top";
 			this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
-			// 
+			//
 			// response
-			// 
+			//
 			this.response.Controls.Add(this.respOpenIE2);
 			this.response.Controls.Add(this.respOpenNP2);
 			this.response.Controls.Add(this.respOpenIE);
@@ -2257,9 +2259,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.response.Size = new System.Drawing.Size(488, 230);
 			this.response.TabIndex = 2;
 			this.response.Text = "Server Response";
-			// 
+			//
 			// respOpenIE2
-			// 
+			//
 			this.respOpenIE2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.respOpenIE2.Image = ((System.Drawing.Image)(resources.GetObject("respOpenIE2.Image")));
 			this.respOpenIE2.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
@@ -2268,9 +2270,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.respOpenIE2.Size = new System.Drawing.Size(24, 24);
 			this.respOpenIE2.TabIndex = 31;
 			this.respOpenIE2.Click += new System.EventHandler(this.respOpenIE2_Click);
-			// 
+			//
 			// respOpenNP2
-			// 
+			//
 			this.respOpenNP2.Image = ((System.Drawing.Image)(resources.GetObject("respOpenNP2.Image")));
 			this.respOpenNP2.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
 			this.respOpenNP2.Location = new System.Drawing.Point(360, 136);
@@ -2278,9 +2280,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.respOpenNP2.Size = new System.Drawing.Size(24, 24);
 			this.respOpenNP2.TabIndex = 30;
 			this.respOpenNP2.Click += new System.EventHandler(this.respOpenNP2_Click);
-			// 
+			//
 			// respOpenIE
-			// 
+			//
 			this.respOpenIE.Image = ((System.Drawing.Image)(resources.GetObject("respOpenIE.Image")));
 			this.respOpenIE.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
 			this.respOpenIE.Location = new System.Drawing.Point(392, 8);
@@ -2288,9 +2290,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.respOpenIE.Size = new System.Drawing.Size(24, 24);
 			this.respOpenIE.TabIndex = 29;
 			this.respOpenIE.Click += new System.EventHandler(this.respOpenIE_Click);
-			// 
+			//
 			// respOpenNP
-			// 
+			//
 			this.respOpenNP.Image = ((System.Drawing.Image)(resources.GetObject("respOpenNP.Image")));
 			this.respOpenNP.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
 			this.respOpenNP.Location = new System.Drawing.Point(360, 8);
@@ -2298,9 +2300,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.respOpenNP.Size = new System.Drawing.Size(24, 24);
 			this.respOpenNP.TabIndex = 28;
 			this.respOpenNP.Click += new System.EventHandler(this.respOpenNP_Click);
-			// 
+			//
 			// ClearSiteWoW
-			// 
+			//
 			this.ClearSiteWoW.Image = ((System.Drawing.Image)(resources.GetObject("ClearSiteWoW.Image")));
 			this.ClearSiteWoW.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
 			this.ClearSiteWoW.Location = new System.Drawing.Point(424, 136);
@@ -2308,9 +2310,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.ClearSiteWoW.Size = new System.Drawing.Size(24, 24);
 			this.ClearSiteWoW.TabIndex = 27;
 			this.ClearSiteWoW.Click += new System.EventHandler(this.ClearSiteWoW_Click);
-			// 
+			//
 			// ClearServResp
-			// 
+			//
 			this.ClearServResp.Image = ((System.Drawing.Image)(resources.GetObject("ClearServResp.Image")));
 			this.ClearServResp.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
 			this.ClearServResp.Location = new System.Drawing.Point(424, 8);
@@ -2318,9 +2320,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.ClearServResp.Size = new System.Drawing.Size(24, 24);
 			this.ClearServResp.TabIndex = 26;
 			this.ClearServResp.Click += new System.EventHandler(this.ClearServResp_Click);
-			// 
+			//
 			// servResponseSaveas
-			// 
+			//
 			this.servResponseSaveas.Image = ((System.Drawing.Image)(resources.GetObject("servResponseSaveas.Image")));
 			this.servResponseSaveas.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
 			this.servResponseSaveas.Location = new System.Drawing.Point(456, 8);
@@ -2328,9 +2330,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.servResponseSaveas.Size = new System.Drawing.Size(24, 24);
 			this.servResponseSaveas.TabIndex = 25;
 			this.servResponseSaveas.Click += new System.EventHandler(this.servResponseSaveas_Click);
-			// 
+			//
 			// siteToWowSaveas
-			// 
+			//
 			this.siteToWowSaveas.Image = ((System.Drawing.Image)(resources.GetObject("siteToWowSaveas.Image")));
 			this.siteToWowSaveas.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
 			this.siteToWowSaveas.Location = new System.Drawing.Point(456, 136);
@@ -2338,9 +2340,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.siteToWowSaveas.Size = new System.Drawing.Size(24, 24);
 			this.siteToWowSaveas.TabIndex = 24;
 			this.siteToWowSaveas.Click += new System.EventHandler(this.siteToWowSaveas_Click);
-			// 
+			//
 			// retrdatawindow
-			// 
+			//
 			this.retrdatawindow.AcceptsReturn = true;
 			this.retrdatawindow.AcceptsTab = true;
 			this.retrdatawindow.Location = new System.Drawing.Point(8, 160);
@@ -2352,25 +2354,25 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.retrdatawindow.TabIndex = 22;
 			this.retrdatawindow.Text = "Data to be inserted into SavedVariables.lua will be displayed here.";
 			this.retrdatawindow.WordWrap = false;
-			// 
+			//
 			// FURfWLbl
-			// 
+			//
 			this.FURfWLbl.Location = new System.Drawing.Point(8, 16);
 			this.FURfWLbl.Name = "FURfWLbl";
 			this.FURfWLbl.Size = new System.Drawing.Size(240, 16);
 			this.FURfWLbl.TabIndex = 21;
 			this.FURfWLbl.Text = "File Upload Response from Website:";
-			// 
+			//
 			// WebDataLbl
-			// 
+			//
 			this.WebDataLbl.Location = new System.Drawing.Point(8, 144);
 			this.WebDataLbl.Name = "WebDataLbl";
 			this.WebDataLbl.Size = new System.Drawing.Size(248, 16);
 			this.WebDataLbl.TabIndex = 20;
 			this.WebDataLbl.Text = "Website ===> SavedVariables.lua Data:";
-			// 
+			//
 			// servResponse
-			// 
+			//
 			this.servResponse.AcceptsReturn = true;
 			this.servResponse.AcceptsTab = true;
 			this.servResponse.Location = new System.Drawing.Point(8, 32);
@@ -2382,9 +2384,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.servResponse.TabIndex = 19;
 			this.servResponse.Text = "Any Data returned by primary URL will be displayed here.";
 			this.servResponse.WordWrap = false;
-			// 
+			//
 			// Debugger
-			// 
+			//
 			this.Debugger.Controls.Add(this.DebugInfoLbl);
 			this.Debugger.Controls.Add(this.dbIEbtn);
 			this.Debugger.Controls.Add(this.dbNPbtn);
@@ -2396,17 +2398,17 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.Debugger.Size = new System.Drawing.Size(488, 230);
 			this.Debugger.TabIndex = 7;
 			this.Debugger.Text = "Debugger";
-			// 
+			//
 			// DebugInfoLbl
-			// 
+			//
 			this.DebugInfoLbl.Location = new System.Drawing.Point(8, 16);
 			this.DebugInfoLbl.Name = "DebugInfoLbl";
 			this.DebugInfoLbl.Size = new System.Drawing.Size(248, 16);
 			this.DebugInfoLbl.TabIndex = 5;
 			this.DebugInfoLbl.Text = "Debug Info";
-			// 
+			//
 			// dbIEbtn
-			// 
+			//
 			this.dbIEbtn.Image = ((System.Drawing.Image)(resources.GetObject("dbIEbtn.Image")));
 			this.dbIEbtn.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
 			this.dbIEbtn.Location = new System.Drawing.Point(392, 8);
@@ -2414,9 +2416,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.dbIEbtn.Size = new System.Drawing.Size(24, 24);
 			this.dbIEbtn.TabIndex = 4;
 			this.dbIEbtn.Click += new System.EventHandler(this.dbIEbtn_Click);
-			// 
+			//
 			// dbNPbtn
-			// 
+			//
 			this.dbNPbtn.Image = ((System.Drawing.Image)(resources.GetObject("dbNPbtn.Image")));
 			this.dbNPbtn.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
 			this.dbNPbtn.Location = new System.Drawing.Point(360, 8);
@@ -2424,9 +2426,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.dbNPbtn.Size = new System.Drawing.Size(24, 24);
 			this.dbNPbtn.TabIndex = 3;
 			this.dbNPbtn.Click += new System.EventHandler(this.dbNPbtn_Click);
-			// 
+			//
 			// button5
-			// 
+			//
 			this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
 			this.button5.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
 			this.button5.Location = new System.Drawing.Point(424, 8);
@@ -2434,9 +2436,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.button5.Size = new System.Drawing.Size(24, 24);
 			this.button5.TabIndex = 2;
 			this.button5.Click += new System.EventHandler(this.button5_Click);
-			// 
+			//
 			// debugSaveAs
-			// 
+			//
 			this.debugSaveAs.Image = ((System.Drawing.Image)(resources.GetObject("debugSaveAs.Image")));
 			this.debugSaveAs.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
 			this.debugSaveAs.Location = new System.Drawing.Point(456, 8);
@@ -2445,17 +2447,17 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.debugSaveAs.Size = new System.Drawing.Size(24, 24);
 			this.debugSaveAs.TabIndex = 1;
 			this.debugSaveAs.Click += new System.EventHandler(this.debugSaveAs_Click);
-			// 
+			//
 			// DebugBox
-			// 
+			//
 			this.DebugBox.HorizontalScrollbar = true;
 			this.DebugBox.Location = new System.Drawing.Point(8, 32);
 			this.DebugBox.Name = "DebugBox";
 			this.DebugBox.Size = new System.Drawing.Size(472, 186);
 			this.DebugBox.TabIndex = 0;
-			// 
+			//
 			// Help
-			// 
+			//
 			this.Help.Controls.Add(this.button8);
 			this.Help.Controls.Add(this.AdvancedBtn);
 			this.Help.Controls.Add(this.InfoBtn);
@@ -2467,54 +2469,54 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.Help.Size = new System.Drawing.Size(488, 230);
 			this.Help.TabIndex = 4;
 			this.Help.Text = "Help";
-			// 
+			//
 			// button8
-			// 
+			//
 			this.button8.Location = new System.Drawing.Point(96, 8);
 			this.button8.Name = "button8";
 			this.button8.Size = new System.Drawing.Size(75, 23);
 			this.button8.TabIndex = 6;
 			this.button8.Text = "Updater";
 			this.button8.Click += new System.EventHandler(this.button8_Click);
-			// 
+			//
 			// AdvancedBtn
-			// 
+			//
 			this.AdvancedBtn.Location = new System.Drawing.Point(264, 8);
 			this.AdvancedBtn.Name = "AdvancedBtn";
 			this.AdvancedBtn.Size = new System.Drawing.Size(80, 23);
 			this.AdvancedBtn.TabIndex = 5;
 			this.AdvancedBtn.Text = "Advanced";
 			this.AdvancedBtn.Click += new System.EventHandler(this.AdvancedBtn_Click);
-			// 
+			//
 			// InfoBtn
-			// 
+			//
 			this.InfoBtn.Location = new System.Drawing.Point(352, 8);
 			this.InfoBtn.Name = "InfoBtn";
 			this.InfoBtn.Size = new System.Drawing.Size(80, 23);
 			this.InfoBtn.TabIndex = 4;
 			this.InfoBtn.Text = "Information";
 			this.InfoBtn.Click += new System.EventHandler(this.InfoBtn_Click);
-			// 
+			//
 			// OptionsBtn
-			// 
+			//
 			this.OptionsBtn.Location = new System.Drawing.Point(176, 8);
 			this.OptionsBtn.Name = "OptionsBtn";
 			this.OptionsBtn.Size = new System.Drawing.Size(80, 23);
 			this.OptionsBtn.TabIndex = 2;
 			this.OptionsBtn.Text = "Options";
 			this.OptionsBtn.Click += new System.EventHandler(this.OptionsBtn_Click);
-			// 
+			//
 			// SettingsBtn
-			// 
+			//
 			this.SettingsBtn.Location = new System.Drawing.Point(8, 8);
 			this.SettingsBtn.Name = "SettingsBtn";
 			this.SettingsBtn.Size = new System.Drawing.Size(80, 23);
 			this.SettingsBtn.TabIndex = 1;
 			this.SettingsBtn.Text = "Settings";
 			this.SettingsBtn.Click += new System.EventHandler(this.SettingsBtn_Click);
-			// 
+			//
 			// richTextBox1
-			// 
+			//
 			this.richTextBox1.AcceptsTab = true;
 			this.richTextBox1.AllowDrop = true;
 			this.richTextBox1.Cursor = System.Windows.Forms.Cursors.Default;
@@ -2524,9 +2526,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.richTextBox1.Size = new System.Drawing.Size(480, 184);
 			this.richTextBox1.TabIndex = 0;
 			this.richTextBox1.Text = "";
-			// 
+			//
 			// About
-			// 
+			//
 			this.About.Controls.Add(this.copyrightInfoLabel);
 			this.About.Controls.Add(this.groupBox2);
 			this.About.Location = new System.Drawing.Point(4, 22);
@@ -2534,33 +2536,33 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.About.Size = new System.Drawing.Size(488, 230);
 			this.About.TabIndex = 3;
 			this.About.Text = "About";
-			// 
+			//
 			// copyrightInfoLabel
-			// 
+			//
 			this.copyrightInfoLabel.Location = new System.Drawing.Point(8, 208);
 			this.copyrightInfoLabel.Name = "copyrightInfoLabel";
 			this.copyrightInfoLabel.Size = new System.Drawing.Size(464, 16);
 			this.copyrightInfoLabel.TabIndex = 22;
 			this.copyrightInfoLabel.Text = "The World of Warcraft logo and name are © Blizzard Entertainment.";
-			// 
+			//
 			// progressBar1
-			// 
+			//
 			this.progressBar1.Location = new System.Drawing.Point(12, 259);
 			this.progressBar1.Name = "progressBar1";
 			this.progressBar1.Size = new System.Drawing.Size(470, 16);
 			this.progressBar1.TabIndex = 27;
-			// 
+			//
 			// clearSVFiles
-			// 
+			//
 			this.clearSVFiles.Location = new System.Drawing.Point(8, 229);
 			this.clearSVFiles.Name = "clearSVFiles";
 			this.clearSVFiles.Size = new System.Drawing.Size(112, 23);
 			this.clearSVFiles.TabIndex = 21;
 			this.clearSVFiles.Text = "Clear SV Contents";
 			this.clearSVFiles.Click += new System.EventHandler(this.clearSVFiles_Click);
-			// 
+			//
 			// groupBox3
-			// 
+			//
 			this.groupBox3.Controls.Add(this.SVList);
 			this.groupBox3.Controls.Add(this.clearSVFiles);
 			this.groupBox3.Location = new System.Drawing.Point(504, 16);
@@ -2569,18 +2571,18 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox3.TabIndex = 12;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Saved Variables";
-			// 
+			//
 			// SVList
-			// 
+			//
 			this.SVList.CheckOnClick = true;
 			this.SVList.Location = new System.Drawing.Point(8, 16);
 			this.SVList.Name = "SVList";
 			this.SVList.Size = new System.Drawing.Size(112, 199);
 			this.SVList.TabIndex = 21;
 			this.SVList.SelectedIndexChanged += new System.EventHandler(this.SVList_SelectedIndexChanged);
-			// 
+			//
 			// statusBar1
-			// 
+			//
 			this.statusBar1.Location = new System.Drawing.Point(0, 279);
 			this.statusBar1.Name = "statusBar1";
 			this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
@@ -2590,30 +2592,30 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.statusBar1.SizingGrip = false;
 			this.statusBar1.TabIndex = 19;
 			this.statusBar1.Text = "Idle";
-			// 
+			//
 			// statusBarPanel1
-			// 
+			//
 			this.statusBarPanel1.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Spring;
 			this.statusBarPanel1.Name = "statusBarPanel1";
 			this.statusBarPanel1.Text = "Idle";
 			this.statusBarPanel1.Width = 494;
-			// 
+			//
 			// mini_timer
-			// 
+			//
 			this.mini_timer.Interval = 1000;
 			this.mini_timer.Tick += new System.EventHandler(this.mini_timer_Tick);
-			// 
+			//
 			// Upload_Timer
-			// 
+			//
 			this.Upload_Timer.Tick += new System.EventHandler(this.Upload_Timer_Tick);
-			// 
+			//
 			// close_timer
-			// 
+			//
 			this.close_timer.Interval = 1000;
 			this.close_timer.Tick += new System.EventHandler(this.close_timer_Tick);
-			// 
+			//
 			// tabControl2
-			// 
+			//
 			this.tabControl2.Controls.Add(this.tabPage1);
 			this.tabControl2.Controls.Add(this.tabPage8);
 			this.tabControl2.Location = new System.Drawing.Point(0, 0);
@@ -2622,9 +2624,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.tabControl2.Size = new System.Drawing.Size(496, 256);
 			this.tabControl2.TabIndex = 20;
 			this.tabControl2.Visible = false;
-			// 
+			//
 			// tabPage1
-			// 
+			//
 			this.tabPage1.Controls.Add(this.groupBox14);
 			this.tabPage1.Controls.Add(this.groupBox15);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -2632,42 +2634,42 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.tabPage1.Size = new System.Drawing.Size(488, 230);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Settings";
-			// 
+			//
 			// groupBox14
-			// 
+			//
 			this.groupBox14.Location = new System.Drawing.Point(312, 3);
 			this.groupBox14.Name = "groupBox14";
 			this.groupBox14.Size = new System.Drawing.Size(160, 85);
 			this.groupBox14.TabIndex = 24;
 			this.groupBox14.TabStop = false;
 			this.groupBox14.Text = "Upload Access";
-			// 
+			//
 			// groupBox15
-			// 
+			//
 			this.groupBox15.Location = new System.Drawing.Point(312, 88);
 			this.groupBox15.Name = "groupBox15";
 			this.groupBox15.Size = new System.Drawing.Size(160, 80);
 			this.groupBox15.TabIndex = 4;
 			this.groupBox15.TabStop = false;
 			this.groupBox15.Text = "Startup Options";
-			// 
+			//
 			// tabPage8
-			// 
+			//
 			this.tabPage8.Location = new System.Drawing.Point(4, 22);
 			this.tabPage8.Name = "tabPage8";
 			this.tabPage8.Size = new System.Drawing.Size(488, 230);
 			this.tabPage8.TabIndex = 3;
 			this.tabPage8.Text = "About";
 			this.tabPage8.Visible = false;
-			// 
+			//
 			// filesysDelay
-			// 
+			//
 			this.filesysDelay.Enabled = true;
 			this.filesysDelay.Interval = 5000;
 			this.filesysDelay.Tick += new System.EventHandler(this.filesysDelay_Tick);
-			// 
+			//
 			// groupBox8
-			// 
+			//
 			this.groupBox8.Controls.Add(this.addonSyncBtn);
 			this.groupBox8.Controls.Add(this.AddonNameLbl);
 			this.groupBox8.Controls.Add(this.pictureBox7);
@@ -2687,104 +2689,104 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.groupBox8.TabIndex = 21;
 			this.groupBox8.TabStop = false;
 			this.groupBox8.Text = "Addons";
-			// 
+			//
 			// addonSyncBtn
-			// 
+			//
 			this.addonSyncBtn.Location = new System.Drawing.Point(400, 112);
 			this.addonSyncBtn.Name = "addonSyncBtn";
 			this.addonSyncBtn.Size = new System.Drawing.Size(75, 23);
 			this.addonSyncBtn.TabIndex = 35;
 			this.addonSyncBtn.Text = "Synchronize";
 			this.addonSyncBtn.Click += new System.EventHandler(this.addonSyncBtn_Click);
-			// 
+			//
 			// AddonNameLbl
-			// 
+			//
 			this.AddonNameLbl.Location = new System.Drawing.Point(32, 16);
 			this.AddonNameLbl.Name = "AddonNameLbl";
 			this.AddonNameLbl.Size = new System.Drawing.Size(48, 16);
 			this.AddonNameLbl.TabIndex = 34;
 			this.AddonNameLbl.Text = "=Name";
-			// 
+			//
 			// pictureBox7
-			// 
+			//
 			this.pictureBox7.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox7.Image")));
 			this.pictureBox7.Location = new System.Drawing.Point(16, 16);
 			this.pictureBox7.Name = "pictureBox7";
 			this.pictureBox7.Size = new System.Drawing.Size(16, 16);
 			this.pictureBox7.TabIndex = 33;
 			this.pictureBox7.TabStop = false;
-			// 
+			//
 			// AddonVerLbl
-			// 
+			//
 			this.AddonVerLbl.Location = new System.Drawing.Point(240, 16);
 			this.AddonVerLbl.Name = "AddonVerLbl";
 			this.AddonVerLbl.Size = new System.Drawing.Size(80, 16);
 			this.AddonVerLbl.TabIndex = 32;
 			this.AddonVerLbl.Text = "=Version";
-			// 
+			//
 			// AddonTOCLbl
-			// 
+			//
 			this.AddonTOCLbl.Location = new System.Drawing.Point(184, 16);
 			this.AddonTOCLbl.Name = "AddonTOCLbl";
 			this.AddonTOCLbl.Size = new System.Drawing.Size(40, 16);
 			this.AddonTOCLbl.TabIndex = 31;
 			this.AddonTOCLbl.Text = "=TOC";
-			// 
+			//
 			// AddonDescLbl
-			// 
+			//
 			this.AddonDescLbl.Location = new System.Drawing.Point(96, 16);
 			this.AddonDescLbl.Name = "AddonDescLbl";
 			this.AddonDescLbl.Size = new System.Drawing.Size(72, 16);
 			this.AddonDescLbl.TabIndex = 30;
 			this.AddonDescLbl.Text = "=Description";
-			// 
+			//
 			// pictureBox6
-			// 
+			//
 			this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
 			this.pictureBox6.Location = new System.Drawing.Point(80, 16);
 			this.pictureBox6.Name = "pictureBox6";
 			this.pictureBox6.Size = new System.Drawing.Size(16, 16);
 			this.pictureBox6.TabIndex = 29;
 			this.pictureBox6.TabStop = false;
-			// 
+			//
 			// pictureBox5
-			// 
+			//
 			this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
 			this.pictureBox5.Location = new System.Drawing.Point(168, 16);
 			this.pictureBox5.Name = "pictureBox5";
 			this.pictureBox5.Size = new System.Drawing.Size(16, 16);
 			this.pictureBox5.TabIndex = 28;
 			this.pictureBox5.TabStop = false;
-			// 
+			//
 			// pictureBox4
-			// 
+			//
 			this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
 			this.pictureBox4.Location = new System.Drawing.Point(224, 16);
 			this.pictureBox4.Name = "pictureBox4";
 			this.pictureBox4.Size = new System.Drawing.Size(16, 16);
 			this.pictureBox4.TabIndex = 27;
 			this.pictureBox4.TabStop = false;
-			// 
+			//
 			// button7
-			// 
+			//
 			this.button7.Location = new System.Drawing.Point(400, 136);
 			this.button7.Name = "button7";
 			this.button7.Size = new System.Drawing.Size(75, 23);
 			this.button7.TabIndex = 26;
 			this.button7.Text = "Collapse All";
 			this.button7.Click += new System.EventHandler(this.button7_Click);
-			// 
+			//
 			// button6
-			// 
+			//
 			this.button6.Location = new System.Drawing.Point(320, 136);
 			this.button6.Name = "button6";
 			this.button6.Size = new System.Drawing.Size(75, 23);
 			this.button6.TabIndex = 25;
 			this.button6.Text = "Expand All";
 			this.button6.Click += new System.EventHandler(this.button6_Click);
-			// 
+			//
 			// AddonsListLbl
-			// 
+			//
 			this.AddonsListLbl.Location = new System.Drawing.Point(320, 32);
 			this.AddonsListLbl.Name = "AddonsListLbl";
 			this.AddonsListLbl.Size = new System.Drawing.Size(152, 96);
@@ -2792,9 +2794,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.AddonsListLbl.Text = "These are addons which UniAdmin has available to be automatically updated on your" +
 				" system.  The addons which are marked \"required\" in UniAdmin can\'t be unchecked." +
 				"";
-			// 
+			//
 			// treeView1
-			// 
+			//
 			this.treeView1.CheckBoxes = true;
 			this.treeView1.FullRowSelect = true;
 			this.treeView1.HotTracking = true;
@@ -2809,18 +2811,18 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.treeView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseUp);
 			this.treeView1.BeforeCheck += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeCheck);
 			this.treeView1.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeSelect);
-			// 
+			//
 			// imageList1
-			// 
+			//
 			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
 			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
 			this.imageList1.Images.SetKeyName(0, "");
 			this.imageList1.Images.SetKeyName(1, "");
 			this.imageList1.Images.SetKeyName(2, "");
 			this.imageList1.Images.SetKeyName(3, "");
-			// 
+			//
 			// pictureBox3
-			// 
+			//
 			this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
 			this.pictureBox3.Location = new System.Drawing.Point(504, 292);
 			this.pictureBox3.Name = "pictureBox3";
@@ -2828,9 +2830,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox3.TabIndex = 22;
 			this.pictureBox3.TabStop = false;
-			// 
+			//
 			// MainForm
-			// 
+			//
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(494, 301);
 			this.Controls.Add(this.progressBar1);
@@ -2943,7 +2945,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 			UUuserAgent = buildUserAgent();
 			userAgent.Text = UUuserAgent;
-			version.Text = uniVersionMajor + "." + uniVersionMinor + "." + uniVersionRevision;
+			version.Text = uniVersionMajor + "." + uniVersionMinor + "." + uniVersionBuild + "." + uniVersionRevision;
 			libLink.Links.Remove(libLink.Links[0]);
 			libLink.Links.Add(0, libLink.Text.Length, "http://wowroster.net");
 			this.Resize += new EventHandler(Form1_Resize);
@@ -3031,7 +3033,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 				UUAutoUpdaterCheck.Enabled = false;
 			}
 			populateContextMenu2();
-			string uuver = uniVersionMajor + "." + uniVersionMinor + "." + uniVersionRevision;
+			string uuver = uniVersionMajor + "." + uniVersionMinor + "." + uniVersionBuild + "." + uniVersionRevision;
 			DebugLine("v" + uuver + " " + _READY);
 			statusBarPanel1.Text = _READY;
 			IsUploading = false;
@@ -3170,7 +3172,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		private void doLogos(string url)
 		{
 			string filename = Path.GetFileName(url);
-			string serverMD5 = RetrData(AutoAddonURL.Text, null, null, "OPERATION", "GETFILEMD5", "FILENAME", filename, null, null, 20000, null, null);
+			string serverMD5 = RetrData(AutoAddonURL.Text, null, null, "OPERATION", "GETFILEMD5", "FILENAME", filename, null, null, UUTimeOut, null, null);
 			if (serverMD5 != "")
 			{
 				string path = WorkSpacePath + filename;
@@ -4144,7 +4146,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 					ini.AddValue("advanced", "PURGEFIRST", purgefirstCh.Checked.ToString());
 					ini.AddValue("advanced", "USEAPPDATA", cbAppData.Checked.ToString());
 					#endregion
-					IniStructure.WriteIni(ini, WorkSpacePath + "\\settings.ini", "UniUploader initialization file \ngenerated by \n" + "Version : " + uniVersionMajor + "." + uniVersionMinor + "." + uniVersionRevision);
+					IniStructure.WriteIni(ini, WorkSpacePath + "\\settings.ini", "UniUploader initialization file \ngenerated by \n" + "Version : " + uniVersionMajor + "." + uniVersionMinor + "." + uniVersionBuild + "." + uniVersionRevision);
 				}
 			}
 			catch (Exception e)
@@ -5820,10 +5822,49 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 // ----------------------------------------------
 
+		// Function to test whether the string has a letter in it or not
+		public bool HasAlpha(String strToCheck)
+		{
+			return Regex.IsMatch(strToCheck, @".[a-zA-Z]+");
+		}
+
+// ----------------------------------------------
+
+		public bool CheckVersion(String verToCheck)
+		{
+			if (HasAlpha(verToCheck))
+			{ // Alpha digit found in version EG 0.0.0a and not 0.0.0, use old style version checker
+				DebugLine("Version detected has alpha/numeric code running basic version checker.");
+
+				if ((uniVersionMajor + "." + uniVersionMinor + "." + uniVersionBuild + "." + uniVersionRevision) != verToCheck && !UserClickedNoUpdate)
+				{
+					DebugLine("New UniUploader version detected");
+					return true;
+				}
+			}
+			else { // Version is fully numeric EG 0.0.0 and not 0.0.0a, use new style version checker
+				DebugLine("Version detected has full numeric code, running advanced version checker.");
+
+				Version v1 = new Version(uniVersionMajor + "." + uniVersionMinor + "." + uniVersionBuild + "." + uniVersionRevision), v2 = new Version(verToCheck);
+				DebugLine("UniUploader Version: " + v1 + ", Update.php UniUploader Version: " + v2 + ".");
+				if (v1 >= v2) { DebugLine("UniUploader is latest version"); return false; }
+				else if (v1 < v2 && !UserClickedNoUpdate)
+				{
+					DebugLine("New UniUploader version detected");
+					return true;
+				}
+			}
+
+			DebugLine("UniUploader is latest version");
+			return false;
+		}
+
+// ----------------------------------------------
+
 		public void CheckForUpdates()
 		{
 			string UpdateQueryResponse = "";
-			UpdateQueryResponse = RetrData(UpdatesURL.Text, null, null, "OPERATION", "CHECKUPDATES", null, null, null, null, 20000, null, null);
+			UpdateQueryResponse = RetrData(UpdatesURL.Text, null, null, "OPERATION", "CHECKUPDATES", null, null, null, null, UUTimeOut, null, null);
 			char[] sep = { '|' };
 			string[] Response = UpdateQueryResponse.Split(sep);
 			if (Response[0] == "")
@@ -5832,14 +5873,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			}
 			else
 			{
-				// Lets do some proper version comparison checks shall we
-				Version v1 = new Version(uniVersionMajor + "." + uniVersionMinor + "." + uniVersionRevision), v2 = new Version(Response[0]);
-				DebugLine("UniUploader Version: " + v1 + ", Update.php UniUploader Version: " + v2 + ".");
-				if (v1 > v2) DebugLine("UniUploader is latest version");
-				else if (v1 < v2 && !UserClickedNoUpdate)
-				// if ((uniVersionMajor + "." + uniVersionMinor + "." + uniVersionRevision) != Response[0] && !UserClickedNoUpdate)
+				// Lets do some version comparison checks shall we
+				if (CheckVersion(Response[0]) && !UserClickedNoUpdate)
 				{
-					DebugLine("New UniUploader version detected");
 					if (UUAutoUpdaterCheck.Checked)
 					{
 						string UUPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Replace("file:\\", "");
@@ -5859,7 +5895,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 						if (File.Exists(UUPath + "\\update.exe"))
 						{
 							updating = true;
-							System.Diagnostics.ProcessStartInfo start = new System.Diagnostics.ProcessStartInfo(UUPath + "\\update.exe", @"-uuver """ + uniVersionMajor + "." + uniVersionMinor + "." + uniVersionRevision + @""" -lang """ + Language + @"""");
+							System.Diagnostics.ProcessStartInfo start = new System.Diagnostics.ProcessStartInfo(UUPath + "\\update.exe", @"-uuver """ + uniVersionMajor + "." + uniVersionMinor + "." + uniVersionBuild + "." + uniVersionRevision + @""" -lang """ + Language + @"""");
 							System.Diagnostics.Process.Start(start);
 							UpdateBypass = true;
 							CloseForm();
@@ -5890,7 +5926,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 						if (File.Exists(UUPath + "\\update.exe"))
 						{
 							updating = true;
-							System.Diagnostics.ProcessStartInfo start = new System.Diagnostics.ProcessStartInfo(UUPath + "\\update.exe", @"-uuver """ + uniVersionMajor + "." + uniVersionMinor + "." + uniVersionRevision + @""" -lang """ + Language + @"""");
+							System.Diagnostics.ProcessStartInfo start = new System.Diagnostics.ProcessStartInfo(UUPath + "\\update.exe", @"-uuver """ + uniVersionMajor + "." + uniVersionMinor + "." + uniVersionBuild + "." + uniVersionRevision + @""" -lang """ + Language + @"""");
 							System.Diagnostics.Process.Start(start);
 							UpdateBypass = true;
 							CloseForm();
@@ -7746,7 +7782,7 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
 		private void checkLangFile()
 		{
 			string serverMD5 = "";
-			serverMD5 = RetrData(UpdatesURL.Text, null, null, "OPERATION", "GETLANGMD5", null, null, null, null, 20000, null, null);
+			serverMD5 = RetrData(UpdatesURL.Text, null, null, "OPERATION", "GETLANGMD5", null, null, null, null, UUTimeOut, null, null);
 			if (serverMD5 != "")
 			{
 				string path = WorkSpacePath + "\\languages.ini";
@@ -8032,7 +8068,7 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
 
 		private string buildUserAgent()
 		{
-			return "UniUploader " + uniVersionMajor + ".0 (UU " + uniVersionMajor + "." + uniVersionMinor + "." + uniVersionRevision + "; " + Language + ")";
+			return "UniUploader " + uniVersionMajor + ".0 (UU " + uniVersionMajor + "." + uniVersionMinor + "." + uniVersionBuild + "." + uniVersionRevision + "; " + Language + ")";
 		}
 
 // ----------------------------------------------

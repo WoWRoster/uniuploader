@@ -16,7 +16,7 @@ using cs_IniHandlerDevelop;
 
 // ----------------------------------------------
 
-namespace WindowsApplication10
+namespace update
 {
 	/// <summary>
 	/// Summary description for Form1.
@@ -30,11 +30,12 @@ namespace WindowsApplication10
 		private System.Windows.Forms.Timer timer2;  // Automatically press the Launch New Version button timer
 		private System.ComponentModel.IContainer components;
 		public string uuver = "";
-		public string updver_major =	"1";
-		public string updver_minor =	"4";
-		public string updver_revision = "6";
+		public string updver_major = "1";
+		public string updver_minor = "4";
+		public string updver_build = "6";
+		public string updver_revision = "1";
 		public int numChecks;
-		public int numLaunchChecks;
+		public int numLaunchChecks = 0;
 		public int AutoLaunchTimer = 30;
 		private System.Windows.Forms.ListBox DebugBox;
 		private System.Windows.Forms.Button saveas;
@@ -208,9 +209,30 @@ namespace WindowsApplication10
 
 		private void Form1_Load(object sender, System.EventArgs e)
 		{
-			string updVerString = updver_major+"."+updver_minor+"."+updver_revision;
+			string updVerString = updver_major+"."+updver_minor+"."+updver_build+"."+updver_revision;
 			DebugLine("Updater v"+updVerString+" started");
 			DebugLine("Waiting for UniUploader to close before initiating download.");
+		}
+
+// ----------------------------------------------
+
+		public void timer2_Tick(object sender, System.EventArgs e)
+		{
+			if (numLaunchChecks < AutoLaunchTimer)
+			{
+				numLaunchChecks++;
+			}
+			else
+			{
+				timer2.Stop();
+				timer2.Enabled = false;
+				numLaunchChecks = 0;
+				DebugLine("Automatically launching new UniUploader version.");
+				string UUPath = System.IO.Path.GetDirectoryName( System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase ).Replace("file:\\","");
+				System.Diagnostics.ProcessStartInfo start = new System.Diagnostics.ProcessStartInfo(UUPath+"\\UniUploader.exe");
+				System.Diagnostics.Process.Start(start);
+				this.Close();
+			}
 		}
 
 // ----------------------------------------------
@@ -266,7 +288,7 @@ namespace WindowsApplication10
 			string boundary = Guid.NewGuid().ToString().Replace("-", "");
 			req.ContentType = "multipart/form-data; boundary=" + boundary;
 			req.Method = "POST";
-			req.UserAgent = "UniUploader "+updver_major + ".0 (UU " + updver_major+ "." +updver_minor + "." +updver_revision+"; "+UULanguage+")";
+			req.UserAgent = "UniUploader "+updver_major + ".0 (UU " + updver_major+ "." + updver_minor + "." + updver_build + "." + updver_revision + "; " + UULanguage+")";
 			if (Timeout > 0)
 			{
 				req.Timeout = Timeout;
@@ -497,26 +519,6 @@ namespace WindowsApplication10
 
 // ----------------------------------------------
 
-		public void timer2_Tick(object sender, System.EventArgs e)
-		{
-			if (numLaunchChecks < AutoLaunchTimer)
-			{
-				numLaunchChecks++;
-			}
-			else
-			{
-				timer2.Stop();
-				timer2.Enabled = false;
-				DebugLine("Automatically launching new UniUploader version.");
-				string UUPath = System.IO.Path.GetDirectoryName( System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase ).Replace("file:\\","");
-				System.Diagnostics.ProcessStartInfo start = new System.Diagnostics.ProcessStartInfo(UUPath+"\\UniUploader.exe");
-				System.Diagnostics.Process.Start(start);
-				this.Close();
-			}
-		}
-
-// ----------------------------------------------
-
 		public bool isUUWritable()
 		{
 			try
@@ -601,6 +603,9 @@ namespace WindowsApplication10
 		{
 			timer1.Stop();
 			timer1.Enabled=false;
+			//timer2.Stop();
+			//timer2.Enabled=false;
+			numLaunchChecks = 0;
 			ThreadStart job = new ThreadStart(updateNOW);
 			Thread thread = new Thread(job);
 			thread.Start();
@@ -612,6 +617,7 @@ namespace WindowsApplication10
 		{
 			timer2.Stop();
 			timer2.Enabled=false;
+			numLaunchChecks = 0;
 			string UUPath = System.IO.Path.GetDirectoryName( System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase ).Replace("file:\\","");
 			System.Diagnostics.ProcessStartInfo start = new System.Diagnostics.ProcessStartInfo(UUPath+"\\UniUploader.exe");
 			System.Diagnostics.Process.Start(start);
