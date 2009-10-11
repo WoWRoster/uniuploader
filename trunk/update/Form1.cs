@@ -33,10 +33,11 @@ namespace update
 		public string updver_major = "1";
 		public string updver_minor = "4";
 		public string updver_build = "6";
-		public string updver_revision = "1";
+		public string updver_revision = "2";
 		public int numChecks;
-		public int numLaunchChecks = 0;
-		public int AutoLaunchTimer = 30;
+		public int numLaunchChecks = 0;  // autoLaunch timers initial counter number (Default 0)
+		public int autoLaunchTimer = 30; // How long (in seconds) til the update.exe autoLaunches the new UniUploader (Default 30)
+		public bool autoLaunch = false;  // We don't want the countdown timer to actually start til the download is complete
 		private System.Windows.Forms.ListBox DebugBox;
 		private System.Windows.Forms.Button saveas;
 		private System.Windows.Forms.Button launchUU;
@@ -218,12 +219,13 @@ namespace update
 
 		public void timer2_Tick(object sender, System.EventArgs e)
 		{
-			if (numLaunchChecks < AutoLaunchTimer)
+			if (numLaunchChecks <= autoLaunchTimer)
 			{
-				numLaunchChecks++;
+				if (autoLaunch) { numLaunchChecks++; }  // Only increment the counter if we have actually finished the download
 			}
 			else
 			{
+				if (!autoLaunch) { return; }  // If we haven't actually finished the download yet then break and continue
 				timer2.Stop();
 				timer2.Enabled = false;
 				numLaunchChecks = 0;
@@ -247,7 +249,7 @@ namespace update
 			DebugLine("Downloading ["+UpdateQueryResponse+"]");
 			download(UpdateQueryResponse,FileLocalLocation);
 			DebugLine("New UniUploader.exe downloaded, Please press the \"Launch New Version\" Button.");
-			DebugLine("System will automatically launch new version after "+AutoLaunchTimer+" seconds.");
+			DebugLine("System will automatically launch new version after "+autoLaunchTimer+" seconds.");
 			launchUU.Enabled = true;
 
 			numLaunchChecks = 0;
@@ -452,6 +454,8 @@ namespace update
 				lHttpWebResponseStream.Close();
 				// Set result to True - download was successful.
 				result = true;
+				// Make sure that the timer2 knows this download was completed.
+				autoLaunch = true;
 			}
 			catch(Exception download_error)
 			{
