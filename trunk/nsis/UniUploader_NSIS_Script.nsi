@@ -2,10 +2,13 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "UniUploader"
-!define PRODUCT_VERSION "2.6.8"
+!define PRODUCT_VERSION "2.6.9.1"
 !define PRODUCT_PUBLISHER "Matt Miller"
 !define PRODUCT_WEB_SITE "http://www.wowroster.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\UniUploader.exe"
+; Uncomment if you wish to use UU launch from windows startup option
+;!define PRODUCT_STARTUP_KEY "Software\Microsoft\Windows\CurrentVersion\Run\"
+;!define PRODUCT_STARTUP_ROOT_KEY "HKLM"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 !define PRODUCT_STARTMENU_REGVAL "NSIS:StartMenuDir"
@@ -222,6 +225,8 @@
   OutFile "${PRODUCT_NAME}_${PRODUCT_VERSION}_Installer.exe"
   InstallDir "$PROGRAMFILES\${PRODUCT_NAME}"
   InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
+; Uncomment if you wish to use UU launch from windows startup option
+  ;InstallDirRegKey HKLM "${PRODUCT_STARTUP_KEY}" ""
   ShowInstDetails show
   ShowUnInstDetails show
 
@@ -392,6 +397,8 @@
     SetOverwrite on
     File "UniUploader.exe"
     File "LICENSE.TXT"
+    File "systray.ico"
+    File "languages.ini"
 
     ; The following line is for preconfigured Guild Releases.  If you want
     ; to release it to a specific Guild with a preconfigured .ini file, just
@@ -399,8 +406,8 @@
     ;File "settings.ini"
 
     SetOverwrite ifnewer
-    File "logo1.gif"
-    File "logo2.gif"
+    File "logo1.png"
+    File "logo2.png"
 
     ; Create the shortcuts
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
@@ -421,6 +428,9 @@
     WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
     WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
     WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
+  ; Also write the startup registry entry
+; Uncomment if you wish to use UU launch from windows startup option
+    ;WriteRegStr ${PRODUCT_STARTUP_ROOT_KEY} "${PRODUCT_STARTUP_KEY}" "UniUploader" "$INSTDIR\UniUploader.exe"
   SectionEnd
 
 ;--------------------------------
@@ -439,6 +449,10 @@
     Delete "$INSTDIR\uninst.exe"
     Delete "$INSTDIR\logo2.gif"
     Delete "$INSTDIR\logo1.gif"
+    Delete "$INSTDIR\logo2.jpg"
+    Delete "$INSTDIR\logo1.jpg"
+    Delete "$INSTDIR\logo2.png"
+    Delete "$INSTDIR\logo1.png"
     Delete "$INSTDIR\UniUploader.exe"
     Delete "$INSTDIR\languages.ini"
     Delete "$INSTDIR\LICENSE.TXT"
@@ -448,6 +462,9 @@
     Delete "$INSTDIR\debug_notepad.txt"
     Delete "$INSTDIR\debug_ie.txt"
     Delete "$INSTDIR\settings.ini"
+    Delete "$INSTDIR\screenshots.lua"
+    Delete "$INSTDIR\systray.ico"
+    Delete "$INSTDIR\update.exe"
 
     Delete "$SMPROGRAMS\$ICONS_GROUP\Uninstall.lnk"
     Delete "$SMPROGRAMS\$ICONS_GROUP\UniUploader.lnk"
@@ -458,5 +475,9 @@
 
     DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
     DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
+
+; Uncomment if you wish to use UU launch from windows startup option
+    ;DeleteRegValue ${PRODUCT_STARTUP_ROOT_KEY} "${PRODUCT_STARTUP_KEY}" "UniUploader"
+
     SetAutoClose true
   SectionEnd
