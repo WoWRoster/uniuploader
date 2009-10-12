@@ -151,7 +151,7 @@ namespace WindowsApplication3
 		private string uniVersionMajor = "2";
 		private string uniVersionMinor = "6";
 		private string uniVersionBuild = "9";
-		private string uniVersionRevision = "2";
+		private string uniVersionRevision = "3";
 		private bool TEST_VERSION = false;
 		private string UUuserAgent;
 		private string selectedAcc = "";
@@ -2922,23 +2922,34 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			// Check if there is more than one process...
 			if (processes.Length > 1) {
 				// More than one process found so lets quit out of this launch
-				MessageBox.Show("Application '"+proc+"' is already running");
-				Application.Exit();
-				// Environment.Exit(1);
-				return;
+				DialogResult resultFCO = MessageBox.Show(proc+" is already running, force close other "+proc+"?","ERROR: "+proc+" already running!",System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question);
+				if (resultFCO == DialogResult.Yes)
+				{
+					// Lets make sure to get the current Id so we don't close this by mistake
+					Process currentProcess = Process.GetCurrentProcess();
+					// Close all the other running versions
+					foreach (Process p in processes)
+					{
+						// Only close all other existing processes, not this apps process
+						if (p.Id != currentProcess.Id)
+						{
+							// Kill the other running process
+							p.Kill();
+						}
+					}
+				}
+				if (resultFCO == DialogResult.No)
+				{
+					DialogResult resultLAI = MessageBox.Show("Launch another instance of "+proc+"?","ERROR: "+proc+" already running!",System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question);
+					if (resultLAI == DialogResult.No)
+					{
+						// Ignore all the other running versions and close this one instead
+						Application.Exit();
+						return;
+					}
+				}
 			}
-/*
-			bool firstInstance;
-			// Lets check for our application/process
-			Mutex mutex = new Mutex(false, "Local\\"+proc, out firstInstance);
-			// If firstInstance is now true, we're the first instance of the application;
-			// otherwise another instance is running.
-			if (!firstInstance) {
-				MessageBox.Show("Application '"+proc+"' is already running");
-				Environment.Exit(1);
-				return;
-			}
-*/
+
 			try
 			{
 				Application.EnableVisualStyles();
