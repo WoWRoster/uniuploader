@@ -151,7 +151,7 @@ namespace WindowsApplication3
 		private string uniVersionMajor = "2";
 		private string uniVersionMinor = "6";
 		private string uniVersionBuild = "9";
-		private string uniVersionRevision = "1";
+		private string uniVersionRevision = "2";
 		private bool TEST_VERSION = false;
 		private string UUuserAgent;
 		private string selectedAcc = "";
@@ -2914,6 +2914,31 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		[STAThread]
 		static void Main()
 		{
+			// If UniUploader is already running then no point trying to launch a 2nd version
+			// First lets get the name of our application/process
+			string proc=Process.GetCurrentProcess().ProcessName;
+			// Now we need to get the list of all processes by that name
+			Process[] processes=Process.GetProcessesByName(proc);
+			// Check if there is more than one process...
+			if (processes.Length > 1) {
+				// More than one process found so lets quit out of this launch
+				MessageBox.Show("Application '"+proc+"' is already running");
+				Application.Exit();
+				// Environment.Exit(1);
+				return;
+			}
+/*
+			bool firstInstance;
+			// Lets check for our application/process
+			Mutex mutex = new Mutex(false, "Local\\"+proc, out firstInstance);
+			// If firstInstance is now true, we're the first instance of the application;
+			// otherwise another instance is running.
+			if (!firstInstance) {
+				MessageBox.Show("Application '"+proc+"' is already running");
+				Environment.Exit(1);
+				return;
+			}
+*/
 			try
 			{
 				Application.EnableVisualStyles();
