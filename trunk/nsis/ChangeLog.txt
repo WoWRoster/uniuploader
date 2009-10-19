@@ -1,0 +1,37 @@
+UniUploader/Update ChangeLog (in reverse order, newest listed first):
+
+2.6.9.4 Changes:
+fixed - crash issue when no network access was available, still requires a timer check to auto-detect later but least now no more crashes!
+added - guild name custom option to allow GLs (Guild Leaders) to set via UniAdmin an optional Guild Name (or other string) to appear before the UniUploader title area.
+added - integration of autoLaunchTimer from update.exe to allow UniAdmin to set how long (in seconds) for the update.exe to auto launch a new UU build.
+added - integration of UUTimeOut to allow UniAdmin to set how long for UU to timeout from lack of connection or broken URLs, etc.
+added - update.exe now uses custom autoLaunchTimer option stored from UU and set via UA.
+added - UU will now also download and update a ChangeLog.txt file for those wishing to keep track of the changes.
+
+2.6.9.3 Changes:
+changed - improved the multiple process checker system, now allows to either force-close all other running processes, launch a new process or not launch
+
+2.6.9.2 Changes:
+added - checker to detect if another UniUploader is running, if so no point launching a second one
+
+2.6.9.1 Changes:
+changed - version detection system now supports both alphanumeric versions (EG 2.6.9a) and also new style full numerical (EG 2.6.9.1 - the better type) versions.
+changed - renamed uniVersionRevision to uniVersionBuild and added additional uniVersionRevision item for Major.Minor.Build.Revision versioning to allow for additional revisions of minor changes.
+
+2.6.9 Changes:
+
+changed - logo system now supports PNG/GIF/JPG image files rather than just GIF
+changed - pretty much all text labels in the UniUploader are now able to be changed via the languages.ini
+changed - version detection system now properly detects for new builds
+added - option to choose to minimize to systray upon clicking Close X button (option to force set in UA)
+added - roster/uniadmin URL context menu items (updated through UA)
+added - update check button to force request a check to see if a new UniUploader build is available (rather than having to quit and relaunch)
+added - ability to select ALL accounts to be uploaded rather than just single ones (option to force set in UA)
+added - ability to store the password encrypted in the settings file (option to force set in UA)
+added - option to automatically update to latest UniUploader build (option to force set in UA)
+added - update.exe now checks the settings.ini file for the current updates URL rather than having it hardcoded
+added - automatic launch timer to update.exe system to auto-run new UniUploader builds (30 seconds)
+
+Thanks to the wowroster.net community! Please report bugs and request features at wowroster.net!
+
+- Calystos (calystos@virgin.net), Program Updater/Modder
