@@ -1,4 +1,8 @@
 // ----------------------------------------------
+/*
+$Id: $
+*/
+// ----------------------------------------------
 
 using System;
 using System.IO;
@@ -151,7 +155,7 @@ namespace WindowsApplication3
 		private string uniVersionMajor = "2";
 		private string uniVersionMinor = "6";
 		private string uniVersionBuild = "9";
-		private string uniVersionRevision = "3";
+		private string uniVersionRevision = "4";
 		private bool TEST_VERSION = false;
 		private string UUuserAgent;
 		private string selectedAcc = "";
@@ -578,7 +582,9 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		private LinkLabel linkLabel3;
 		private CheckBox stwowlaunch;
 		private Button updateCheckBtn;
-		public int UUTimeOut = 20000;  // Default setting for UniUploader timeout (Used - currently - by doLogos, CheckForUpdates, checkLangFile functions)
+		public string GuildName = "";  // Set this to "" if you do not wish to customize for a guild build
+		public int UUTimeOut = 20000;  // Default setting for UniUploader timeout (Used by doLogos, CheckForUpdates, checkLangFile functions)
+		public int autoLaunchTimer = 30;  // Not used by UU, but is used by UU's Update.exe. Put here to make sure UU doesn't wipe the setting.
 		FileSystemWatcher newWatcher = new FileSystemWatcher();
 
 // ----------------------------------------------
@@ -1101,7 +1107,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			//
 			this.notifyIcon1.ContextMenu = this.contextMenu1;
 			this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-			this.notifyIcon1.Text = "UniUploader";
+			this.notifyIcon1.Text = "UniUploader"; // this.GuildName + "UniUploader";
 			this.notifyIcon1.Visible = true;
 			//
 			// contextMenu1
@@ -2852,7 +2858,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			this.ShowInTaskbar = false;
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "UniUploader";
+			this.Text = "UniUploader"; // this.GuildName + "UniUploader";
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.Closing += new System.ComponentModel.CancelEventHandler(this.Form1_Closing);
 			((System.ComponentModel.ISupportInitialize)(this.myTimer)).EndInit();
@@ -3081,7 +3087,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 				closeWait();
 			}
 		}
-
 
 // ----------------------------------------------
 
@@ -3355,7 +3360,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			}
 			return files;
 		}
-
 
 // ----------------------------------------------
 
@@ -3740,7 +3744,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 								settingValueBool = false;
 							}
 
-
 							switch (key)
 							{
 								#region cases
@@ -4022,6 +4025,20 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 								case "USEAPPDATA":
 									cbAppData.Checked = settingValueBool;
 									break;
+								case "AUTOLAUNCHTIMER":
+									autoLaunchTimer = Convert.ToInt32(settingValue);
+									break;
+								case "UUTIMEOUT":
+									UUTimeOut = Convert.ToInt32(settingValue);
+									break;
+								case "GUILDNAME":
+									GuildName = settingValue;
+									if (GuildName != "") // Only alter the title/systray text if theres an actual setting text to use
+									{
+										Text = GuildName + " UniUploader";
+										notifyIcon1.Text = Text;
+									}
+									break;
 
 								#endregion
 								default:
@@ -4066,6 +4083,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 					ini.AddCategory("updater");
 					ini.AddCategory("options");
 					ini.AddCategory("advanced");
+					ini.AddCategory("custom");
 					string checkedSvsFromList = "";//delimited collection of checked SVs from the list
 					int i = 0;
 					foreach (string checkedSV in SVList.CheckedItems) //itterate through all checked files in the sv file list
@@ -4118,6 +4136,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 					ini.AddValue("updater", "UPDATESURL", UpdatesURL.Text);
 					ini.AddValue("updater", "ALLOWADDONDEL", chAllowDelAddons.Checked.ToString());
 					ini.AddValue("updater", "AUTOSYNCIN", nudAutoSyncInterval.Value.ToString());
+					ini.AddValue("updater", "AUTOLAUNCHTIMER", autoLaunchTimer.ToString());
+					ini.AddValue("updater", "UUTIMEOUT", UUTimeOut.ToString());
 
 					ini.AddValue("options", "SYSTRAY", checkBox1.Checked.ToString());
 					ini.AddValue("options", "ALWAYSONTOP", checkBox6.Checked.ToString());
@@ -4181,6 +4201,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 					ini.AddValue("advanced", "WOWARGS", launchWoWargs.Text);
 					ini.AddValue("advanced", "PURGEFIRST", purgefirstCh.Checked.ToString());
 					ini.AddValue("advanced", "USEAPPDATA", cbAppData.Checked.ToString());
+
+					ini.AddValue("custom", "GUILDNAME", GuildName);
 					#endregion
 					IniStructure.WriteIni(ini, WorkSpacePath + "\\settings.ini", "UniUploader initialization file \ngenerated by \n" + "Version : " + uniVersionMajor + "." + uniVersionMinor + "." + uniVersionBuild + "." + uniVersionRevision);
 				}
@@ -5640,6 +5662,20 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 							break;
 						case "DELAYSECONDS":
 							DelaySecs.Text = settingSplit[1];
+							break;
+						case "AUTOLAUNCHTIMER":
+							autoLaunchTimer = Convert.ToInt32(settingSplit[1]);
+							break;
+						case "UUTIMEOUT":
+							UUTimeOut = Convert.ToInt32(settingSplit[1]);
+							break;
+						case "GUILDNAME":
+							GuildName = settingSplit[1];
+							if (GuildName != "") // Only alter the title/systray text if theres an actual setting text to use
+							{
+								Text = GuildName + " UniUploader";
+								notifyIcon1.Text = Text;
+							}
 							break;
 						default:
 							break;
@@ -8153,7 +8189,6 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
 				DebugLine("Failed to Upload");
 			}
 
-
 			//http.onInformationMessage -= new UniUploader.http.httpInfoDelegate(http_onInformationMessage);
 			DebugLine("[See Server Response Tab for upload result]");
 			DebugLine("UploadALL: ------------------------------------------------------------------------");
@@ -8209,7 +8244,6 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
 				CompressionMethod = UniUploader.http.FILE_COMPRESSION_METHODS.GZIP;
 			http.UserAgent = getUserAgent();
 
-
 			DebugLine("Upload: ------------------------------------------------------------------------");
 			//http.onInformationMessage += new UniUploader.http.httpInfoDelegate(http_onInformationMessage);
 			//string result = http.post(files, AllParams, url, UniUploader.http.ENCODING_TYPES.MULTI_FORM_DATA, UniUploader.http.REQUEST_METHODS.POST, "", CompressionMethod, cookies, credentials);
@@ -8223,7 +8257,6 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
 				}
 				DebugLine("Failed to Upload");
 			}
-
 
 			//http.onInformationMessage -= new UniUploader.http.httpInfoDelegate(http_onInformationMessage);
 			DebugLine("[See Server Response Tab for upload result]");
@@ -8307,7 +8340,6 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
 			DebugLine("RetrData: ------------------------------------------------------------------------");
 			return Response.ToString();
 		}
-
 
 // ----------------------------------------------
 
@@ -8875,7 +8907,7 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
 					this.notifyIcon1 = new NotifyIcon();
 					this.notifyIcon1.ContextMenu = this.contextMenu1;
 					this.notifyIcon1.Icon = new Icon(IconFile);
-					this.notifyIcon1.Text = "UniUploader";
+					this.notifyIcon1.Text = this.GuildName + "UniUploader";
 					this.notifyIcon1.Visible = true;
 					notifyIcon1.DoubleClick += new EventHandler(notifyIcon1_DoubleClick);
 				}
@@ -8902,7 +8934,7 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
 				this.notifyIcon1.ContextMenu = this.contextMenu1;
 				System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 				this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-				this.notifyIcon1.Text = "UniUploader";
+				this.notifyIcon1.Text = this.GuildName + "UniUploader";
 				this.notifyIcon1.Visible = true;
 				notifyIcon1.DoubleClick += new EventHandler(notifyIcon1_DoubleClick);
 				checkBox1_CheckedChanged(null, null);

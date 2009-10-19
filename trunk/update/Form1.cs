@@ -33,7 +33,7 @@ namespace update
 		public string updver_major = "1";
 		public string updver_minor = "4";
 		public string updver_build = "6";
-		public string updver_revision = "2";
+		public string updver_revision = "3";
 		public int numChecks;
 		public int numLaunchChecks = 0;  // autoLaunch timers initial counter number (Default 0)
 		public int autoLaunchTimer = 30; // How long (in seconds) til the update.exe autoLaunches the new UniUploader (Default 30)
@@ -743,6 +743,9 @@ namespace update
 								#region cases
 								case "UPDATESURL":
 									UpdatesURL = settingValue;
+									break;
+								case "AUTOLAUNCHTIMER":
+									autoLaunchTimer = Convert.ToInt32(settingValue);
 									break;
 								#endregion
 								default:
