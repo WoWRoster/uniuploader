@@ -7,8 +7,8 @@
 !define PRODUCT_WEB_SITE "http://www.wowroster.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\UniUploader.exe"
 ; Uncomment if you wish to use UU launch from windows startup option
-;!define PRODUCT_STARTUP_KEY "Software\Microsoft\Windows\CurrentVersion\Run\"
-;!define PRODUCT_STARTUP_ROOT_KEY "HKLM"
+!define PRODUCT_STARTUP_KEY "Software\Microsoft\Windows\CurrentVersion\Run\"
+!define PRODUCT_STARTUP_ROOT_KEY "HKLM"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 !define PRODUCT_STARTMENU_REGVAL "NSIS:StartMenuDir"
