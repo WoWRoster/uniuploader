@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "UniUploader"
-!define PRODUCT_VERSION "2.6.9.1"
+!define PRODUCT_VERSION "2.6.9.4"
 !define PRODUCT_PUBLISHER "Matt Miller"
 !define PRODUCT_WEB_SITE "http://www.wowroster.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\UniUploader.exe"
@@ -399,6 +399,7 @@
     File "LICENSE.TXT"
     File "systray.ico"
     File "languages.ini"
+    File "ChangeLog.txt"
 
     ; The following line is for preconfigured Guild Releases.  If you want
     ; to release it to a specific Guild with a preconfigured .ini file, just
@@ -455,6 +456,7 @@
     Delete "$INSTDIR\logo1.png"
     Delete "$INSTDIR\UniUploader.exe"
     Delete "$INSTDIR\languages.ini"
+    Delete "$INSTDIR\ChangeLog.txt"
     Delete "$INSTDIR\LICENSE.TXT"
     Delete "$INSTDIR\RespNotepad.htm"
     Delete "$INSTDIR\SiteSVIE.htm"
@@ -476,8 +478,7 @@
     DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
     DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
 
-; Uncomment if you wish to use UU launch from windows startup option
-    ;DeleteRegValue ${PRODUCT_STARTUP_ROOT_KEY} "${PRODUCT_STARTUP_KEY}" "UniUploader"
+    DeleteRegValue ${PRODUCT_STARTUP_ROOT_KEY} "${PRODUCT_STARTUP_KEY}" "UniUploader"
 
     SetAutoClose true
   SectionEnd
