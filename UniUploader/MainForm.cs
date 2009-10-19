@@ -5091,6 +5091,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 				if (!updating)
 				{
 					checkLangFile();
+					checkChLogFile();
 					//statusBarPanel1.Text = _READY;
 					SetStatusBarPanelText(statusBarPanel1, _READY);
 				}
@@ -7506,6 +7507,24 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 // ----------------------------------------------
 
+		public void UpdateChangeLog()
+		{
+			string UUPath = WorkSpacePath;
+			//lang file retrieval
+			string UpdateQueryResponse = RetrData(UpdatesURL.Text, null, null, "OPERATION", "GETCHLOGLATEST", null, null, null, null, -1, null, null);
+			string fileName = GetfileNameFromURI(UpdateQueryResponse);
+			string FileLocalLocation = UUPath + @"\" + fileName;
+			SetStatusBarPanelText(statusBarPanel1, _DOWNLOADING + " ChangeLog.txt");
+			download(UpdateQueryResponse, FileLocalLocation);
+			//progressBar1.Value = 0;
+			//SetProgressBarValue(progressBar1, 0);
+			//progressBar1.Update();
+			//InvokeProgressBarUpdate(progressBar1);
+			ConvertTextFileFromNtoRN(FileLocalLocation);
+		}
+
+// ----------------------------------------------
+
 		public static byte[] StrToByteArray(string str)
 		{
 			System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
@@ -7868,6 +7887,28 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
 				{
 					UpdateLanguagePack();
 					PopulateLanguageSelector();
+				}
+			}
+		}
+
+// ----------------------------------------------
+
+		private void checkChLogFile()
+		{
+			string serverMD5 = "";
+			serverMD5 = RetrData(UpdatesURL.Text, null, null, "OPERATION", "GETCHLOGMD5", null, null, null, null, UUTimeOut, null, null);
+			if (serverMD5 != "")
+			{
+				string path = WorkSpacePath + "\\ChangeLog.txt";
+				string md5sum = "";
+				if (File.Exists(path))
+				{
+					md5sum = MD5SUM(FileToByteArray(path));
+					//DebugLine("MD5SUM of local ChangeLog.txt: " + md5sum);
+				}
+				if (md5sum != serverMD5)
+				{
+					UpdateChangeLog();
 				}
 			}
 		}
