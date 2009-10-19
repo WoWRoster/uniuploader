@@ -1,4 +1,11 @@
-﻿using System;
+﻿
+// ----------------------------------------------
+/*
+$Id: $
+*/
+// ----------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Threading;
@@ -8,12 +15,18 @@ using System.IO;
 using System.Globalization;
 using ICSharpCode.SharpZipLib.GZip;
 using System.Security.Cryptography;
+
+// ----------------------------------------------
+
 namespace UniUploader
 {
     internal sealed class http
     {
         public delegate void httpInfoDelegate(String s);
         public event httpInfoDelegate onInformationMessage;
+
+// ----------------------------------------------
+
         private void Info(String s)
         {
             if (!object.Equals(null, onInformationMessage))
@@ -21,6 +34,9 @@ namespace UniUploader
                 onInformationMessage(s);
             }
         }
+
+// ----------------------------------------------
+
         private static DateTime DateCompiled()
         {
             System.Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
@@ -30,6 +46,9 @@ namespace UniUploader
                 ).AddYears(1999).AddHours(1);
             return d;
         }
+
+// ----------------------------------------------
+
         private static String AssemblyVersion
         {
             get
@@ -37,6 +56,9 @@ namespace UniUploader
                 return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             }
         }
+
+// ----------------------------------------------
+
         //private string UserAgent
         //{
         //    get
@@ -48,8 +70,14 @@ namespace UniUploader
         //        return "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.1) Gecko/2008070208 Firefox/3.0.1";
         //    }
         //}
+
+// ----------------------------------------------
+
         public string UserAgent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.1) Gecko/2008070208 Firefox/3.0.1";
         public CookieContainer CookieJar = new CookieContainer();
+
+// ----------------------------------------------
+
         private Hashtable getQueryStringParams(string url)
         {
             int queryStringStart = url.IndexOf("?");
@@ -71,6 +99,9 @@ namespace UniUploader
             }
             return h;
         }
+
+// ----------------------------------------------
+
         private StreamWriter addVar(StreamWriter sw, string boundary, string varName, string varValue)
         {
             string newLine = "\r\n";
@@ -84,6 +115,9 @@ namespace UniUploader
             sw.Flush();
             return sw;
         }
+
+// ----------------------------------------------
+
         private ArrayList normalizePostData(ArrayList Data)
         {
             ArrayList AllParams = new ArrayList();
@@ -111,6 +145,9 @@ if (Data == null) { return AllParams; }  // Temp patch fix to sort out null erro
             }
             return AllParams;
         }
+
+// ----------------------------------------------
+
         private MemoryStream getPostData(Hashtable files, ArrayList _allParams, string url, string boundary, FILE_COMPRESSION_METHODS CompressionMethod)
         {
             MemoryStream postData = new MemoryStream();  // Moved from below normalizePostData due to null error crash bug
@@ -194,6 +231,9 @@ if (_allParams == null) { return postData; }  // Temp patch fix to sort out null
             //string s = System.Text.Encoding.UTF8.GetString(b);
             return postData;
         }
+
+// ----------------------------------------------
+
         private string MD5SUM(byte[] FileOrText) //Output: String<-> Input: Byte[] //
         {
             try
@@ -206,69 +246,111 @@ if (_allParams == null) { return postData; }  // Temp patch fix to sort out null
                 return null; //the addon possibly does not exist
             }
         }
+
+// ----------------------------------------------
+
         public enum ENCODING_TYPES
         {
             APP_X_WWW_FORM_URLENCODED,
             MULTI_FORM_DATA
         }
+
+// ----------------------------------------------
+
         public enum REQUEST_METHODS
         {
             GET,
             POST
         }
+
+// ----------------------------------------------
+
         public enum FILE_COMPRESSION_METHODS
         {
             NONE,
             GZIP
         }
 
+// ----------------------------------------------
+
         public CredentialCache CredentialCache;
 
         public int Timeout = 43200000;
+
+// ----------------------------------------------
 
         public bool post(ref Response Response, string Url)
         {
             return post(ref Response, Url, null, null, this.UserAgent, ENCODING_TYPES.MULTI_FORM_DATA, REQUEST_METHODS.POST, this.Timeout, this.CookieJar, this.CredentialCache, FILE_COMPRESSION_METHODS.NONE, "");
         }
+
+// ----------------------------------------------
+
         public bool post(ref Response Response, string Url, ArrayList Parameters)
         {
             return post(ref Response, Url, Parameters, null, this.UserAgent, ENCODING_TYPES.MULTI_FORM_DATA, REQUEST_METHODS.POST, this.Timeout, this.CookieJar, this.CredentialCache, FILE_COMPRESSION_METHODS.NONE, "");
         }
+
+// ----------------------------------------------
+
         public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files)
         {
             return post(ref Response, Url, Parameters, Files, this.UserAgent, ENCODING_TYPES.MULTI_FORM_DATA, REQUEST_METHODS.POST, this.Timeout, this.CookieJar, this.CredentialCache, FILE_COMPRESSION_METHODS.NONE, "");
         }
+
+// ----------------------------------------------
+
         public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, FILE_COMPRESSION_METHODS FileCompressionMethods)
         {
             return post(ref Response, Url, Parameters, Files, this.UserAgent, ENCODING_TYPES.MULTI_FORM_DATA, REQUEST_METHODS.POST, this.Timeout, this.CookieJar, this.CredentialCache, FileCompressionMethods, "");
         }
+
+// ----------------------------------------------
+
         public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, FILE_COMPRESSION_METHODS FileCompressionMethods, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod)
         {
             return post(ref Response, Url, Parameters, Files, this.UserAgent, EncType, ReqMethod, this.Timeout, this.CookieJar, this.CredentialCache, FileCompressionMethods, "");
         }
+
+// ----------------------------------------------
+
         public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, FILE_COMPRESSION_METHODS FileCompressionMethods, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod, int Timeout)
         {
             return post(ref Response, Url, Parameters, Files, this.UserAgent, EncType, ReqMethod, Timeout, this.CookieJar, this.CredentialCache, FileCompressionMethods, "");
         }
+
+// ----------------------------------------------
+
         public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, FILE_COMPRESSION_METHODS FileCompressionMethods, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod, int Timeout, string UserAgent)
         {
             return post(ref Response, Url, Parameters, Files, UserAgent, EncType, ReqMethod, Timeout, this.CookieJar, this.CredentialCache, FileCompressionMethods, "");
         }
+
+// ----------------------------------------------
+
         public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, FILE_COMPRESSION_METHODS FileCompressionMethods, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod, int Timeout, string UserAgent, string Referer)
         {
             return post(ref Response, Url, Parameters, Files, UserAgent, EncType, ReqMethod, Timeout, this.CookieJar, this.CredentialCache, FileCompressionMethods, Referer);
         }
+
+// ----------------------------------------------
+
         public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, FILE_COMPRESSION_METHODS FileCompressionMethods, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod, int Timeout, string UserAgent, string Referer, CookieContainer Cookies)
         {
             return post(ref Response, Url, Parameters, Files, UserAgent, EncType, ReqMethod, Timeout, Cookies, this.CredentialCache, FileCompressionMethods, Referer);
         }
+
+// ----------------------------------------------
+
         public bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, FILE_COMPRESSION_METHODS FileCompressionMethods, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod, int Timeout, string UserAgent, string Referer, CookieContainer Cookies, CredentialCache CredentialCache)
         {
             return post(ref Response, Url, Parameters, Files, UserAgent, EncType, ReqMethod, Timeout, Cookies, CredentialCache, FileCompressionMethods, Referer);
         }
+
+// ----------------------------------------------
+
         private bool post(ref Response Response, string Url, ArrayList Parameters, Hashtable Files, string UserAgent, ENCODING_TYPES EncType, REQUEST_METHODS ReqMethod, int Timeout, CookieContainer Cookies, CredentialCache CredentialCache, FILE_COMPRESSION_METHODS FileCompressionMethods, string Referer)
         {
-
             if (!object.Equals(null, Url)) Info("URL: " + Url);
             if (!object.Equals(null, Files)) Info("Files: " + Files.Count.ToString());
             if (!object.Equals(null, EncType)) Info("Encode Type: " + EncType.ToString());
@@ -293,7 +375,6 @@ if (_allParams == null) { return postData; }  // Temp patch fix to sort out null
                     postData = getPostData(Files, Parameters, Url, boundary, FileCompressionMethods);
                     break;
             }
-
 
             if (EncType == ENCODING_TYPES.APP_X_WWW_FORM_URLENCODED)
             {
@@ -341,20 +422,29 @@ if (_allParams == null) { return postData; }  // Temp patch fix to sort out null
             req.Timeout = Timeout;
             if (ReqMethod == REQUEST_METHODS.POST)
             {
-                Stream oRequestStream = req.GetRequestStream();
-                postData.Seek(0, SeekOrigin.Begin);
+                try
+				{
+					Stream oRequestStream = req.GetRequestStream(); // CRASH OCCURS HERE IF NO NETWORK AVAILABLE!
 
-                int bytesSent = 0;
-                int totalBytesSent = 0;
-                int totalOutBytes = (int)postData.Length;
-                byte[] buffer = new Byte[checked((uint)Math.Min(4096, (int)postData.Length))];
-                while ((bytesSent = postData.Read(buffer, 0, buffer.Length)) != 0)
-                {
-                    oRequestStream.Write(buffer, 0, bytesSent);
-                    totalBytesSent += bytesSent;
-                    fireSendProgressEvent(totalBytesSent, (int)postData.Length);
-                }
-                oRequestStream.Close();
+    	            postData.Seek(0, SeekOrigin.Begin);
+
+	                int bytesSent = 0;
+                	int totalBytesSent = 0;
+            	    int totalOutBytes = (int)postData.Length;
+        	        byte[] buffer = new Byte[checked((uint)Math.Min(4096, (int)postData.Length))];
+    	            while ((bytesSent = postData.Read(buffer, 0, buffer.Length)) != 0)
+	                {
+                	    oRequestStream.Write(buffer, 0, bytesSent);
+            	        totalBytesSent += bytesSent;
+        	            fireSendProgressEvent(totalBytesSent, (int)postData.Length);
+    	            }
+	                oRequestStream.Close();
+				}
+				catch (Exception e)
+				{
+					Info("GETREQUESTSTREAM: " + e.Message);
+					return false;
+				}
             }
             Info("Request Sent.  ( " + postData.Length.ToString("N0") + " Bytes )");
 
@@ -413,6 +503,9 @@ if (_allParams == null) { return postData; }  // Temp patch fix to sort out null
             }
 
         }
+
+// ----------------------------------------------
+
         public class Response
         {
             public MemoryStream Content;
@@ -446,6 +539,9 @@ if (_allParams == null) { return postData; }  // Temp patch fix to sort out null
                 else return "";
             }
         }
+
+// ----------------------------------------------
+
         private string getPostDataUrlEncoded(ArrayList allParams, string url, string boundary)
         {
             string postData = "";
@@ -508,8 +604,13 @@ if (_allParams == null) { return postData; }  // Temp patch fix to sort out null
             return postData;
         }
 
+// ----------------------------------------------
+
         public delegate void ReceiveProgressDelegate(int CurrentPosition, int TotalSize);
         public event ReceiveProgressDelegate onReceiveProgress;
+
+// ----------------------------------------------
+
         private void fireReceiveProgressEvent(int CurrentPosition, int TotalSize)
         {
             if (!object.Equals(null, onReceiveProgress))
@@ -518,8 +619,13 @@ if (_allParams == null) { return postData; }  // Temp patch fix to sort out null
             }
         }
 
+// ----------------------------------------------
+
         public delegate void SendProgressDelegate(int CurrentPosition, int TotalSize);
         public event SendProgressDelegate onSendProgress;
+
+// ----------------------------------------------
+
         private void fireSendProgressEvent(int CurrentPosition, int TotalSize)
         {
             if (!object.Equals(null, onSendProgress))
@@ -528,6 +634,9 @@ if (_allParams == null) { return postData; }  // Temp patch fix to sort out null
             }
         }
     }
+
+// ----------------------------------------------
+
     internal class AcceptAllCertificatePolicy : ICertificatePolicy
     {
         public AcceptAllCertificatePolicy()
@@ -540,6 +649,9 @@ if (_allParams == null) { return postData; }  // Temp patch fix to sort out null
             return true;
         }
     }
+
+// ----------------------------------------------
+
     internal class MyWebRequest : System.Net.WebClient
     {
         protected override System.Net.WebRequest GetWebRequest(Uri uri)
@@ -553,4 +665,9 @@ if (_allParams == null) { return postData; }  // Temp patch fix to sort out null
             return GetWebRequest(uri);
         }
     }
+
+// ----------------------------------------------
+
 }
+
+// ----------------------------------------------
