@@ -1,4 +1,9 @@
 // ----------------------------------------------
+/*
+ * @version    SVN: $Id: Form1.cs 1983 2009-05-17 22:01:05Z Calystos $
+ * @link       http://www.wowroster.net
+*/
+// ----------------------------------------------
 
 using System;
 using System.IO;
