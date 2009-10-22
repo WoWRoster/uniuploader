@@ -1,0 +1,18 @@
+path=C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\;C:\Program Files\Microsoft Visual Studio .NET 2003\SDK\v1.1\Bin;
+
+cd C:\Documents and Settings\Matt Miller\Desktop\uniuploader2\UniUploader source
+
+sn -k uniKey.snk
+
+AssemblyInfo.cs:
+[assembly: AssemblyDelaySign(false)]
+[assembly: AssemblyKeyFile("uniKey.snk")]
+//[assembly: AssemblyKeyName("")]
+
+
+cd C:\Documents and Settings\Matt Miller\Desktop\uniuploader2\UniUploader source\bin\Debug
+
+ildasm uniUploader.exe /output:asmText.txt
+
+sn -v UniUploader.exe
+
