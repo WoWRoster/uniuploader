@@ -2,6 +2,10 @@
 /*
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
+ * @date       $Date$
+ * @revision   $Rev$
+ * @url        $URL$
+ * @author     $Author$
 */
 // ----------------------------------------------
 
@@ -156,7 +160,7 @@ namespace WindowsApplication3
 		private string uniVersionMajor = "2";
 		private string uniVersionMinor = "7";
 		private string uniVersionBuild = "0";
-		private string uniVersionRevision = "0";
+		private string uniVersionRevision = Regex.Replace("$Rev$", @"[\D]", "");
 		private bool TEST_VERSION = false;
 		private string UUuserAgent;
 		private string selectedAcc = "";
