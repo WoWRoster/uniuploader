@@ -29,6 +29,7 @@ using System.Security.Cryptography;
 using cs_IniHandlerDevelop;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Security.Principal;
 
 // ----------------------------------------------
 
@@ -157,10 +158,10 @@ namespace WindowsApplication3
 		IniStructure ini = new cs_IniHandlerDevelop.IniStructure();
 		IniStructure LanguageIni = new cs_IniHandlerDevelop.IniStructure();
 		private bool updating = false;
-		private string uniVersionMajor = "2";
-		private string uniVersionMinor = "7";
-		private string uniVersionBuild = "0";
-		private string uniVersionRevision = Regex.Replace("$Rev$", @"[\D]", "");
+		private string uniVersionMajor = "2";  // Changed upon addition of major new features/updates
+		private string uniVersionMinor = "7";  // Changed upon addition of minor new features/updates
+		private string uniVersionBuild = "1";  // Changed upon patch/build revision updates (eg bug fixes)
+		private string uniVersionRevision = Regex.Replace("$Rev$", @"[\D]", "");  // This is autochanged upon new SVN commits/updates
 		private bool TEST_VERSION = false;
 		private string UUuserAgent;
 		private string selectedAcc = "";
@@ -314,6 +315,8 @@ namespace WindowsApplication3
 		private string _THEDEBUGINFO = "Debug Info";
 		private string _CANTFINDLICENSE = "LICENSE.TXT not found!";
 		private string _THELICENSE = "License";
+		private string _CANTFINDCHANGELOG = "ChangeLog.txt not found!";
+		private string _THECHANGELOG = "ChangeLog";
 		private string _EXPANDALL = "Expand All";
 		private string _COLLAPSEALL = "Collapse All";
 		private string _THESEAREADDONS = @"These are addons which UniAdmin has available to be automatically updated on your system.  Mandatory addons are shown in red.";
@@ -534,6 +537,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		private System.Windows.Forms.CheckBox sendPwSecurely;
 		private System.Windows.Forms.CheckBox storePwSecurely;
 		private System.Windows.Forms.Button btnLegal;
+		private System.Windows.Forms.Button btnChangeLog;
 		private System.Windows.Forms.CheckBox chWtoWOWbeforeWOWLaunch;
 		private System.Windows.Forms.CheckBox chWtoWOWafterUpload;
 		private System.Windows.Forms.Button btnWtoWOWDownload;
@@ -670,6 +674,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.linkLabel5 = new System.Windows.Forms.LinkLabel();
             this.btnTranslations = new System.Windows.Forms.Button();
             this.btnLegal = new System.Windows.Forms.Button();
+            this.btnChangeLog = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenu1 = new System.Windows.Forms.ContextMenu();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
@@ -977,6 +982,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.groupBox2.Controls.Add(this.linkLabel5);
             this.groupBox2.Controls.Add(this.btnTranslations);
             this.groupBox2.Controls.Add(this.btnLegal);
+            this.groupBox2.Controls.Add(this.btnChangeLog);
             this.groupBox2.Location = new System.Drawing.Point(8, 8);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(464, 200);
@@ -992,7 +998,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.version.Name = "version";
             this.version.Size = new System.Drawing.Size(92, 16);
             this.version.TabIndex = 17;
-            this.version.Text = "2.7.0.0";
+			this.version.Text = "2.7.0.0";
             // 
             // pictureBox2
             // 
@@ -1097,7 +1103,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // btnTranslations
             // 
-            this.btnTranslations.Location = new System.Drawing.Point(8, 168);
+            this.btnTranslations.Location = new System.Drawing.Point(3, 165);
             this.btnTranslations.Name = "btnTranslations";
             this.btnTranslations.Size = new System.Drawing.Size(88, 23);
             this.btnTranslations.TabIndex = 21;
@@ -1106,18 +1112,27 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             // 
             // btnLegal
             // 
-            this.btnLegal.Location = new System.Drawing.Point(8, 136);
+            this.btnLegal.Location = new System.Drawing.Point(3, 136);
             this.btnLegal.Name = "btnLegal";
-            this.btnLegal.Size = new System.Drawing.Size(75, 23);
+            this.btnLegal.Size = new System.Drawing.Size(57, 23);
             this.btnLegal.TabIndex = 21;
             this.btnLegal.Text = "License";
             this.btnLegal.Click += new System.EventHandler(this.btnLegal_Click);
+            // 
+            // btnChangeLog
+            // 
+            this.btnChangeLog.Location = new System.Drawing.Point(61, 136);
+            this.btnChangeLog.Name = "btnChangeLog";
+            this.btnChangeLog.Size = new System.Drawing.Size(75, 23);
+            this.btnChangeLog.TabIndex = 21;
+            this.btnChangeLog.Text = "ChangeLog";
+            this.btnChangeLog.Click += new System.EventHandler(this.btnChangeLog_Click);
             // 
             // notifyIcon1
             // 
             this.notifyIcon1.ContextMenu = this.contextMenu1;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "UniUploader";
+            this.notifyIcon1.Text = "UniUploader";  // this.GuildName + "UniUploader" + this.OfficerStr;
             this.notifyIcon1.Visible = true;
             // 
             // contextMenu1
@@ -2559,6 +2574,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.copyrightInfoLabel.Name = "copyrightInfoLabel";
             this.copyrightInfoLabel.Size = new System.Drawing.Size(464, 16);
             this.copyrightInfoLabel.TabIndex = 22;
+			this.copyrightInfoLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.copyrightInfoLabel.Text = "The World of Warcraft logo and name are © Blizzard Entertainment.";
             // 
             // progressBar1
@@ -2868,7 +2884,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UniUploader";
+            this.Text = "UniUploader";  // this.GuildName + "UniUploader" + this.OfficerStr;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Closing += new System.ComponentModel.CancelEventHandler(this.Form1_Closing);
             ((System.ComponentModel.ISupportInitialize)(this.myTimer)).EndInit();
@@ -2931,6 +2947,31 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		[STAThread]
 		static void Main()
 		{
+			// Lets make sure this application is running in Administrator Mode if we're running Vista or 7
+			WindowsIdentity id = WindowsIdentity.GetCurrent();
+			WindowsPrincipal principal = new WindowsPrincipal(id);
+			if (!principal.IsInRole(WindowsBuiltInRole.Administrator))
+			{
+				// If the user isn't Admin then attempt to restart the app in elevation mode.
+				ProcessStartInfo procInfo = new ProcessStartInfo();
+				procInfo.UseShellExecute = true;
+				procInfo.WorkingDirectory = Environment.CurrentDirectory;
+				procInfo.FileName = Application.ExecutablePath;
+				procInfo.Verb = "runas";
+
+				try
+				{
+					MessageBox.Show("Relaunching in Administrator mode.");
+					Process.Start(procInfo);
+					Application.Exit();
+				}
+				catch(Exception ex)
+				{
+					MessageBox.Show(ex.Message, "Process");
+					Application.Exit();
+				}
+			}
+
 			// If UniUploader is already running then no point trying to launch a 2nd version
 			// First lets get the name of our application/process
 			string proc=Process.GetCurrentProcess().ProcessName;
@@ -4086,6 +4127,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 										if (OfficerUUVal!="") { valu2.Text=OfficerUUVal; }
 									}
 									break;
+
 								#endregion
 								default:
 									break;
@@ -6937,6 +6979,12 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 							case "_THELICENSE":
 								_THELICENSE = @settingValue;
 								break;
+							case "_CANTFINDCHANGELOG":
+								_CANTFINDCHANGELOG = @settingValue;
+								break;
+							case "_THECHANGELOG":
+								_THECHANGELOG = @settingValue;
+								break;
 							case "_EXPANDALL":
 								_EXPANDALL = @settingValue;
 								break;
@@ -7540,6 +7588,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			chUseLauncher.Text = _USETHELAUNCHER;
 			DebugInfoLbl.Text = _THEDEBUGINFO;
 			btnLegal.Text = _THELICENSE;
+			btnChangeLog.Text = _THECHANGELOG;
 			button6.Text = _EXPANDALL;
 			button7.Text = _COLLAPSEALL;
 			AddonsListLbl.Text = _THESEAREADDONS;
@@ -8194,6 +8243,34 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
 			license.Text = ReadFileToString(txtFilePath).Replace("\n",Environment.NewLine);
 			//runApp(contents,exe,"debug_notepad.txt");
 			*/
+			string exe = getOpenWithApp(".txt");
+			if (exe == "")
+			{
+				exe = "NOTEPAD.EXE";
+			}
+			LaunchEXE(exe, txtFilePath);
+			//runApp(servResponse.Text,exe,txtFilePath);
+			return true;
+		}
+
+// ----------------------------------------------
+
+		private void btnChangeLog_Click(object sender, System.EventArgs e)
+		{
+			showChangeLog(false);
+		}
+
+// ----------------------------------------------
+
+		private bool showChangeLog(bool buttons)
+		{
+			string exePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Replace("file:\\", "");
+			string txtFilePath = exePath + "\\ChangeLog.txt";
+			if (!File.Exists(txtFilePath))
+			{
+				MessageBox.Show(_CANTFINDCHANGELOG);
+				return true;
+			}
 			string exe = getOpenWithApp(".txt");
 			if (exe == "")
 			{
@@ -9165,6 +9242,46 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
 			System.Text.Encoding encoding = System.Text.Encoding.UTF8;
 			return encoding.GetString(ms.ToArray());
 		}
+
+// ----------------------------------------------
+
+/*
+		bool IsAdmin()
+		{
+			WindowsIdentity id = WindowsIdentity.GetCurrent();
+			WindowsPrincipal principal = new WindowsPrincipal(id);
+			return principal.IsInRole(WindowsBuiltInRole.Administrator);
+		}
+
+// ----------------------------------------------
+
+		bool IsUser()
+		{
+			WindowsIdentity id = WindowsIdentity.GetCurrent();
+			WindowsPrincipal principal = new WindowsPrincipal(id);
+			return principal.IsInRole(WindowsBuiltInRole.User);
+		}
+
+// ----------------------------------------------
+
+		public void RunAsAdmin()
+		{
+			ProcessStartInfo procInfo = new ProcessStartInfo();
+			procInfo.UseShellExecute = true;
+			procInfo.WorkingDirectory = Environment.CurrentDirectory;
+			procInfo.FileName = Application.ExecutablePath;
+			procInfo.Verb = "runas";
+
+			try
+			{
+				Process.Start(procInfo);
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Process");
+			}
+		}
+*/
 
 // ----------------------------------------------
 
