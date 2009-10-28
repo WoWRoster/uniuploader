@@ -1,8 +1,14 @@
 UniUploader/Update ChangeLog (in reverse order, newest listed first):
 
+2.7.1.0 Changes:
+changed - minor alignment adjustment to copyright text in about tab.
+added - changelog button to about tab to show full changelog.
+added - vista/7 admin check system, if UU is not running in admin mode then it will relaunch in admin mode.
+added - svn revision code system to update system to match existing UniUploader svn revision code system.
+
 2.7.0.0 Changes:
-added - new optional Officer mode system. Allowing 2 UniUploader systems to be setup, 1 for all non-Officers, and likewise the other for Officers. This is to allow GLs (Guild Leaders) to setup Officer-Only Required addons via UniAdmin.
 changed - version number is now 2.7.0.0 due to this being a rather hefty system change, along with all the previous 2.6.9.x changes.
+added - new optional Officer mode system. Allowing 2 UniUploader systems to be setup, 1 for all non-Officers, and likewise the other for Officers. This is to allow GLs (Guild Leaders) to setup Officer-Only Required addons via UniAdmin.
 
 2.6.9.4 Changes:
 fixed - crash issue when no network access was available, still requires a timer check to auto-detect later but least now no more crashes!

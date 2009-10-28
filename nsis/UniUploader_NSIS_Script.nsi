@@ -2,11 +2,10 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "UniUploader"
-!define PRODUCT_VERSION "2.7.0.0"
+!define PRODUCT_VERSION "2.7.1.0"
 !define PRODUCT_PUBLISHER "Matt Miller"
 !define PRODUCT_WEB_SITE "http://www.wowroster.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\UniUploader.exe"
-; Uncomment if you wish to use UU launch from windows startup option
 !define PRODUCT_STARTUP_KEY "Software\Microsoft\Windows\CurrentVersion\Run\"
 !define PRODUCT_STARTUP_ROOT_KEY "HKLM"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"

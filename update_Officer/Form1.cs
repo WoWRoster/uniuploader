@@ -2,6 +2,10 @@
 /*
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
+ * @date       $Date$
+ * @revision   $Rev$
+ * @url        $URL$
+ * @author     $Author$
 */
 // ----------------------------------------------
 
@@ -18,6 +22,7 @@ using CommandLine.Utility;
 using System.Data;
 using System.Text;
 using cs_IniHandlerDevelop;
+using System.Text.RegularExpressions;
 
 // ----------------------------------------------
 
@@ -37,8 +42,8 @@ namespace update
 		public string uuver = "";
 		public string updver_major = "1";
 		public string updver_minor = "4";
-		public string updver_build = "6";
-		public string updver_revision = "3";
+		public string updver_build = "7";
+		public string updver_revision = Regex.Replace("$Rev$", @"[\D]", "");
 		public int numChecks;
 		public int numLaunchChecks = 0;  // autoLaunch timers initial counter number (Default 0)
 		public int autoLaunchTimer = 30; // How long (in seconds) til the update_Officer.exe autoLaunches the new UniUploader_Officer (Default 30)
@@ -479,10 +484,14 @@ namespace update
 
 		public void timer1_Tick(object sender, System.EventArgs e)
 		{
-			int windowHandle = Win32.FindWindow(null ,"UniUploader_Officer");
+			// Now we need to get the list of all processes by that name
+			Process[] processes=Process.GetProcessesByName("UniUploader");
+			// int windowHandle = Win32.FindWindow(null ,"UniUploader");
 			if (numChecks <= 10)
 			{
-				if (windowHandle != 0)
+				// Check if there is more than one process...
+				if (processes.Length != 0)
+				// if (windowHandle != 0)
 				{
 					DebugLine("UniUploader_Officer is still running, waiting for it to close ...");
 					numChecks++;
