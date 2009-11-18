@@ -1,5 +1,9 @@
 UniUploader/Update ChangeLog (in reverse order, newest listed first):
 
+2.7.2.0 Changes:
+changed - minor fixes to the enableofficer check system to stop the officer string showing up on members UU app.
+added - new HIDEUAURL option to match new UniAdmin toggle which selects (if officer version system is enabled) whether or not non-officers may view the uniadmin shortcut link in the right-click systray popup menu if a UA link is set in the UA site of course.
+
 2.7.1.0 Changes:
 changed - minor alignment adjustment to copyright text in about tab.
 added - changelog button to about tab to show full changelog.
@@ -28,8 +32,7 @@ added - checker to detect if another UniUploader is running, if so no point laun
 changed - version detection system now supports both alphanumeric versions (EG 2.6.9a) and also new style full numerical (EG 2.6.9.1 - the better type) versions.
 changed - renamed uniVersionRevision to uniVersionBuild and added additional uniVersionRevision item for Major.Minor.Build.Revision versioning to allow for additional revisions of minor changes.
 
-2.6.9 Changes:
-
+2.6.9.0 Changes:
 changed - logo system now supports PNG/GIF/JPG image files rather than just GIF
 changed - pretty much all text labels in the UniUploader are now able to be changed via the languages.ini
 changed - version detection system now properly detects for new builds
