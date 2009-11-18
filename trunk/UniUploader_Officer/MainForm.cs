@@ -160,7 +160,7 @@ namespace WindowsApplication3
 		private bool updating = false;
 		private string uniVersionMajor = "2";  // Changed upon addition of major new features/updates
 		private string uniVersionMinor = "7";  // Changed upon addition of minor new features/updates
-		private string uniVersionBuild = "1";  // Changed upon patch/build revision updates (eg bug fixes)
+		private string uniVersionBuild = "2";  // Changed upon patch/build revision updates (eg bug fixes)
 		private string uniVersionRevision = Regex.Replace("$Rev$", @"[\D]", "");  // This is autochanged upon new SVN commits/updates
 		private bool TEST_VERSION = false;
 		private string UUuserAgent;
