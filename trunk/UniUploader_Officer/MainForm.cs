@@ -599,6 +599,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		private string OfficerUUVal = "";  // The default Guild Officer access password for the roster
 		private int UUTimeOut = 20000;  // Default setting for UniUploader_Officer timeout (Used by doLogos, CheckForUpdates, checkLangFile functions)
 		private int autoLaunchTimer = 30;  // Not used by UU, but is used by UU's Update_Officer.exe. Put here to make sure UU doesn't wipe the setting.
+		private bool HideUAURL = false;  // Only used if Officer Build enabled, toggles whether or not the systray popup shows the UniAdmin URL option
+		private string uniAdminURL = "";  // Stores the UniAdmin URL (if any is set in UniAdmin that is)
 		FileSystemWatcher newWatcher = new FileSystemWatcher();
 
 // ----------------------------------------------
@@ -3584,6 +3586,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 					accessType = System.IO.FileMode.Append;
 				}
 			}
+			DebugLine("doWebsiteToWow: Writing data to '"+filename+"' file.");
 			using (FileStream inFile = new FileStream(filename, accessType))
 			{
 				inFile.Write(finalArray, 0, finalArray.Length);
@@ -4087,6 +4090,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 									GuildName = settingValue;
 									if (GuildName != "") // Only alter the title/systray text if theres an actual setting text to use
 									{
+										if (EnableOfficerBuild && !IsOfficerBuild) { OfficerStr = ""; }
 										Text = GuildName + "UniUploader" + OfficerStr;
 										notifyIcon1.Text = Text;
 									}
@@ -4095,7 +4099,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 									EnableOfficerBuild = settingValueBool;
 									break;
 								case "OFFICERSTR":
-									if (IsOfficerBuild)
+									if (EnableOfficerBuild && IsOfficerBuild)
 									{
 										OfficerStr = settingValue;
 										if (OfficerStr != "") // Only alter the title/systray text if theres an actual setting text to use
@@ -4316,6 +4320,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 						else{ ini.AddValue("custom", "OFFICERUUVAL", ""); }
 						}
 					else {
+						if (!IsOfficerBuild) { OfficerStr = ""; }
 						ini.AddValue("custom", "OFFICERSTR", OfficerStr);
 						if (storePwSecurely.Checked) { ini.AddValue("custom", "MEMBERUUVAL", Encrypt(MemberUUVal)); }
 						else{ ini.AddValue("custom", "MEMBERUUVAL", MemberUUVal); }
@@ -5450,6 +5455,40 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 
 // ----------------------------------------------
 
+		public void checkHideUAURL()
+		{
+			// Error checking to make sure both UNIADMINURL and HIDEUAURL are set and usable
+			if (uniAdminURL == null || uniAdminURL == "")
+			{
+				// No point continuing if the URL is empty/blank.
+				return;
+			}
+
+			// ALWAYS show the URL if its enabled and this is an officer build and that feature is enabled
+			if (EnableOfficerBuild && IsOfficerBuild)
+			{
+				// Add the URL to the systray popup
+				doUniAdminURL(uniAdminURL);
+			}
+			else
+			{
+				// Only show the URL IF allowed to see it
+				if (EnableOfficerBuild && !IsOfficerBuild)
+				{
+					// If we're not hiding the UA URL from members then add the URL to the systray popup
+					if (!HideUAURL) { doUniAdminURL(uniAdminURL); }
+				}
+				// If we're not officer only mode, then show the url anyways
+				else
+				{
+					// Add the URL to the systray popup
+					doUniAdminURL(uniAdminURL);
+				}
+			}
+		}
+
+// ----------------------------------------------
+
 		public void UpdateUUSettings2()
 		{
 			string UpdateQueryResponse = "";
@@ -5509,7 +5548,8 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 							doRosterURL(settingSplit[1]);
 							break;
 						case "UNIADMINURL":
-							doUniAdminURL(settingSplit[1]);
+							uniAdminURL = settingSplit[1];
+							checkHideUAURL();
 							break;
 						case "UPLOADALLACCOUNTS":
 							UploadALLAccounts.Checked = ChkTrueFalse(settingSplit[1]);
@@ -5766,6 +5806,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 							if (GuildName != "") // Only alter the title/systray text if theres an actual setting text to use
 							{
 								GuildName = GuildName + " ";
+								if (EnableOfficerBuild && !IsOfficerBuild) { OfficerStr = ""; }
 								Text = GuildName + "UniUploader" + OfficerStr;
 								notifyIcon1.Text = Text;
 							}
@@ -5774,7 +5815,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 							EnableOfficerBuild = ChkTrueFalse(settingSplit[1]);
 							break;
 						case "OFFICERSTR":
-							if (EnableOfficerBuild)
+							if (EnableOfficerBuild && IsOfficerBuild)
 							{
 								OfficerStr = settingSplit[1];
 								if (OfficerStr != "") // Only alter the title/systray text if theres an actual setting text to use
@@ -5804,6 +5845,10 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 							{
 								valu2.Text = OfficerUUVal;
 							}
+							break;
+						case "HIDEUAURL":
+							HideUAURL = ChkTrueFalse(settingSplit[1]);
+							checkHideUAURL();
 							break;
 						default:
 							break;
