@@ -26,7 +26,7 @@ using System.Text.RegularExpressions;
 
 // ----------------------------------------------
 
-namespace update
+namespace update_Officer
 {
 	/// <summary>
 	/// Summary description for Form1.
@@ -485,8 +485,8 @@ namespace update
 		public void timer1_Tick(object sender, System.EventArgs e)
 		{
 			// Now we need to get the list of all processes by that name
-			Process[] processes=Process.GetProcessesByName("UniUploader");
-			// int windowHandle = Win32.FindWindow(null ,"UniUploader");
+			Process[] processes=Process.GetProcessesByName("UniUploader_Officer");
+			// int windowHandle = Win32.FindWindow(null ,"UniUploader_Officer");
 			if (numChecks <= 10)
 			{
 				// Check if there is more than one process...
