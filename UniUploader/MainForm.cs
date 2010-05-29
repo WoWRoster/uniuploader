@@ -56,6 +56,10 @@ namespace WindowsApplication3
 */
 
 		private System.Windows.Forms.TextBox URL;
+		private System.Windows.Forms.TextBox HomeURL;
+		private System.Windows.Forms.TextBox ForumURL;
+		private System.Windows.Forms.TextBox RosterURL;
+		private System.Windows.Forms.TextBox UniAdminURL;
 		private System.Windows.Forms.Label URLLbl;
 		private System.Windows.Forms.Button UploadNowBtn;
 		private System.Windows.Forms.Label AccountSelectLbl;
@@ -159,8 +163,8 @@ namespace WindowsApplication3
 		IniStructure LanguageIni = new cs_IniHandlerDevelop.IniStructure();
 		private bool updating = false;
 		private string uniVersionMajor = "2";  // Changed upon addition of major new features/updates
-		private string uniVersionMinor = "7";  // Changed upon addition of minor new features/updates
-		private string uniVersionBuild = "2";  // Changed upon patch/build revision updates (eg bug fixes)
+		private string uniVersionMinor = "8";  // Changed upon addition of minor new features/updates
+		private string uniVersionBuild = "1";  // Changed upon patch/build revision updates (eg bug fixes)
 		private string uniVersionRevision = Regex.Replace("$Rev$", @"[\D]", "");  // This is autochanged upon new SVN commits/updates
 		private bool TEST_VERSION = false;
 		private string UUuserAgent;
@@ -600,7 +604,6 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		private int UUTimeOut = 20000;  // Default setting for UniUploader timeout (Used by doLogos, CheckForUpdates, checkLangFile functions)
 		private int autoLaunchTimer = 30;  // Not used by UU, but is used by UU's Update.exe. Put here to make sure UU doesn't wipe the setting.
 		private bool HideUAURL = false;  // Only used if Officer Build enabled, toggles whether or not the systray popup shows the UniAdmin URL option
-		private string uniAdminURL = "";  // Stores the UniAdmin URL (if any is set in UniAdmin that is)
 		FileSystemWatcher newWatcher = new FileSystemWatcher();
 
 // ----------------------------------------------
@@ -656,6 +659,10 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.myTimer = new System.Timers.Timer();
             this.myTimer2 = new System.Timers.Timer();
             this.URL = new System.Windows.Forms.TextBox();
+			this.HomeURL = new System.Windows.Forms.TextBox();
+			this.ForumURL = new System.Windows.Forms.TextBox();
+			this.RosterURL = new System.Windows.Forms.TextBox();
+			this.UniAdminURL = new System.Windows.Forms.TextBox();
             this.URLLbl = new System.Windows.Forms.Label();
             this.UploadNowBtn = new System.Windows.Forms.Button();
             this.AccountSelectLbl = new System.Windows.Forms.Label();
@@ -1000,7 +1007,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             this.version.Name = "version";
             this.version.Size = new System.Drawing.Size(92, 16);
             this.version.TabIndex = 17;
-			this.version.Text = "2.7.0.0";
+			this.version.Text = "2.8.1.0";
             // 
             // pictureBox2
             // 
@@ -2938,6 +2945,13 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
+			//
+			// SysTray SubMenu
+			//
+			this.HomeURL.Text = "http://www.wowroster.net/";  // Stores the Homepage URL
+			this.ForumURL.Text = "http://www.wowroster.net/";  // Stores the Forum URL
+			this.RosterURL.Text = "http://www.wowroster.net/";  // Stores the Roster URL
+			this.UniAdminURL.Text = "http://www.wowroster.net/";  // Stores the UniAdmin URL (if any is set in UniAdmin that is)
 		}
 		#endregion
 
@@ -3410,7 +3424,11 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 					fullFilePath = Path.GetDirectoryName(this.mainSvLocation) + sep + "SavedVariables.lua";
 				}
 
-				files[checkedSV] = fullFilePath;
+				// Error checking required here to make sure that the file exists else no point in trying to upload it!
+				if (File.Exists(fullFilePath))
+				{
+					files[checkedSV] = fullFilePath;
+				}
 			}
 			return files;
 		}
@@ -3802,6 +3820,22 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 							switch (key)
 							{
 								#region cases
+								case "HOMEURL":
+									HomeURL.Text = settingValue;
+									doHomeURL(HomeURL.Text);
+									break;
+								case "FORUMURL":
+									ForumURL.Text = settingValue;
+									doForumURL(ForumURL.Text);
+									break;
+								case "ROSTERURL":
+									RosterURL.Text = settingValue;
+									doRosterURL(RosterURL.Text);
+									break;
+								case "UNIADMINURL":
+									UniAdminURL.Text = settingValue;
+									checkHideUAURL();
+									break;
 								case "UPLOADSVS":
 									cbInclAddonData.Checked = settingValueBool;
 									break;
@@ -4279,6 +4313,10 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 					ini.AddValue("options", "UPERRPOPUP", cbUpErrorPop.Checked.ToString());
 					ini.AddValue("options", "CLOSEAFUPD", cbCloseAfterUpdates.Checked.ToString());
 					ini.AddValue("options", "CLOSEAFLAU", cbCloseAfterWowLaunch.Checked.ToString());
+					ini.AddValue("options", "HOMEURL", HomeURL.Text);
+					ini.AddValue("options", "FORUMURL", ForumURL.Text);
+					ini.AddValue("options", "ROSTERURL", RosterURL.Text);
+					ini.AddValue("options", "UNIADMINURL", UniAdminURL.Text);
 
 					ini.AddValue("advanced", "GZIP", GZcompress.Checked.ToString());
 					ini.AddValue("advanced", "RETRDATAFROMSITE", retrdatafromsite.Checked.ToString());
@@ -5459,7 +5497,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 		public void checkHideUAURL()
 		{
 			// Error checking to make sure both UNIADMINURL and HIDEUAURL are set and usable
-			if (uniAdminURL == null || uniAdminURL == "")
+			if (UniAdminURL.Text == null || UniAdminURL.Text == "")
 			{
 				// No point continuing if the URL is empty/blank.
 				return;
@@ -5469,7 +5507,7 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 			if (EnableOfficerBuild && IsOfficerBuild)
 			{
 				// Add the URL to the systray popup
-				doUniAdminURL(uniAdminURL);
+				doUniAdminURL(UniAdminURL.Text);
 			}
 			else
 			{
@@ -5477,13 +5515,13 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 				if (EnableOfficerBuild && !IsOfficerBuild)
 				{
 					// If we're not hiding the UA URL from members then add the URL to the systray popup
-					if (!HideUAURL) { doUniAdminURL(uniAdminURL); }
+					if (!HideUAURL) { doUniAdminURL(UniAdminURL.Text); }
 				}
 				// If we're not officer only mode, then show the url anyways
 				else
 				{
 					// Add the URL to the systray popup
-					doUniAdminURL(uniAdminURL);
+					doUniAdminURL(UniAdminURL.Text);
 				}
 			}
 		}
@@ -5540,16 +5578,19 @@ The SV file is usually in DRIVE:\PROGRAM FILES\WORLD OF WARCRAFT\WTF\ACCOUNT\ACC
 						#region cases
 
 						case "HOMEURL":
-							doHomeURL(settingSplit[1]);
+							HomeURL.Text = settingSplit[1];
+							doHomeURL(HomeURL.Text);
 							break;
 						case "FORUMURL":
-							doForumURL(settingSplit[1]);
+							ForumURL.Text = settingSplit[1];
+							doForumURL(ForumURL.Text);
 							break;
 						case "ROSTERURL":
-							doRosterURL(settingSplit[1]);
+							RosterURL.Text = settingSplit[1];
+							doRosterURL(RosterURL.Text);
 							break;
 						case "UNIADMINURL":
-							uniAdminURL = settingSplit[1];
+							UniAdminURL.Text = settingSplit[1];
 							checkHideUAURL();
 							break;
 						case "UPLOADALLACCOUNTS":
@@ -8415,7 +8456,11 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
 					fullFilePath = Path.GetDirectoryName(location) + sep + "SavedVariables.lua";
 				}
 
-				files[checkedSV] = fullFilePath;
+				// Error checking required here to make sure that the file exists else no point in trying to upload it!
+				if (File.Exists(fullFilePath))
+				{
+					files[checkedSV] = fullFilePath;
+				}
 			}
 			ArrayList AllParams = new ArrayList();
 			AllParams.Add(new string[2] { param1, val1 });
@@ -8484,7 +8529,11 @@ Swedish - KaThogh", "", System.Windows.Forms.MessageBoxButtons.OK, System.Window
 					fullFilePath = Path.GetDirectoryName(this.mainSvLocation) + sep + "SavedVariables.lua";
 				}
 
-				files[checkedSV] = fullFilePath;
+				// Error checking required here to make sure that the file exists else no point in trying to upload it!
+				if (File.Exists(fullFilePath))
+				{
+					files[checkedSV] = fullFilePath;
+				}
 			}
 			ArrayList AllParams = new ArrayList();
 			AllParams.Add(new string[2] { param1, val1 });

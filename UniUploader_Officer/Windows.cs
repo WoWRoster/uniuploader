@@ -7,7 +7,7 @@ using System.Threading;
 using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
-namespace UniUploader
+namespace UniUploader_Officer
 {
     public class Windows
     {

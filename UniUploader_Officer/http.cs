@@ -18,7 +18,7 @@ using System.Security.Cryptography;
 
 // ----------------------------------------------
 
-namespace UniUploader
+namespace UniUploader_Officer
 {
     internal sealed class http
     {

@@ -1,5 +1,12 @@
 UniUploader/Update ChangeLog (in reverse order, newest listed first):
 
+2.8.1.0 Changes:
+fixed - major crash error if a savedvariable file didn't exist it caused a crash.  This should fix it now.
+
+2.8.0.0 Changes:
+changed - various code cleanups, fixes and tweaks.
+added - new code implementations for upcoming parts of new UI replacement system.
+
 2.7.2.0 Changes:
 changed - minor fixes to the enableofficer check system to stop the officer string showing up on members UU app.
 added - new HIDEUAURL option to match new UniAdmin toggle which selects (if officer version system is enabled) whether or not non-officers may view the uniadmin shortcut link in the right-click systray popup menu if a UA link is set in the UA site of course.
