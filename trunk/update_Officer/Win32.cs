@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace update
+namespace update_Officer
 {
 	/// <summary>
 	/// Summary description for Win32.

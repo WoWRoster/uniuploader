@@ -19,7 +19,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>update_Officer</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject>update.Form1</StartupObject>
+    <StartupObject>update_Officer.Form1</StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
