@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "UniUploader"
-!define PRODUCT_VERSION "2.7.1.0"
+!define PRODUCT_VERSION "2.8.1.0"
 !define PRODUCT_PUBLISHER "Matt Miller"
 !define PRODUCT_WEB_SITE "http://www.wowroster.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\UniUploader.exe"
